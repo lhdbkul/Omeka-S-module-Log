@@ -72,7 +72,7 @@ class Job implements ColumnTypeInterface
         if (isset($jobStates[$jobId]['state'])) {
             $replace['__STATE__'] = $jobStates[$jobId]['state'];
         } elseif ($state = $jobState($job)) {
-            $escape = $plugins->get('escapeHtmlAttr');
+            $escape = $plugins->get('escapeHtml');
             $escapeAttr = $plugins->get('escapeHtmlAttr');
             if (JobState::STATES[$state]['processing']) {
                 $jobStateUrl = $url('admin/job-state', ['id' => $jobId]);

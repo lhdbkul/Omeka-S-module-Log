@@ -265,6 +265,7 @@ class LogAdapter extends AbstractEntityAdapter
      * Add a comparison condition to query from a date.
      *
      * @see \Annotate\Api\Adapter\QueryDateTimeTrait::searchDateTime()
+     * @see \AiGenerator\Api\Adapter\AiRecordAdapter::buildQueryDateComparison()
      * @see \Contribute\Api\Adapter\ContributionAdapter::buildQueryDateComparison()
      * @see \Log\Api\Adapter\LogAdapter::buildQueryDateComparison()
      */

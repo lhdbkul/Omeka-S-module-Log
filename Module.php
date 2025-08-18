@@ -142,7 +142,11 @@ class Module extends AbstractModule
      */
     protected function addAclRules(): void
     {
-        /** @var \Omeka\Permissions\Acl $acl */
+        /**
+         * @var \Omeka\Permissions\Acl $acl
+         *
+         * @see \Omeka\Service\AclFactory::addRules()
+         */
         $services = $this->getServiceLocator();
         $acl = $services->get('Omeka\Acl');
 

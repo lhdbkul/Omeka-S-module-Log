@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
+
 namespace Log\Db\Filter;
 
-use Doctrine\DBAL\Types\Type;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping\ClassMetaData;
 use Doctrine\ORM\Query\Filter\SQLFilter;
 use Log\Entity\Log;
@@ -47,7 +48,7 @@ class LogVisibilityFilter extends SQLFilter
         if ($identity) {
             $constraint = sprintf(
                 $alias . '.owner_id = %s',
-                $this->getConnection()->quote($identity->getId(), Type::INTEGER)
+                $this->getConnection()->quote($identity->getId(), Types::INTEGER)
             );
         }
 

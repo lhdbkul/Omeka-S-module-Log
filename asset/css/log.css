@@ -79,7 +79,7 @@
     .logs .log-popover-current {
         display: none;
     }
-    .logs .log-message-truncated {
+    .logs .log-message {
         white-space: normal;
         word-wrap: break-word;
         overflow-wrap: break-word;
