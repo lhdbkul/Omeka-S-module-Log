@@ -129,6 +129,8 @@ class LogRepresentation extends AbstractEntityRepresentation
             'users' => 'user',
             'annotation' => 'annotation',
             'annotations' => 'annotation',
+            'table' => 'table',
+            'tables' => 'table',
             // For context.
             'itemid' => 'item',
             'itemids' => 'item',
@@ -150,6 +152,10 @@ class LogRepresentation extends AbstractEntityRepresentation
             'templateids' => 'resource-template',
             'annotationid' => 'annotation',
             'annotationids' => 'annotation',
+            'tableid' => 'table',
+            'tableids' => 'table',
+            'tableslug' => 'table',
+            'tableslugs' => 'table',
         ];
         $baseUrl = strtr($url('admin/default', ['controller' => 'replace']), ['/replace' => '']);
 
@@ -195,6 +201,7 @@ class LogRepresentation extends AbstractEntityRepresentation
                     case 'ownerid':
                     case 'userid':
                     case 'annotationid':
+                    case 'tableid':
                     // Multiple ids.
                     case 'itemids':
                     case 'itemsetids':
@@ -205,6 +212,7 @@ class LogRepresentation extends AbstractEntityRepresentation
                     case 'ownerids':
                     case 'userids':
                     case 'annotationids':
+                    case 'tableids':
                         $controller = $resourcesToControllers[$cleanKey]
                             ?? $resourcesToControllers[substr($cleanKey, 0, -1)];
                         $values = array_values(array_filter(explode(' ', preg_replace('~[^0-9]~', ' ', $value))));
@@ -326,6 +334,24 @@ class LogRepresentation extends AbstractEntityRepresentation
                             ?? null;
                         if ($oaiEndpoint) {
                             $context[$key] = $hyperlink($value, "$oaiEndpoint?verb=GetRecord&metadataPrefix=oai_dc&identifier=" . rawurlencode($value), ['target' => '_blank']);
+                            $shouldEscapes[$key] = false;
+                        }
+                        break;
+
+                    case 'tableslug':
+                        $context[$key] = $hyperlink($value, "$baseUrl/table/$value/show");
+                        $shouldEscapes[$key] = false;
+                        $prevSiteSlug = $value;
+                        break;
+                    case 'tableslugs':
+                        $values = array_values(array_filter(explode(' ', preg_replace('~,~', ' ', $value))));
+                        if ($values) {
+                            $link = $hyperlink('__ID__', "$baseUrl/table/__ID__/show");
+                            $context[$key] = '';
+                            foreach ($values as $val) {
+                                $context[$key] .= ', ' . strtr($link, ['__ID__' => $val]);
+                            }
+                            $context[$key] = trim($context[$key], ', ');
                             $shouldEscapes[$key] = false;
                         }
                         break;
