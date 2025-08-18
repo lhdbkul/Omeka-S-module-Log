@@ -29,30 +29,29 @@ class LogRepresentation extends AbstractEntityRepresentation
     public function getJsonLd()
     {
         $owner = $this->owner();
-        if ($owner) {
-            $owner = $owner->getReference();
-        }
-
         $job = $this->job();
-        if ($job) {
-            $job = $job->getReference();
-        }
 
-        // TODO Find the schema for log severity. See https://tools.ietf.org/html/rfc3164.
-
-        $created = [
-            '@value' => $this->getDateTime($this->created()),
-            '@type' => 'http://www.w3.org/2001/XMLSchema#dateTime',
-        ];
+        /**
+         * @todo Find the schema for log severity.
+         * In fact, no standard schema exists.
+         *
+         * @see https://tools.ietf.org/html/rfc3164#page-9 (first)
+         * @see https://datatracker.ietf.org/doc/html/rfc5424#page-11 (last)
+         *
+         * Omeka 4.2 uses php 7.4, so no short nullsafe operator "?->".
+         */
 
         return [
             'o:reference' => $this->reference(),
             'o:severity' => $this->severity(),
             'o:message' => $this->message(),
             'o:context' => $this->context(),
-            'o:created' => $created,
-            'o:owner' => $owner,
-            'o:job' => $job,
+            'o:created' => [
+                '@value' => $this->getDateTime($this->created())->jsonSerialize(),
+                '@type' => 'http://www.w3.org/2001/XMLSchema#dateTime',
+            ],
+            'o:owner' => $owner ? $owner->getReference()->jsonSerialize() : null,
+            'o:job' => $job ? $job->getReference()->jsonSerialize() : null,
         ];
     }
 
