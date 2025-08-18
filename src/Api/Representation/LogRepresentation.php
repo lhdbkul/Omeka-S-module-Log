@@ -131,15 +131,25 @@ class LogRepresentation extends AbstractEntityRepresentation
             'annotations' => 'annotation',
             // For context.
             'itemid' => 'item',
+            'itemids' => 'item',
             'itemsetid' => 'item-set',
+            'itemsetids' => 'item-set',
             'jobid' => 'job',
+            'jobids' => 'job',
             'mediaid' => 'media',
+            'mediaids' => 'media',
             'oaiid' => 'oai-pmh',
+            'oaiids' => 'oai-pmh',
             'ownerid' => 'user',
+            'ownerids' => 'user',
             'userid' => 'user',
+            'userids' => 'user',
             'resourcetemplateid' => 'resource-template',
+            'resourcetemplateids' => 'resource-template',
             'templateid' => 'resource-template',
+            'templateids' => 'resource-template',
             'annotationid' => 'annotation',
+            'annotationids' => 'annotation',
         ];
         $baseUrl = strtr($url('admin/default', ['controller' => 'replace']), ['/replace' => '']);
 
