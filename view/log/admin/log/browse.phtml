@@ -89,8 +89,9 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
                 <?php endif; ?>
                 <span class="log-message">
                     <?php
-                    $shouldEscape = $log->text()->escapeHtml();
-                    $text = $log->text()->translate();
+                    $text = $log->text();
+                    $shouldEscape = $text->escapeHtml();
+                    $text = $text->translate();
                     $isLong = mb_strlen($shouldEscape ? $text : strip_tags($text)) > $strLength;
                     ?>
                     <?php if ($isLong): ?>

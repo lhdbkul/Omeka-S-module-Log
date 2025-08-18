@@ -153,16 +153,16 @@ class LogRepresentation extends AbstractEntityRepresentation
         // Messages that are more than 1000 characters are generally an
         // exception with an sql and long parameters, in particular the text
         // used for the full text search.
-        $tooMuchLong = strlen($message) > 10000
-            || strlen(json_encode($context)) > 10000;
+        $tooMuchLong = strlen($message) > 100000
+            || strlen(json_encode($context)) > 100000;
         if ($tooMuchLong) {
             foreach ($context ?? [] as &$v) {
-                if (is_string($v) && mb_strlen($v) > 10000) {
-                    $v = mb_substr($v, 0, 10000);
+                if (is_string($v) && mb_strlen($v) > 100000) {
+                    $v = mb_substr($v, 0, 100000);
                 }
             }
             unset($v);
-            $message = new PsrMessage(mb_substr($message, 0, 10000) . '…', $context);
+            $message = new PsrMessage(mb_substr($message, 0, 100000) . '…', $context);
             return $message
                 ->setTranslator($translator);
         }
