@@ -28,7 +28,7 @@ class Synchronous extends \Omeka\Job\DispatchStrategy\Synchronous
                 $job = $entityManager->find(Job::class, $job->getId());
                 $job->setStatus(Job::STATUS_ERROR);
 
-                if (is_null($logger)) {
+                if ($logger === null) {
                     $logger = $this->serviceLocator->get('Omeka\Logger');
 
                     // Job writer should be reenabled.
@@ -57,7 +57,7 @@ class Synchronous extends \Omeka\Job\DispatchStrategy\Synchronous
             }
             // Log other errors according to the config for severity.
             else {
-                if (is_null($logger)) {
+                if ($logger === null) {
                     $logger = $this->serviceLocator->get('Omeka\Logger');
 
                     // Job writer should be reenabled.
