@@ -8,41 +8,44 @@ use Omeka\Entity\Job;
 
 class JobState
 {
+    /**
+     * The label is for end-user, the state is the official label.
+     */
     const STATES = [
         // Processing is one of the three first states.
         'R' => [
             's' => 'R',
-            'state' => 'Running',
-            'label' => 'Running',
+            'state' => 'Running', // @translate
+            'label' => 'Running', // @translate
             'icon' => 'fas fa-sync fa-spin',
             'processing' => true,
         ],
         'S' => [
             's' => 'S',
-            'state' => 'Interruptible Sleep',
-            'label' => 'Sleeping',
+            'state' => 'Interruptible Sleep', // @translate
+            'label' => 'Processing', // @translate
             'icon' => 'fas fa-spinner fa-spin',
             'processing' => true,
         ],
         'D' => [
             's' => 'D',
-            'state' => 'Uninterruptible Sleep',
-            'label' => 'Waiting',
+            'state' => 'Uninterruptible Sleep', // @translate
+            'label' => 'Waiting', // @translate
             'icon' => 'fas fa-hourglass-half',
             'processing' => true,
         ],
         // These states mean the job is not running.
         'T' => [
             's' => 'T',
-            'state' => 'Stopped',
-            'label' => 'Stopped',
+            'state' => 'Stopped', // @translate
+            'label' => 'Paused', // @translate
             'icon' => 'far fa-pause-circle',
             'processing' => false,
         ],
         'Z' => [
             's' => 'Z',
-            'state' => 'Zombie',
-            'label' => 'Ended',
+            'state' => 'Zombie', // @translate
+            'label' => 'Ended', // @translate
             'icon' => 'fas fa-times',
             'processing' => false,
         ],
@@ -65,8 +68,8 @@ class JobState
      *
      * Linux states are:
      * - R: Running
-     * - S: Interruptible Sleep (Sleep, waiting for event from software)
-     * - D: Uninterruptible Sleep (Dead, waiting for signal from hardware)
+     * - S: Interruptible Sleep (Sleep, waiting for event from software, generally sub-process)
+     * - D: Uninterruptible Sleep (Dead, waiting for signal from hardware, generally disk or network)
      * - T: Stopped (Traced)
      * - Z: Zombie
      *
