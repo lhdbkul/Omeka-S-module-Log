@@ -5,6 +5,7 @@
  * @var string|null $state
  * @var bool $includeCssJs
  * @var bool $includeJobStatus
+ * @var bool $includeStateLabel
  * @var bool $inline
  *
  * And passed options.
@@ -50,7 +51,9 @@ if ($state) {
 	<?php if ($includeJobStatus): ?>
     <span class="job-status-label" data-job-id="<?= $job->id() ?>"><?= $translate($job->status()) ?></span>
 	<?php endif; ?>
-    <span class="system-state-label hidden"><?= $stateLabelEsc ?></span>
+    <?php if ($includeStateLabel): ?>
+    <span class="system-state-label"><?= $stateLabelEsc ?></span>
+    <?php endif; ?>
     <span class="system-state-icon <?= $stateIcon ?>" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
 </span>
 
@@ -60,7 +63,9 @@ if ($state) {
 	<?php if ($includeJobStatus): ?>
     <span class="job-status-label" data-job-id="<?= $job->id() ?>"><?= $translate($job->status()) ?></span>
 	<?php endif; ?>
-    <span class="system-state-label hidden"><?= $stateLabelEsc ?></span>
+    <?php if ($includeStateLabel): ?>
+    <span class="system-state-label"><?= $stateLabelEsc ?></span>
+    <?php endif; ?>
     <span class="system-state-icon no-state" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
 </span>
 

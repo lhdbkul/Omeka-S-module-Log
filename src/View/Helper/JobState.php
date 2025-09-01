@@ -46,6 +46,7 @@ class JobState extends AbstractHelper
      * - template (string): the template to use for html
      * - include_css_js (bool): include css and js (false by default)
      * - include_job_status (bool): include the job status (false by default)
+     * - include_state_label (bool): include the state label (false by default)
      * - inline (bool): display inline (false by default)
      * @return string|null Letter of the state of the process or null. If option
      * "as_html" is passed, html is returned.
@@ -67,6 +68,7 @@ class JobState extends AbstractHelper
             'state' => $state,
             'includeCssJs' => !empty($options['include_css_js']),
             'includeJobStatus' => !empty($options['include_job_status']),
+            'includeStateLabel' => !empty($options['include_state_label']),
             'inline' => !empty($options['inline']),
         ];
 
