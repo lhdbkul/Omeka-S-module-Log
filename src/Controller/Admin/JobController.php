@@ -9,6 +9,9 @@ use Log\Stdlib\JobState;
 
 class JobController extends AbstractActionController
 {
+    /**
+     * @uses \Log\Stdlib\JobState
+     */
     public function systemStateAction()
     {
         /** @var \Omeka\Mvc\Controller\Plugin\Api $api */
