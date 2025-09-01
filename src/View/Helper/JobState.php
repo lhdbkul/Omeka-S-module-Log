@@ -36,15 +36,19 @@ class JobState extends AbstractHelper
      * Warning: in some cases, the state is not reliable, because it may be the
      * one of another process.
      *
-     * With html output, the job status will be managed via js for span with class
-     * "log-job-status job-status-label", that may be a link or a simple text.
+     * With html output, the job status will be managed via js for span with
+     * class"log-job-status job-status-label", that may be a link or a simple
+     * text.
      *
      * @param \Omeka\Api\Representation\JobRepresentation|\Omeka\Entity\Job|null $job
      * @param array $options Options to get prepare output. Passed to template.
      * - output (string): type of returned string: letter (default) or html
      * - template (string): the template to use for html
-     * - skip_css_js (bool): exclude css and js (false by default)
-     * @return string|null Letter of the state of the process or null. If option "as_html" is pa
+     * - include_css_js (bool): include css and js (false by default)
+     * - include_job_status (bool): include the job status (false by default)
+     * - inline (bool): display inline (false by default)
+     * @return string|null Letter of the state of the process or null. If option
+     * "as_html" is passed, html is returned.
      * Full state can be retrieved from the constant \Log\Stdlib\JobState::STATES.
      *
      * @uses \Log\Stdlib\JobState
@@ -61,7 +65,9 @@ class JobState extends AbstractHelper
         $args = [
             'job' => $job,
             'state' => $state,
-            'skipCssJs' => !empty($options['skip_css_js']),
+            'includeCssJs' => !empty($options['include_css_js']),
+            'includeJobStatus' => !empty($options['include_job_status']),
+            'inline' => !empty($options['inline']),
         ];
 
         $template = empty($options['template']) ? self::PARTIAL_NAME : $options['template'];

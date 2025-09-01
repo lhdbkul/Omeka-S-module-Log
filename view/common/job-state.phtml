@@ -3,7 +3,9 @@
  * @var \Laminas\View\Renderer\PhpRenderer $this
  * @var \Omeka\Api\Representation\JobRepresentation|\Omeka\Entity\Job|null $job
  * @var string|null $state
- * @var bool $skipCssJs
+ * @var bool $includeCssJs
+ * @var bool $includeJobStatus
+ * @var bool $inline
  *
  * And passed options.
  */
@@ -18,7 +20,7 @@ $escape = $plugins->get('escapeHtml');
 $translate = $plugins->get('translate');
 $escapeAttr = $plugins->get('escapeHtmlAttr');
 
-if (!$skipCssJs) {
+if ($includeCssJs) {
     $assetUrl = $plugins->get('assetUrl');
     $this->headLink()->appendStylesheet($assetUrl('css/job.css', 'Log'));
     $this->headScript()->appendFile($assetUrl('js/job.js', 'Log'), 'text/javascript', ['defer' => 'defer']);
@@ -44,14 +46,20 @@ if ($state) {
 
 <?php if ($state): ?>
 
-<span class="job-state" data-job-id="<?= $jobId ?>" data-job-state="<?= $state ?>" <?= $jobStateUrlAttr ?> <?= $stateWarning ?>>
+<span class="job-state<?= empty($inline) ? '' : ' job-state-inline' ?>" data-job-id="<?= $jobId ?>" data-job-state="<?= $state ?>" <?= $jobStateUrlAttr ?> <?= $stateWarning ?>>
+	<?php if ($includeJobStatus): ?>
+    <span class="job-status-label" data-job-id="<?= $job->id() ?>"><?= $translate($job->status()) ?></span>
+	<?php endif; ?>
     <span class="system-state-label hidden"><?= $stateLabelEsc ?></span>
     <span class="system-state-icon <?= $stateIcon ?>" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
 </span>
 
 <?php else: ?>
 
-<span class="job-state" data-job-id="<?= $jobId ?>">
+<span class="job-state<?= empty($inline) ? '' : ' job-state-inline' ?>" data-job-id="<?= $jobId ?>">
+	<?php if ($includeJobStatus): ?>
+    <span class="job-status-label" data-job-id="<?= $job->id() ?>"><?= $translate($job->status()) ?></span>
+	<?php endif; ?>
     <span class="system-state-label hidden"><?= $stateLabelEsc ?></span>
     <span class="system-state-icon no-state" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
 </span>

@@ -9,4 +9,10 @@
             margin-left: auto;
         }
     }
+
+    #page-actions .system-state-icon {
+        margin-right: 12px;
+        margin-top: 9px;
+        font-size: x-large;
+    }
 }
