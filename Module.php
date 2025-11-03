@@ -88,6 +88,8 @@ class Module extends AbstractModule
         /** @var \Laminas\Mvc\I18n\Translator $translator */
         $services = $this->getServiceLocator();
         $translator = $services->get('MvcTranslator');
+        $plugins = $services->get('ControllerPluginManager');
+        $messenger = $plugins->get('messenger');
 
         if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.72')) {
             $message = new \Omeka\Stdlib\Message(
@@ -95,6 +97,16 @@ class Module extends AbstractModule
                 'Common', '3.4.72'
             );
             throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+        }
+
+        $config = $services->get('Config');
+        $basePath = $config['file_store']['local']['base_path'] ?: (OMEKA_PATH . '/files');
+        if (!$this->checkDestinationDir($basePath . '/backup/log')) {
+            $message = new PsrMessage(
+                'The directory "{directory}" is not writeable, so old logs cannot be archived.', // @translate
+                ['directory' => $basePath . '/backup/log']
+            );
+            $messenger->addWarning($message);
         }
     }
 
