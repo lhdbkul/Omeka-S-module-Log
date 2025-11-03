@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-30 00:00+0000\n"
+"POT-Creation-Date: 2025-11-03 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:38 Module.php:96
+#: data/scripts/upgrade.php:36 Module.php:99
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
 
-#: Module.php:128
+#: Module.php:122
 msgid ""
 "Logging is not active by default in Omeka. This module overrides option "
 "[logger][log]."
 msgstr ""
 
-#: Module.php:129
+#: Module.php:123
 msgid ""
 "You may need to update the file config/local.config.php, in particular to "
 "set the default level of severity."
 msgstr ""
 
-#: Module.php:131
+#: Module.php:125
 msgid "See examples of config in the {link}readme{link_end}."
 msgstr ""
 
@@ -42,20 +42,29 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#: src/ColumnType/Job.php:83 view/log/admin/log/show-details.phtml:33
+#: src/ColumnType/Job.php:83 view/common/job-state.phtml:35
+#: view/log/admin/log/show-details.phtml:33
 #: view/omeka/admin/job/browse.phtml:31 view/omeka/admin/job/show.phtml:56
 msgid "Warning: The system state may not be reliable on some servers."
 msgstr ""
 
-#: src/View/Helper/LogSearchFilters.php:55
-msgid "Message contains"
+#: src/Job/ArchiveLogsJob.php:345 src/Job/ArchiveLogsJob.php:362
+msgid "Id"
 msgstr ""
 
+#: src/Job/ArchiveLogsJob.php:348 src/Job/ArchiveLogsJob.php:365
+#: src/View/Helper/LogSearchFilters.php:95
+#: view/log/admin/log/show-details.phtml:90
+msgid "Job"
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:349 src/Job/ArchiveLogsJob.php:366
 #: src/View/Helper/LogSearchFilters.php:61
 #: view/log/admin/log/show-details.phtml:46
 msgid "Reference"
 msgstr ""
 
+#: src/Job/ArchiveLogsJob.php:350 src/Job/ArchiveLogsJob.php:367
 #: src/View/Helper/LogSearchFilters.php:67
 #: src/View/Helper/LogSearchFilters.php:72
 #: src/View/Helper/LogSearchFilters.php:78
@@ -63,13 +72,25 @@ msgstr ""
 msgid "Severity"
 msgstr ""
 
-#: src/View/Helper/LogSearchFilters.php:95
-#: view/log/admin/log/show-details.phtml:90
-msgid "Job"
+#: src/Job/ArchiveLogsJob.php:351 src/Job/ArchiveLogsJob.php:368
+#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:97
+msgid "Message"
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:369
+msgid "Context"
+msgstr ""
+
+#: src/View/Helper/LogSearchFilters.php:55
+msgid "Message contains"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:99
 msgid "Unknown job"
+msgstr ""
+
+#: view/common/job-state.phtml:43 view/common/job-state.phtml:44
+msgid "No system state"
 msgstr ""
 
 #: view/log/admin/log/browse.phtml:35
@@ -80,36 +101,32 @@ msgstr ""
 msgid "Quick filter"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:97
-msgid "Message"
-msgstr ""
-
-#: view/log/admin/log/browse.phtml:106
+#: view/log/admin/log/browse.phtml:107
 msgid "Full log"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:156 view/log/admin/log/browse.phtml:174
+#: view/log/admin/log/browse.phtml:157 view/log/admin/log/browse.phtml:175
 msgid "Delete logs"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:157
+#: view/log/admin/log/browse.phtml:158
 msgid "Are you sure you would like to delete the selected logs?"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:159 view/log/admin/log/browse.phtml:177
+#: view/log/admin/log/browse.phtml:160 view/log/admin/log/browse.phtml:178
 #, php-format
 msgid "%s: this action will permanently delete %s logs and cannot be undone."
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:175
+#: view/log/admin/log/browse.phtml:176
 msgid "Are you sure you would like to delete all logs of this result?"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:192
+#: view/log/admin/log/browse.phtml:193
 msgid "Omeka could not find any logs, or they are saved in another place."
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:204
+#: view/log/admin/log/browse.phtml:205
 msgid "Search logs"
 msgstr ""
 
@@ -170,56 +187,71 @@ msgstr ""
 msgid "View log (%d results)"
 msgstr ""
 
-#: data/scripts/upgrade.php:48 Module.php:115
-msgid ""
-"The library is not compatible with the version of php on the server. Run "
-"\"composer upgrade\" on the command line or load a version for php ≥ 8.2."
-msgstr ""
-
-#: data/scripts/upgrade.php:114
+#: data/scripts/upgrade.php:72
 msgid ""
 "Support of the third party service Sentry was moved to a separate module, "
 "{link}Log Sentry{link_end}."
 msgstr ""
 
-#: Module.php:106
+#: data/scripts/upgrade.php:95
 msgid ""
-"The libraries are not installed. Run \"composer install\" on the command "
-"line or load a version with libraries included."
+"Logs can be archived and purged regularly. Go to {link}config form{link_end} "
+"for params."
+msgstr ""
+
+#: data/scripts/upgrade.php:102
+msgid "A regular deletion of old logs is recommended to keep omeka fluid."
+msgstr ""
+
+#: data/scripts/upgrade.php:116 Module.php:109
+msgid ""
+"The directory \"{directory}\" is not writeable, so old logs cannot be "
+"archived."
+msgstr ""
+
+#: data/scripts/upgrade.php:170
+msgid ""
+"A background job has been started to add database indices. If it fails, you "
+"should create them manually. Missing indices: {list}."
+msgstr ""
+
+#: Module.php:262
+msgid ""
+"Last cron occurred on {date_time}. Next cron will occur after {date_time_2}."
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:33
-#: src/Api/Representation/LogRepresentation.php:72
+#: src/Api/Representation/LogRepresentation.php:71
 msgid "emergency"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:34
-#: src/Api/Representation/LogRepresentation.php:73
+#: src/Api/Representation/LogRepresentation.php:72
 msgid "alert"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:35
-#: src/Api/Representation/LogRepresentation.php:74
+#: src/Api/Representation/LogRepresentation.php:73
 msgid "critical"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:37
-#: src/Api/Representation/LogRepresentation.php:76
+#: src/Api/Representation/LogRepresentation.php:75
 msgid "warning"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:38
-#: src/Api/Representation/LogRepresentation.php:77
+#: src/Api/Representation/LogRepresentation.php:76
 msgid "notice"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:39
-#: src/Api/Representation/LogRepresentation.php:78
+#: src/Api/Representation/LogRepresentation.php:77
 msgid "info"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:40
-#: src/Api/Representation/LogRepresentation.php:79
+#: src/Api/Representation/LogRepresentation.php:78
 msgid "debug"
 msgstr ""
 
@@ -235,32 +267,155 @@ msgid ""
 "in {file} on line {line}"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:28
+#: src/Job/ArchiveLogsJob.php:67
+msgid "The argument \"seconds\" is not set."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:75
+msgid "The argument \"reference\" should be an array."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:83
+msgid "The argument \"format\" should be \"tsv\", \"tsv_context\" or \"sql\"."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:196
+msgid ""
+"Archive then delete specified logs older than {date_time} with params: "
+"severity = {severity}; reference = {references}."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:201
+msgid ""
+"Archive then delete specified logs for all dates with params: severity = "
+"{severity}; reference = {references}."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:208
+msgid ""
+"Delete specified logs older than {date_time} with params: severity = "
+"{severity}; reference = {references}."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:213
+msgid ""
+"Delete specified logs for all dates with params: severity = {severity}; "
+"reference = {references}."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:229
+msgid "No logs found matching criteria."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:235
+msgid "Found {count} logs to process."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:262
+msgid "The backup is available at {link} (size: {size} bytes)."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:274
+msgid "Deleted {count} logs from database."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:327
+msgid "Cannot open file {file} for writing. Process is stopped."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:508
+msgid "The directory \"{path}\" is not writeable."
+msgstr ""
+
+#: src/Job/ArchiveLogsJob.php:519
+msgid "The directory \"{path}\" is not writeable: {error}."
+msgstr ""
+
+#: src/Form/ConfigForm.php:15 src/Form/QuickSearchForm.php:28
 msgid "Emergency"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:29
+#: src/Form/ConfigForm.php:16 src/Form/QuickSearchForm.php:29
 msgid "Alert"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:30
+#: src/Form/ConfigForm.php:17 src/Form/QuickSearchForm.php:30
 msgid "Critical"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:33
+#: src/Form/ConfigForm.php:20 src/Form/QuickSearchForm.php:33
 msgid "Notice"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:35
+#: src/Form/ConfigForm.php:22 src/Form/QuickSearchForm.php:35
 msgid "Debug"
+msgstr ""
+
+#: src/Form/ConfigForm.php:30
+msgid "Archive or delete logs every x days (set 0 if you use the server cron)"
+msgstr ""
+
+#: src/Form/ConfigForm.php:46
+msgid "Age of logs to archive and/or delete (days)"
+msgstr ""
+
+#: src/Form/ConfigForm.php:60
+msgid "Minimum severity to keep"
+msgstr ""
+
+#: src/Form/ConfigForm.php:67 src/Form/QuickSearchForm.php:50
+msgid "Select minimum severity…"
+msgstr ""
+
+#: src/Form/ConfigForm.php:74
+msgid "References to keep"
+msgstr ""
+
+#: src/Form/ConfigForm.php:75
+msgid ""
+"Filter by reference patterns, one per line. Supports wildcards: \"easy-admin/"
+"check/*\" (starts with), \"*/process\" (ends with), \"my/reference\" "
+"(exact). Leave empty for archive all references."
+msgstr ""
+
+#: src/Form/ConfigForm.php:89
+msgid "Archive old logs"
+msgstr ""
+
+#: src/Form/ConfigForm.php:99
+msgid "Archive format"
+msgstr ""
+
+#: src/Form/ConfigForm.php:101
+msgid "tsv"
+msgstr ""
+
+#: src/Form/ConfigForm.php:102
+msgid "Tsv with context"
+msgstr ""
+
+#: src/Form/ConfigForm.php:103
+msgid "sql"
+msgstr ""
+
+#: src/Form/ConfigForm.php:115
+msgid "Compress archives (gzip)"
+msgstr ""
+
+#: src/Form/ConfigForm.php:125
+msgid "Include log id"
+msgstr ""
+
+#: src/Form/ConfigForm.php:135
+msgid "Translate messages (tsv)"
+msgstr ""
+
+#: src/Form/ConfigForm.php:148
+msgid "Delete old logs"
 msgstr ""
 
 #: src/Form/QuickSearchForm.php:43
 msgid "Minimum severity"
-msgstr ""
-
-#: src/Form/QuickSearchForm.php:50
-msgid "Select minimum severity…"
 msgstr ""
 
 #: src/Form/QuickSearchForm.php:57
@@ -299,46 +454,70 @@ msgstr ""
 msgid "Not in untranslated message"
 msgstr ""
 
-#: src/ColumnType/Id.php:10 config/module.config.php:292
-msgid "Id"
-msgstr ""
-
-#: src/Controller/Admin/LogController.php:68
+#: src/Controller/Admin/LogController.php:67
 msgid ""
 "The logger is currently disabled for database. Check config/local.config.php."
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:103
+#: src/Controller/Admin/LogController.php:102
 msgid "log"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:121
+#: src/Controller/Admin/LogController.php:120
 msgid "Log successfully deleted"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:123
-#: src/Controller/Admin/LogController.php:155
+#: src/Controller/Admin/LogController.php:122
+#: src/Controller/Admin/LogController.php:154
 msgid "An error occured during deletion of logs"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:144
+#: src/Controller/Admin/LogController.php:143
 msgid "You must select at least one log to batch delete."
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:153
+#: src/Controller/Admin/LogController.php:152
 msgid "Logs successfully deleted"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:192
+#: src/Controller/Admin/LogController.php:191
 msgid ""
 "Deleting logs in background (<a href=\"{job_url}\">job #{job_id}</a>). This "
 "may take a while."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:54
+#: src/Service/LoggerFactory.php:55
 msgid "[Omeka S] File logging disabled: not writeable."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:73 src/Service/LoggerDbFactory.php:30
-msgid "[Omeka S] Database logging disabled: wrong config."
+#: src/Service/LoggerFactory.php:92 src/Service/LoggerDbFactory.php:31
+msgid "[Omeka S] Database logging disabled: connection unavailable."
+msgstr ""
+
+#: src/Stdlib/JobState.php:18 src/Stdlib/JobState.php:19
+msgid "Running"
+msgstr ""
+
+#: src/Stdlib/JobState.php:25
+msgid "Interruptible Sleep"
+msgstr ""
+
+#: src/Stdlib/JobState.php:26
+msgid "Processing"
+msgstr ""
+
+#: src/Stdlib/JobState.php:32
+msgid "Uninterruptible Sleep"
+msgstr ""
+
+#: src/Stdlib/JobState.php:33
+msgid "Waiting"
+msgstr ""
+
+#: src/Stdlib/JobState.php:41
+msgid "Paused"
+msgstr ""
+
+#: src/Stdlib/JobState.php:47
+msgid "Zombie"
 msgstr ""
