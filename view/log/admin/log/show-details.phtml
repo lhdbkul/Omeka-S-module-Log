@@ -56,19 +56,19 @@ $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
     </div>
     <div class="meta-group">
         <?php if ($job): ?>
-        <h4><?= $escape(sprintf($translate('Job #%d'), $job->id())) ?></h4>
+        <h4><?= sprintf($escape($translate('Job #%d')), $job->id()) ?></h4>
         <div class="value">
             <span class="job-status" data-job-id="<?= $job->id() ?>">
-                <span class="job-status-title"><?= $translate('Status:') ?></span>
-                <span class="job-status-label"><?= $translate($job->statusLabel()) ?></span>
+                <span class="job-status-title"><?= $escape($translate('Status:')) ?></span>
+                <span class="job-status-label"><?= $escape($translate($job->statusLabel())) ?></span>
             </span>
         </div>
         <?php if ($state): ?>
         <div class="value log-job">
             <span class="job-state" data-job-id="<?= $job->id() ?>" data-job-state="<?= $state ?>"<?php if ($state && $state !== 'Ended'): ?> data-job-state-url="<?= $escapeAttr($url('admin/job-state', ['id' => $job->id()])) ?>" <?php endif; ?><?= $stateWarning ?>>
-                <span class="system-state-title"><?= $translate('System state:') ?></span>
-                <span class="system-state-label"><?= $translate(JobState::STATES[$state]['label']) ?></span>
-                <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $translate(JobState::STATES[$state]['label']) ?>" aria-label="<?= $translate(JobState::STATES[$state]['label']) ?>"></span>
+                <span class="system-state-title"><?= $escape($translate('System state:')) ?></span>
+                <span class="system-state-label"><?= $escape($translate(JobState::STATES[$state]['label'])) ?></span>
+                <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $v = $escapeAttr($translate(JobState::STATES[$state]['label'])) ?>" aria-label="<?= $v ?>"></span>
             </span>
         </div>
         <?php endif; ?>
@@ -94,7 +94,7 @@ $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
     <?php endif; ?>
     </div>
     <div class="meta-group">
-        <h4><?= $translate('Message') ?>
+        <h4><?= $escape($translate('Message')) ?>
         <?php /*
         <span class="actions"><?= $hyperlink('', '#', [
             'class' => 'o-icon- fa fa-expand popover',

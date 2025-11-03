@@ -61,7 +61,7 @@ if ($state) {
 
 <span class="job-state<?= empty($inline) ? '' : ' job-state-inline' ?>" data-job-id="<?= $jobId ?>">
 	<?php if ($includeJobStatus): ?>
-    <span class="job-status-label" data-job-id="<?= $job->id() ?>"><?= $translate($job->status()) ?></span>
+    <span class="job-status-label" data-job-id="<?= $job->id() ?>"><?= $escape($translate($job->status())) ?></span>
 	<?php endif; ?>
     <?php if ($includeStateLabel): ?>
     <span class="system-state-label"><?= $stateLabelEsc ?></span>

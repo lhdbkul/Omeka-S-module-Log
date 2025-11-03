@@ -73,71 +73,71 @@ $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
 
 <dl class="job-metadata">
     <div class="meta-group job-status" data-job-id="<?= $job->id() ?>">
-        <dt><?= $translate('Status') ?></dt>
-        <dd class="value job-status-label" data-job-id="<?= $job->id() ?>"><?= $translate($job->statusLabel()) ?></dd>
+        <dt><?= $escape($translate('Status')) ?></dt>
+        <dd class="value job-status-label" data-job-id="<?= $job->id() ?>"><?= $escape($translate($job->statusLabel())) ?></dd>
     </div>
     <?php if ($state): ?>
     <div class="meta-group log-job">
-        <dt><?= $translate('System state') ?></dt>
+        <dt><?= $escape($translate('System state')) ?></dt>
         <dd class="value job-state" data-job-id="<?= $job->id() ?>" data-job-state="<?= $state ?>"<?php if ($state && $state !== 'Ended'): ?> data-job-state-url="<?= $escapeAttr($url('admin/job-state', ['id' => $job->id()])) ?>"<?php endif; ?><?= $stateWarning ?>>
-            <span class="system-state-label"><?= $translate(JobState::STATES[$state]['label']) ?></span>
-            <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $translate(JobState::STATES[$state]['label']) ?>" aria-label="<?= $translate(JobState::STATES[$state]['label']) ?>"></span>
+            <span class="system-state-label"><?= $escape($translate(JobState::STATES[$state]['label'])) ?></span>
+            <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $v = $escapeAttr($translate(JobState::STATES[$state]['label'])) ?>" aria-label="<?= $v ?>"></span>
         </dd>
     </div>
     <?php endif; ?>
     <?php if ($hasProgress): ?>
     <div class="meta-group">
-        <dt><?= $translate('Progress') ?></dt>
+        <dt><?= $escape($translate('Progress')) ?></dt>
         <dd class="value"><?= $progress ?></dd>
     </div>
     <?php endif; ?>
     <div class="meta-group">
-        <dt><?= $translate('Started') ?></dt>
+        <dt><?= $escape($translate('Started')) ?></dt>
         <dd class="value"><?= $started ?></dd>
     </div>
     <div class="meta-group">
-        <dt><?= $translate('Ended') ?></dt>
+        <dt><?= $escape($translate('Ended')) ?></dt>
         <dd class="value"><?= $ended ?></dd>
     </div>
     <div class="meta-group">
-        <dt><?= $translate('Class') ?></dt>
+        <dt><?= $escape($translate('Class')) ?></dt>
         <dd class="value"><?= $job->jobClass() ?></dd>
     </div>
     <div class="meta-group">
-        <dt><?= $translate('Owner') ?></dt>
+        <dt><?= $escape($translate('Owner')) ?></dt>
         <dd class="value"><?= $escape($ownerText) ?></dd>
     </div>
     <div class="meta-group">
-        <dt><?= $translate('Args') ?></dt>
+        <dt><?= $escape($translate('Args')) ?></dt>
         <?php if ($job->args()): ?>
             <?php $args = json_encode($job->args(), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_LINE_TERMINATORS); ?>
             <dd class="value"><pre><?= $escape($args) ?></pre></dd>
         <?php else: ?>
-        <dd class="value"><?= $translate('[No args]') ?></dd>
+        <dd class="value"><?= $escape($translate('[No args]')) ?></dd>
         <?php endif; ?>
     </div>
     <div class="meta-group">
-        <dt><?= $translate('Log') ?></dt>
+        <dt><?= $escape($translate('Log')) ?></dt>
         <dd class="value">
             <?php if ($job->log()): ?>
             <?= $hyperlink($translate('view log'),
                 $url(null, ['action' => 'log'], true),
                 ['target' => '_blank']) ?>
             <?php else: ?>
-            <?= $translate('[No log]') ?>
+            <?= $escape($translate('[No log]')) ?>
             <?php endif; ?>
         </dd>
     </div>
 
     <div class="meta-group">
-        <dt><?= $translate('Log (database)') ?></dt>
+        <dt><?= $escape($translate('Log (database)')) ?></dt>
         <dd class="value">
             <?php $totalLogs = $api->search('logs', ['job_id' => $job->id(), 'limit' => 0])->getTotalResults(); ?>
             <?php if ($totalLogs): ?>
             <?= $hyperlink(sprintf($translate('View log (%d results)'), $totalLogs),
                 $url('admin/log/default', [], ['query' => ['job_id' => $job->id()]])) ?>
             <?php else: ?>
-            <?= $translate('[No log]') ?>
+            <?= $escape($translate('[No log]')) ?>
             <?php endif; ?>
         </dd>
     </div>
