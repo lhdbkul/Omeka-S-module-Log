@@ -5,11 +5,14 @@
         display: none;
     }
 
+    header nav .jobs::before,
+    .jobs .subhead::before,
+    .jobs .no-resources::before {
+        content:"";
+	}
+
     header nav .logs::before,
-    .logs .subhead::before {
-        content:"";
-    }
-    .log .no-resources:before,
+    .logs .subhead::before,
     .logs .no-resources:before {
         content:"";
     }

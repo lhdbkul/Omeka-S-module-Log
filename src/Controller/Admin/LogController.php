@@ -50,17 +50,16 @@ class LogController extends AbstractActionController
         $formDeleteSelected = $this->getForm(ConfirmForm::class);
         $formDeleteSelected
             ->setAttribute('action', $this->url()->fromRoute('admin/log/default', ['action' => 'batch-delete'], true))
-            ->setAttribute('id', 'confirm-delete-selected');
-        $formDeleteSelected
+            ->setAttribute('id', 'confirm-delete-selected')
             ->setButtonLabel('Confirm delete'); // @translate
 
         $formDeleteAll = $this->getForm(ConfirmForm::class);
         $formDeleteAll
             ->setAttribute('action', $this->url()->fromRoute('admin/log/default', ['action' => 'batch-delete-all'], true))
             ->setAttribute('id', 'confirm-delete-all')
-            ->get('submit')->setAttribute('disabled', true);
-        $formDeleteAll
             ->setButtonLabel('Confirm delete'); // @translate
+        $formDeleteAll
+            ->get('submit')->setAttribute('disabled', true);
 
         $logs = $response->getContent();
 
@@ -116,7 +115,7 @@ class LogController extends AbstractActionController
             $form = $this->getForm(ConfirmForm::class);
             $form->setData($this->getRequest()->getPost());
             if ($form->isValid()) {
-                $response = $this->api($form)->delete('logs', $this->params('id'));
+                $response = $this->api($form)->delete('logs', ['id' => (int) $this->params('id')]);
                 if ($response) {
                     $this->messenger()->addSuccess('Log successfully deleted'); // @translate
                 } else {
