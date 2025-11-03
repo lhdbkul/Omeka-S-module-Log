@@ -95,7 +95,7 @@ class Dispatcher extends \Omeka\Job\Dispatcher
             $em->clear();
             try {
                 $jobEntity = $em->find(Job::class, $job->getId());
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 return;
             }
 

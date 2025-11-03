@@ -2,8 +2,11 @@
 
 namespace Log\Service;
 
+use Common\Log\Formatter\PsrLogSimple;
+use Doctrine\DBAL\Connection;
 use Interop\Container\ContainerInterface;
 use Laminas\Log\Exception;
+use Laminas\Log\Filter\Priority;
 use Laminas\Log\Logger;
 use Laminas\Log\Writer\Noop;
 use Laminas\Log\Writer\Stream;
@@ -22,98 +25,115 @@ class LoggerFactory implements FactoryInterface
      *
      * @return Logger
      */
-    public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         $config = $services->get('Config');
 
+        // Create logger instance.
+        $logger = new Logger();
+
         if (empty($config['logger']['log'])) {
-            return (new Logger)->addWriter(new Noop);
+            return $logger->addWriter(new Noop());
         }
 
         $enabledWriters = array_filter($config['logger']['writers']);
         $writers = array_intersect_key($config['logger']['options']['writers'], $enabledWriters);
+
         if (empty($writers)) {
-            return (new Logger)->addWriter(new Noop);
+            $logger->addWriter(new Noop());
+            return $logger;
         }
 
-        // For compatibility with Omeka default config, that may be customized.
-        // Most of the time, the stream is disabled (see default config of the
-        // module), so there is no stream.
-
+        // Handle Omeka's default stream writer (for compatibility).
         if (!empty($writers['stream'])) {
-            if (isset($config['logger']['priority'])) {
-                $writers['stream']['options']['filters'] = $config['logger']['priority'];
+            $streamWriter = $this->createStreamWriter($config, $writers['stream']);
+            if ($streamWriter) {
+                $logger->addWriter($streamWriter);
             }
-            if (isset($config['logger']['path'])) {
-                $writers['stream']['options']['stream'] = $config['logger']['path'];
-            }
-            // The stream may not be a file (php://stdout), so check file only.
-            // The check is slightly different in Stream when there is no file.
-            if (is_file($writers['stream']['options']['stream'])) {
-                if (!is_writeable($writers['stream']['options']['stream'])) {
-                    unset($writers['stream']);
-                    error_log('[Omeka S] File logging disabled: not writeable.'); // @translate
-                }
-            } else {
-                // Early check the stream name to follow upstream process.
-                try {
-                    new Stream($writers['stream']['options']['stream']);
-                } catch (Exception\RuntimeException $e) {
-                    unset($writers['stream']);
-                    error_log('Omeka S log initialization failed: ' . $e->getMessage());
-                }
-            }
+            unset($writers['stream']);
         }
 
-        // Replace Laminas Db writer with Doctrine writer.
+        // Handle database writer with Doctrine.
         if (!empty($writers['doctrine'])) {
             $connection = $this->getDoctrineConnection($services);
             if ($connection) {
-                // Create Doctrine writer manually and add it to logger.
                 $doctrineWriter = $this->createDoctrineWriter($connection, $writers['doctrine']);
-
-                // Remove the db writer from config array (will be added manually).
-                unset($writers['doctrine']);
-
-                // Create logger with remaining writers.
-                if (!empty($config['logger']['options']['processors']['userid']['name'])) {
-                    $config['logger']['options']['processors']['userid']['name'] = $this->addUserIdProcessor($services);
-                }
-
-                $config['logger']['options']['writers'] = $writers;
-                $logger = empty($writers) ? new Logger : new Logger($config['logger']['options']);
-
-                // Add Doctrine writer.
                 $logger->addWriter($doctrineWriter);
-
-                return $logger;
             } else {
-                unset($writers['doctrine']);
                 error_log('[Omeka S] Database logging disabled: connection unavailable.'); // @translate
+            }
+            unset($writers['doctrine']);
+        }
+
+        // Add user id processor if configured.
+        // This adds userId to the extra array for all writers.
+        if (!empty($config['logger']['options']['processors']['userid']['name'])) {
+            $userIdProcessor = $this->addUserIdProcessor($services);
+            $logger->addProcessor($userIdProcessor);
+        }
+
+        // Handle any remaining writers from config.
+        if (!empty($writers)) {
+            $config['logger']['options']['writers'] = $writers;
+            $tempLogger = new Logger($config['logger']['options']);
+            foreach ($tempLogger->getWriters() as $writer) {
+                $logger->addWriter($writer);
             }
         }
 
-        if (empty($writers)) {
-            return (new Logger)->addWriter(new Noop);
+        // If no writers were added, add Noop.
+        if (!count($logger->getWriters())) {
+            $logger->addWriter(new Noop());
         }
 
-        $config['logger']['options']['writers'] = $writers;
-        if (!empty($config['logger']['options']['processors']['userid']['name'])) {
-            $config['logger']['options']['processors']['userid']['name'] = $this->addUserIdProcessor($services);
+        return $logger;
+    }
+
+    /**
+     * Create stream writer with Omeka-compatible formatting and filtering.
+     */
+    protected function createStreamWriter(array $config, array $writerConfig): ?Stream
+    {
+        // Determine stream path.
+        $stream = $writerConfig['options']['stream']
+            ?? $config['logger']['path']
+            ?? null;
+
+        if (!$stream) {
+            return null;
         }
 
-        // Checks are managed via the constructor.
-        return new Logger($config['logger']['options']);
+        // Override with logger path if set (Omeka compatibility).
+        if (isset($config['logger']['path'])) {
+            $stream = $config['logger']['path'];
+        }
+
+        // Check if stream is writeable (for file streams).
+        if (is_file($stream) && !is_writeable($stream)) {
+            error_log('[Omeka S] File logging disabled: not writeable.'); // @translate
+            return null;
+        }
+
+        try {
+            $writer = new Stream($stream);
+            $writer->setFormatter(new PsrLogSimple('%timestamp% %priorityName% (%priority%): %message% %extra%'));
+            $priority = $writerConfig['options']['filters']
+                ?? $config['logger']['priority']
+                ?? Logger::WARN;
+            $filter = new Priority($priority);
+            $writer->addFilter($filter);
+        } catch (Exception\RuntimeException $e) {
+            error_log('Omeka S log initialization failed: ' . $e->getMessage());
+            return null;
+        }
+
+        return $writer;
     }
 
     /**
      * Create a Doctrine writer from configuration.
-     *
-     * @param \Doctrine\DBAL\Connection $connection
-     * @param array $writerConfig
-     * @return DoctrineWriter
      */
-    protected function createDoctrineWriter($connection, array $writerConfig)
+    protected function createDoctrineWriter(Connection $connection, array $writerConfig): ?DoctrineWriter
     {
         $tableName = $writerConfig['options']['table'] ?? 'log';
         $columnMap = $writerConfig['options']['column'] ?? null;
@@ -125,10 +145,8 @@ class LoggerFactory implements FactoryInterface
         // Set formatter if specified.
         if (!empty($writerConfig['options']['formatter'])) {
             $formatterClass = $writerConfig['options']['formatter'];
-            if (class_exists($formatterClass)) {
-                $formatter = new $formatterClass();
-                $doctrineWriter->setFormatter($formatter);
-            }
+            $formatter = new $formatterClass();
+            $doctrineWriter->setFormatter($formatter);
         }
 
         // Add filters if specified.
@@ -156,11 +174,8 @@ class LoggerFactory implements FactoryInterface
      * For performance, flexibility and stability reasons, the write process
      * uses Doctrine DBAL. The read/delete process in api or ui uses the
      * default doctrine entity manager.
-     *
-     * @param ContainerInterface $services
-     * @return \Doctrine\DBAL\Connection|null
      */
-    protected function getDoctrineConnection(ContainerInterface $services)
+    protected function getDoctrineConnection(ContainerInterface $services): ?Connection
     {
         $iniConfigPath = OMEKA_PATH . '/config/database-log.ini';
 
