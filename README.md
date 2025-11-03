@@ -16,6 +16,10 @@ to send an email when a critical error occurs.
 The logs are [PSR-3] compliant: they can managed by any other tool that respects
 this standard (see below). They can be translated too.
 
+A cron task is available to archive and remove old logs and to avoid slowing
+omeka. It is run by default each day and logs that are more than 180 days are
+archived.
+
 The error monitoring service [Sentry] is now available as a separate module [Log Sentry].
 It allows to log end user errors and to profile and to trace exceptions,
 allowing to find issues hard to reproduce quicker.
@@ -28,12 +32,14 @@ This module requires the module [Common], that should be installed first.
 
 See general end user documentation for [installing a module].
 
+Since version 3.4.33, the module does not depend of any library any more,
+
 * From the zip
 
 Download the last release [Log.zip] from the list of releases and uncompress it
 in the `modules` directory.
 
-* From the source and for development
+* From the source until version 3.4.32 and for development
 
 If the module was installed from the source, rename the name of the folder of
 the module to `Log`, go to the root module, and run:
@@ -57,6 +63,10 @@ composer update
 Config
 ------
 
+There are two configs: the main config for logs and the config for cron.
+
+### Main config
+
 The config is a pure Laminas log config: see the [Laminas Framework Log]
 documentation for the format. Only common settings are explained here.
 
@@ -76,7 +86,7 @@ service, syslog, etc.). All the writers are listed in `config['logger']['writers
 When enable, a writer take its own config in the `config['logger']['options']['writers']`.
 See the example in the [config of the module].
 
-Note: External logs (db, sentry, etc.) are not fully checked for performance
+Note: External logs (doctrine, sentry, etc.) are not fully checked for performance
 reasons, and may fail silently, so their config should be checked separately.
 
 ### Default logs
@@ -108,7 +118,7 @@ logging (this example shows the default levels):
         ],
         'options' => [
             'writers' => [
-                'db' => [
+                'doctrine' => [
                     'options' => [
                         'filters' => \Laminas\Log\Logger::INFO,
                     ],
@@ -169,7 +179,7 @@ Furthermore, they are managed automatically for background jobs.
 
 The logs can be saved in an external database. To config it, add a file
 `database-log.ini` beside the main `database.ini` of Omeka S, with its params,
-and the params of the table inside `config['logger']['options']['writers']['db']['options']`.
+and the params of the table inside `config['logger']['options']['writers']['doctrine']['options']`.
 Warning: for technical reasons, Omeka use `dbname` and `user`, but Laminas uses
 `database` and `username`:
 
@@ -209,10 +219,32 @@ Install module [Log Sentry] and update the config.
 **Warning**: the free Sentry subscription plan is limited to 5000 errors or
 exceptions by month.
 
+### Archive and delete old logs
+
+By default, a task stores and deletes old logs older than 180 days. The params
+can be modified in the config form of the module.
+
+It is recommended to remove log regularly.
+
+### Use server cron task
+
+A script is available at data/scripts/archive-logs.php to run a cron.
+
+When using a cron, set the number of days to 0 in the config form to cancel
+internal process.
+
+Exemple of a cron task, daily each night at 2:00:
+
+```cron
+0 2 * * * /usr/bin/php '/path/to/omeka/modules/Log/data/scripts/archive-logs.php' --server-url 'https://example.org' --base-path '/'
+```
+
+
 ### Delete old logs
 
 When the table is growing too much, it's time to clear them. It can be done with
-a task of the module [Easy Admin] or via these SQL queries:
+a regular task above, or via a task of the module [Easy Admin] or via these SQL
+queries:
 
 ```sql
 # To delete all messages lower or equal to info:
@@ -294,12 +326,13 @@ TODO
 ----
 
 - [ ] Use key "psr_log" instead of "log" (see https://docs.laminas.dev/laminas-log/service-manager/#psrloggerabstractadapterfactory).
-- [ ] Use the second entity manager in all cases.
+- [x] Use the second entity manager in all cases (useless: use direct doctrine query).
 - [ ] Add an option to copy logs inside jobs when the module is uninstalled.
 - [ ] Fix incompatibility between authentication modules (Ldap, Cas, Shibboleth). The user id is currently disabled in such a case.
-- [ ] Replace laminas-db by doctrine and a second entity manager.
+- [x] Replace laminas-db by doctrine (no need for a second entity manager: use direct dbal).
 - [x] Separate Sentry into another module? It will be cleaner, but heavier in fact because only two small checks are needed, not a full module process.
 - [ ] Improve display for messages like "item #xxx", "media #yyy", "resources #zz1, #zz2" with or without context.
+- [ ] Add an option to log by week or by month, not by day.
 
 
 Warning
