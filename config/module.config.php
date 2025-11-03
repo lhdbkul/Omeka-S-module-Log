@@ -158,6 +158,9 @@ return [
         ],
     ],
     'form_elements' => [
+        'invokables' => [
+            Form\ConfigForm::class => Form\ConfigForm::class,
+        ],
         'factories' => [
             Form\QuickSearchForm::class => Service\Form\QuickSearchFormFactory::class,
         ],
@@ -321,6 +324,26 @@ return [
                 'pattern' => '%s.mo',
                 'text_domain' => null,
             ],
+        ],
+    ],
+    'log' => [
+        'config' => [
+            'log_cron_days' => 180,
+
+            'log_archive_days' => 180,
+            'log_archive_severity_max' => 0,
+            'log_archive_references' => [],
+
+            'log_archive_store' => true,
+            'log_archive_format' => 'tsv',
+            'log_archive_compress' => true,
+            'log_archive_include_id' => false,
+            'log_archive_translate' => true,
+
+            'log_archive_delete' => true,
+
+            // Hidden settings.
+            'log_cron_last' => null,
         ],
     ],
 ];

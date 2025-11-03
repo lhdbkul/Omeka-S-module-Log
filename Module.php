@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 
 /*
- * Copyright Daniel Berthereau, 2017-2024
+ * Copyright Daniel Berthereau, 2017-2025
  *
  * This software is governed by the CeCILL license under French law and abiding
  * by the rules of distribution of free software.  You can use, modify and/ or
@@ -43,9 +43,12 @@ if (!class_exists(\Common\Log\Formatter\PsrLogAwareTrait::class)) {
 
 use Common\Stdlib\PsrMessage;
 use Common\TraitModule;
+use Laminas\EventManager\Event;
+use Laminas\EventManager\SharedEventManagerInterface;
 use Laminas\ModuleManager\ModuleEvent;
 use Laminas\ModuleManager\ModuleManager;
 use Laminas\Mvc\MvcEvent;
+use Laminas\View\Renderer\PhpRenderer;
 use Omeka\Module\AbstractModule;
 use Omeka\Permissions\Assertion\OwnsEntityAssertion;
 
@@ -232,5 +235,73 @@ class Module extends AbstractModule
                 ]
             )
         ;
+    }
+
+    public function attachListeners(SharedEventManagerInterface $sharedEventManager)
+    {
+        // TODO What is the better event to handle a cron? None: use server cron or systemd timer or webcron.
+        $sharedEventManager->attach(
+            '*',
+            'view.layout',
+            [$this, 'handleCron']
+        );
+    }
+
+    public function getConfigForm(PhpRenderer $renderer)
+    {
+        $services = $this->getServiceLocator();
+        $settings = $services->get('Omeka\Settings');
+
+        $lastCron = (int) $settings->get('log_cron_last');
+        $cronDays = (int) $settings->get('log_cron_days');
+
+        if ($cronDays && $lastCron) {
+            $services = $this->getServiceLocator();
+            $plugins = $services->get('ControllerPluginManager');
+            $messenger = $plugins->get('messenger');
+            $message = new PsrMessage(
+                'Last cron occurred on {date_time}. Next cron will occur after {date_time_2}.', // @translate
+                ['date_time' => date('Y-m-d H:i:s', $lastCron), 'date_time_2' => date('Y-m-d H:i:s', $lastCron + $cronDays * 86400)]
+            );
+            $messenger->addSuccess($message);
+        }
+
+        return $this->getConfigFormAuto($renderer);
+    }
+
+    public function handleCron(Event $event): void
+    {
+        $services = $this->getServiceLocator();
+        $settings = $services->get('Omeka\Settings');
+
+        // Check if the job is set.
+        $cronDays = (int) $settings->get('log_cron_days');
+        if (!$cronDays) {
+            return;
+        }
+
+        // One check each day.
+        $lastCron = (int) $settings->get('log_cron_last');
+        $time = time();
+        if ($lastCron + $cronDays * 86400 > $time) {
+            return;
+        }
+        $settings->set('log_cron_last', $time);
+
+        // Dispatch the job.
+        $dispatcher = $services->get(\Omeka\Job\Dispatcher::class);
+        $dispatcher->dispatch(\Log\Job\ArchiveLogsJob::class, [
+            'seconds' => $settings->get('log_archive_days', 0) * 86400,
+            'severity' => $settings->get('log_archive_severity', 0) ?: 0,
+            'references' => $settings->get('log_archive_references') ?: [],
+
+            'store' => (bool) $settings->get('log_archive_store', true),
+            'format' => $settings->get('log_archive_format', 'tsv'),
+            'compress' => (bool) $settings->get('log_archive_compress', true),
+            'include_id' => (bool) $settings->get('log_archive_include_id', false),
+            'translate' => (bool) $settings->get('log_archive_translate', true),
+
+            'delete' => (bool) $settings->get('log_archive_delete', true),
+        ]);
     }
 }
