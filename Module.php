@@ -94,10 +94,10 @@ class Module extends AbstractModule
         $plugins = $services->get('ControllerPluginManager');
         $messenger = $plugins->get('messenger');
 
-        if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.72')) {
+        if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActiveVersion('Common', '3.4.74')) {
             $message = new \Omeka\Stdlib\Message(
                 $translator->translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
-                'Common', '3.4.72'
+                'Common', '3.4.74'
             );
             throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
         }
@@ -148,8 +148,7 @@ class Module extends AbstractModule
 
         // Nevertheless, acl should be specified, because log is not a resource.
         $entityManagerFilters = $services->get('Omeka\EntityManager')->getFilters();
-        $entityManagerFilters->enable('log_visibility');
-        $entityManagerFilters->getFilter('log_visibility')->setAcl($acl);
+        $entityManagerFilters->enable('log_visibility')->setAcl($acl);
 
         // Public users cannot see own logs.
         // TODO How to make a distinction between public and admin roles? Which new rule?
