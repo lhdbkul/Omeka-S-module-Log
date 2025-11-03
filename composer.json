@@ -24,14 +24,6 @@
         "job",
         "admin"
     ],
-    "require": {
-        "php": ">=7.4",
-        "laminas/laminas-db": "^2.15"
-    },
-    "replace": {
-        "laminas/laminas-log": "2.15",
-        "laminas/laminas-stdlib": "*"
-    },
     "require-dev": {
         "biblibre/omeka-s-test-helper": "dev-master"
     },

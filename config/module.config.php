@@ -34,12 +34,12 @@ return [
         'writers' => [
             // The database used by this module. The database can be the main
             // one or an another one: set it "config/database-log.ini" or in
-            // this file as config[logger][options][writers][db][options][db]
+            // this file as config[logger][options][writers][doctrine][options][db]
             // Warning: Omeka use "dbname" for "database" and "user" for "username".
             // Furthermore, you have to define the table and columns to use
-            // in the options below: config[logger][options][writers][db][options].
+            // in the options below: config[logger][options][writers][doctrine][options].
             // Note: even disabled, the database may be used via loggerDb().
-            'db' => true,
+            'doctrine' => true,
             // This is the default log file of Omeka (logs/application.log).
             'stream' => true,
             // Log for Omeka jobs (useless with this module).
@@ -55,8 +55,8 @@ return [
             // Config for sentry, an error monitoring service (https://sentry.io).
             // The module LogSentry is required.
             'sentry' => false,
-            // Note: External logs (db, sentry, etc.) are not fully checked, so their
-            // config should be checked separately.
+            // Note: External logs (doctrine, sentry, etc.) are not fully checked,
+            // so their config should be checked separately.
         ],
 
         // The logger uses the Laminas Log configuration.
@@ -64,12 +64,14 @@ return [
         // @see https://docs.laminas.dev/laminas-log/service-manager
         'options' => [
             'writers' => [
-                'db' => [
-                    'name' => 'db',
+                'doctrine' => [
+                    'name' => 'doctrine',
                     'options' => [
                         'filters' => \Laminas\Log\Logger::DEBUG,
                         'formatter' => Log\Formatter\PsrLogDb::class,
+                        // Automatically set by LoggerFactory.
                         'db' => null,
+                        // Deprecated old config with laminas-db.
                         // 'db' => new \Laminas\Db\Adapter\Adapter([
                         //     'driver' => 'mysqli',
                         //     'database' =>null,

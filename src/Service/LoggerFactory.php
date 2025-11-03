@@ -9,6 +9,7 @@ use Laminas\Log\Writer\Noop;
 use Laminas\Log\Writer\Stream;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Log\Processor\UserId;
+use Log\Log\Writer\Doctrine as DoctrineWriter;
 use Log\Service\Log\Processor\UserIdFactory;
 
 /**
@@ -56,7 +57,7 @@ class LoggerFactory implements FactoryInterface
             } else {
                 // Early check the stream name to follow upstream process.
                 try {
-                    $writer = new Stream($writers['stream']['options']['stream']);
+                    new Stream($writers['stream']['options']['stream']);
                 } catch (Exception\RuntimeException $e) {
                     unset($writers['stream']);
                     error_log('Omeka S log initialization failed: ' . $e->getMessage());
@@ -64,13 +65,31 @@ class LoggerFactory implements FactoryInterface
             }
         }
 
-        if (!empty($writers['db']) && empty($writers['db']['options']['db'])) {
-            $dbAdapter = $this->getDbAdapter($services);
-            if ($dbAdapter) {
-                $writers['db']['options']['db'] = $dbAdapter;
+        // Replace Laminas Db writer with Doctrine writer.
+        if (!empty($writers['doctrine'])) {
+            $connection = $this->getDoctrineConnection($services);
+            if ($connection) {
+                // Create Doctrine writer manually and add it to logger.
+                $doctrineWriter = $this->createDoctrineWriter($connection, $writers['doctrine']);
+
+                // Remove the db writer from config array (will be added manually).
+                unset($writers['doctrine']);
+
+                // Create logger with remaining writers.
+                if (!empty($config['logger']['options']['processors']['userid']['name'])) {
+                    $config['logger']['options']['processors']['userid']['name'] = $this->addUserIdProcessor($services);
+                }
+
+                $config['logger']['options']['writers'] = $writers;
+                $logger = empty($writers) ? new Logger : new Logger($config['logger']['options']);
+
+                // Add Doctrine writer.
+                $logger->addWriter($doctrineWriter);
+
+                return $logger;
             } else {
-                unset($writers['db']);
-                error_log('[Omeka S] Database logging disabled: wrong config.'); // @translate
+                unset($writers['doctrine']);
+                error_log('[Omeka S] Database logging disabled: connection unavailable.'); // @translate
             }
         }
 
@@ -88,55 +107,147 @@ class LoggerFactory implements FactoryInterface
     }
 
     /**
-     * Get the database params, or the Omeka database params.
+     * Create a Doctrine writer from configuration.
+     *
+     * @param \Doctrine\DBAL\Connection $connection
+     * @param array $writerConfig
+     * @return DoctrineWriter
+     */
+    protected function createDoctrineWriter($connection, array $writerConfig)
+    {
+        $tableName = $writerConfig['options']['table'] ?? 'log';
+        $columnMap = $writerConfig['options']['column'] ?? null;
+        $separator = $writerConfig['options']['separator'] ?? null;
+
+        // Create writer with connection, table, and column mapping.
+        $doctrineWriter = new DoctrineWriter($connection, $tableName, $columnMap, $separator);
+
+        // Set formatter if specified.
+        if (!empty($writerConfig['options']['formatter'])) {
+            $formatterClass = $writerConfig['options']['formatter'];
+            if (class_exists($formatterClass)) {
+                $formatter = new $formatterClass();
+                $doctrineWriter->setFormatter($formatter);
+            }
+        }
+
+        // Add filters if specified.
+        if (!empty($writerConfig['options']['filters'])) {
+            $filters = $writerConfig['options']['filters'];
+            if (!is_array($filters)) {
+                $filters = [$filters];
+            }
+            foreach ($filters as $filter) {
+                $doctrineWriter->addFilter($filter);
+            }
+        }
+
+        return $doctrineWriter;
+    }
+
+    /**
+     * Get Doctrine DBAL connection.
+     *
+     * Supports external database via config/database-log.ini.
+     * If no external config exists, uses Omeka's main database connection.
      *
      * To disable the database, set `"db" => false` in the module config.
      *
      * For performance, flexibility and stability reasons, the write process
-     * uses a specific Laminas Db adapter. The read/delete process in api or ui
-     * uses the default doctrine entity manager.
-     * @todo Use a second entity manager to manage the database and save logs in real time.
+     * uses Doctrine DBAL. The read/delete process in api or ui uses the
+     * default doctrine entity manager.
      *
      * @param ContainerInterface $services
-     * @return  \Laminas\Db\Adapter\AdapterInterface
+     * @return \Doctrine\DBAL\Connection|null
+     */
+    protected function getDoctrineConnection(ContainerInterface $services)
+    {
+        $iniConfigPath = OMEKA_PATH . '/config/database-log.ini';
+
+        // Check for external database configuration.
+        if (file_exists($iniConfigPath) && is_readable($iniConfigPath)) {
+            try {
+                $reader = new \Laminas\Config\Reader\Ini;
+                $iniConfig = $reader->fromFile($iniConfigPath);
+                $iniConfig = array_filter($iniConfig);
+
+                if (!empty($iniConfig)) {
+                    return $this->createConnectionFromConfig($iniConfig);
+                }
+            } catch (\Exception $e) {
+                error_log('[Omeka S] Failed to read database-log.ini: ' . $e->getMessage());
+            }
+        }
+
+        // Use Omeka's main database connection.
+        try {
+            return $services->get('Omeka\Connection');
+        } catch (\Exception $e) {
+            error_log('[Omeka S] Failed to get Doctrine connection: ' . $e->getMessage());
+            return null;
+        }
+    }
+
+    /**
+     * Create a Doctrine DBAL connection from INI configuration.
+     *
+     * @param array $config Configuration array from database-log.ini.
+     * @return \Doctrine\DBAL\Connection
+     * @throws \Doctrine\DBAL\Exception
+     */
+    protected function createConnectionFromConfig(array $config)
+    {
+        // Map INI config to Doctrine DBAL parameters.
+        $params = [
+            'dbname' => $config['database'] ?? $config['dbname'] ?? null,
+            'user' => $config['username'] ?? $config['user'] ?? null,
+            'password' => $config['password'] ?? null,
+            'host' => $config['host'] ?? 'localhost',
+            'driver' => 'pdo_mysql',
+        ];
+
+        // Add port if specified.
+        if (!empty($config['port'])) {
+            $params['port'] = (int) $config['port'];
+        }
+
+        // Add unix socket if specified.
+        if (!empty($config['unix_socket'])) {
+            $params['unix_socket'] = $config['unix_socket'];
+            unset($params['host']); // Unix socket takes precedence over host.
+        }
+
+        // Add charset if specified.
+        if (!empty($config['charset'])) {
+            $params['charset'] = $config['charset'];
+        }
+
+        // Add driver options (e.g., SSL certificates).
+        if (!empty($config['driverOptions']) || !empty($config['driver_options'])) {
+            $params['driverOptions'] = $config['driverOptions'] ?? $config['driver_options'];
+        }
+
+        // Create connection using Doctrine DBAL.
+        return \Doctrine\DBAL\DriverManager::getConnection($params);
+    }
+
+    /**
+     * Get the database params, or the Omeka database params (deprecated).
+     *
+     * @deprecated No longer used. Kept for backwards compatibility.
+     * To disable the database, set `"db" => false` in the module config.
+     *
+     * For performance, flexibility and stability reasons, the write process
+     * now uses Doctrine DBAL instead of a specific Laminas Db adapter.
+     * The read/delete process in api or ui uses the default doctrine entity manager.
+     *
+     * @param ContainerInterface $services
+     * @return \Doctrine\DBAL\Connection|null
      */
     protected function getDbAdapter(ContainerInterface $services)
     {
-        $iniConfigPath = OMEKA_PATH . '/config/database-log.ini';
-        if (file_exists($iniConfigPath) && is_readable($iniConfigPath)) {
-            $reader = new \Laminas\Config\Reader\Ini;
-            $iniConfig = $reader->fromFile($iniConfigPath);
-            $iniConfig = array_filter($iniConfig);
-        }
-
-        // TODO Check 'hostname'.
-
-        if (empty($iniConfig)) {
-            $iniConfig = $services->get('Omeka\Connection')->getParams();
-            $iniConfig['database'] = $iniConfig['dbname'];
-            $iniConfig['username'] = $iniConfig['user'];
-            $iniConfig['host'] = $iniConfig['host'] ?: 'localhost';
-            unset($iniConfig['dbname']);
-            unset($iniConfig['user']);
-            $iniConfig['driver'] = 'Pdo_Mysql';
-            $iniConfig['platform'] = 'Mysql';
-            // Driver options allow to pass specific options, in particular the
-            // ssl certificate. Doctrine use camel case and Laminas snake case.
-            // The list of driver options are the values of the constants PDO::MYSQL_ATTR_*.
-            if (isset($iniConfig['driverOptions'])) {
-                $iniConfig['driver_options'] = $iniConfig['driverOptions'];
-            }
-        }
-        // Avoid an issue on common config.
-        elseif (empty($iniConfig['driver'])) {
-            $iniConfig['driver'] = 'Pdo_Mysql';
-            $iniConfig['platform'] = 'Mysql';
-            if (isset($iniConfig['driverOptions'])) {
-                $iniConfig['driver_options'] = $iniConfig['driverOptions'];
-            }
-        }
-
-        return new \Laminas\Db\Adapter\Adapter($iniConfig);
+        // Return Doctrine connection for backwards compatibility.
+        return $this->getDoctrineConnection($services);
     }
 
     /**

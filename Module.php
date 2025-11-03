@@ -61,8 +61,6 @@ class Module extends AbstractModule
 
     public function init(ModuleManager $moduleManager): void
     {
-        require_once __DIR__ . '/vendor/autoload.php';
-
         $moduleManager->getEventManager()->attach(ModuleEvent::EVENT_MERGE_CONFIG, [$this, 'onEventMergeConfig']);
     }
 
@@ -97,25 +95,6 @@ class Module extends AbstractModule
                 'Common', '3.4.72'
             );
             throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
-        }
-
-        if (!file_exists(__DIR__ . '/vendor/autoload.php')
-            || !file_exists(__DIR__ . '/vendor/laminas/laminas-db/composer.json')
-        ) {
-            $message = new PsrMessage(
-                'The libraries are not installed. Run "composer install" on the command line or load a version with libraries included.' // @translate
-            );
-            throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message->setTranslator($translator));
-        }
-
-        if (PHP_VERSION_ID >= 80200) {
-            $content = file_get_contents(__DIR__ . '/vendor/laminas/laminas-db/composer.json');
-            if (strpos($content, '"php": "^7.3 ||') ) {
-                $message = new PsrMessage(
-                    'The library is not compatible with the version of php on the server. Run "composer upgrade" on the command line or load a version for php ≥ 8.2.' // @translate
-                );
-                throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message->setTranslator($translator));
-            }
         }
     }
 

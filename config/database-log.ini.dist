@@ -1,23 +1,44 @@
-; Sample of config of the database used for log. It should be saved
-; beside the default db config file of Omeka S as "config/database-log.ini".
-
+; External database configuration for Log module
+;
+; It should be saved beside the default db config file of Omeka S as "config/database-log.ini".
+;
 ; Important: if you don’t use it, don’t let the file "database-log.ini" in the
 ; directory "config/", or comment any value from it, else the logger will
 ; believe it is a good config: for performance reasons, there is no initial
 ; check currently.
+;
+; This allows you to:
+; - Store logs in a separate database for performance
+; - Use a different MySQL server for logs
+; - Isolate log data from application data
 
-; When this file has no value, the Omeka database is used.
-; To disable the logging in database, set `['logger']['writers']['db'] => false`
-; in "config/local.config.php".
+; Database name
+database = "omeka_logs"
 
-; Currently, this is a config for Laminas ("\Laminas\Db\Adapter\Adapter"), not
-; for Doctrine ("\Doctrine\DBAL\DriverManager"), so "database" and "username"
-; are used instead of "dbname" and "user".
+; Database credentials
+username = "log_user"
+password = "secure_password"
 
-username =
-password =
-database =
-host     =
-;port     =
-;unix_socket =
-;driver   =
+; Database host
+host = "localhost"
+; port = 3306
+
+; Optional: Unix socket (takes precedence over host/port)
+; unix_socket = "/var/run/mysqld/mysqld.sock"
+
+; Optional: Character set
+; charset = "utf8mb4"
+
+; Optional: SSL/TLS options (driver options)
+; Example for SSL connection:
+; driverOptions[1014] = "/path/to/ca-cert.pem"  ; PDO::MYSQL_ATTR_SSL_CA
+; driverOptions[1009] = true                     ; PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT
+;
+; Common PDO MySQL driver options:
+; 1004 = PDO::MYSQL_ATTR_INIT_COMMAND
+; 1009 = PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT
+; 1010 = PDO::MYSQL_ATTR_SSL_KEY
+; 1011 = PDO::MYSQL_ATTR_SSL_CERT
+; 1012 = PDO::MYSQL_ATTR_SSL_CA
+; 1013 = PDO::MYSQL_ATTR_SSL_CAPATH
+; 1014 = PDO::MYSQL_ATTR_SSL_CIPHER
