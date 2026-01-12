@@ -34,7 +34,10 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "LogTest\\": "test/LogTest/"
+            "LogTest\\": "tests/LogTest/"
         }
+    },
+    "extra": {
+        "installer-name": "Log"
     }
 }
