@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-03 00:00+0000\n"
+"POT-Creation-Date: 2026-01-12 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -486,12 +486,12 @@ msgid ""
 "may take a while."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:55
-msgid "[Omeka S] File logging disabled: not writeable."
+#: src/Service/LoggerFactory.php:63 src/Service/LoggerDbFactory.php:31
+msgid "[Omeka S] Database logging disabled: connection unavailable."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:92 src/Service/LoggerDbFactory.php:31
-msgid "[Omeka S] Database logging disabled: connection unavailable."
+#: src/Service/LoggerFactory.php:113
+msgid "[Omeka S] File logging disabled: not writeable."
 msgstr ""
 
 #: src/Stdlib/JobState.php:18 src/Stdlib/JobState.php:19

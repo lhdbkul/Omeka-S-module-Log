@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-03 00:00+0000\n"
-"PO-Revision-Date: 2025-11-03 00:00+0000\n"
+"POT-Creation-Date: 2026-01-12 00:00+0000\n"
+"PO-Revision-Date: 2026-01-12 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -526,19 +526,17 @@ msgstr ""
 "Suppression des journaux en arrière-plan (<a href=\"{job_url}\">tâche "
 "#{job_id}</a>). Cela peut prendre un moment."
 
-#: src/Service/LoggerFactory.php:55
+#: src/Service/LoggerFactory.php:63 src/Service/LoggerDbFactory.php:31
+msgid "[Omeka S] Database logging disabled: connection unavailable."
+msgstr ""
+"[Omeka S] Enregistrement des journaux en base de données désactivée : "
+"connexion indisponible."
+
+#: src/Service/LoggerFactory.php:113
 msgid "[Omeka S] File logging disabled: not writeable."
 msgstr ""
 "[Omeka S] Enregistrement des journaux dans le fichier désactivée : "
 "permission refusée pour écrire dans le fichier."
-
-#: src/Service/LoggerFactory.php:92 src/Service/LoggerDbFactory.php:31
-#, fuzzy
-#| msgid "[Omeka S] Database logging disabled: wrong config."
-msgid "[Omeka S] Database logging disabled: connection unavailable."
-msgstr ""
-"[Omeka S] Enregistrement des journaux en base de données désactivée : erreur "
-"de configuration."
 
 #: src/Stdlib/JobState.php:18 src/Stdlib/JobState.php:19
 msgid "Running"
