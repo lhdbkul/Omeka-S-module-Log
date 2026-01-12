@@ -383,7 +383,7 @@ of the CeCILL license and that you accept its terms.
 Copyright
 ---------
 
-* Copyright Daniel Berthereau, 2017-2025 [Daniel-KM] on GitLab)
+* Copyright Daniel Berthereau, 2017-2026 [Daniel-KM] on GitLab)
 
 
 [Log]: https://gitlab.com/Daniel-KM/Omeka-S-module-Log
