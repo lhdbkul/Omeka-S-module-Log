@@ -400,11 +400,12 @@ class LogRepresentation extends AbstractEntityRepresentation
                     if ($shouldEscapes[$key]) {
                         if (is_scalar($value)) {
                             $context[$key] = $escape($value);
-                        } else {
+                        } elseif (is_array($value)) {
                             $v = $value;
                             array_walk_recursive($v, $escape);
                             $context[$key] = $v;
                         }
+                        // Skip null or other non-array/non-scalar values.
                     }
                 }
             }
