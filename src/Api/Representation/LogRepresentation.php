@@ -11,6 +11,66 @@ use Omeka\Api\Representation\UserRepresentation;
 
 class LogRepresentation extends AbstractEntityRepresentation
 {
+    const SEVERITIES = [
+        \Laminas\Log\Logger::EMERG => 'emergency', // @translate
+        \Laminas\Log\Logger::ALERT => 'alert', // @translate
+        \Laminas\Log\Logger::CRIT => 'critical', // @translate
+        \Laminas\Log\Logger::ERR => 'error', // @translate
+        \Laminas\Log\Logger::WARN => 'warning', // @translate
+        \Laminas\Log\Logger::NOTICE => 'notice', // @translate
+        \Laminas\Log\Logger::INFO => 'info', // @translate
+        \Laminas\Log\Logger::DEBUG => 'debug', // @translate
+    ];
+
+    /**
+     * Map of resource names/context keys to admin controller names.
+     */
+    const RESOURCES_TO_CONTROLLERS = [
+        'asset' => 'asset',
+        'assets' => 'asset',
+        'item' => 'item',
+        'items' => 'item',
+        'item set' => 'item-set',
+        'itemset' => 'item-set',
+        'itemsets' => 'item-set',
+        'job' => 'job',
+        'jobs' => 'job',
+        'media' => 'media',
+        'resourcetemplate' => 'resource-template',
+        'template' => 'resource-template',
+        'user' => 'user',
+        'users' => 'user',
+        'annotation' => 'annotation',
+        'annotations' => 'annotation',
+        'table' => 'table',
+        'tables' => 'table',
+        // For context.
+        'itemid' => 'item',
+        'itemids' => 'item',
+        'itemsetid' => 'item-set',
+        'itemsetids' => 'item-set',
+        'jobid' => 'job',
+        'jobids' => 'job',
+        'mediaid' => 'media',
+        'mediaids' => 'media',
+        'oaiid' => 'oai-pmh',
+        'oaiids' => 'oai-pmh',
+        'ownerid' => 'user',
+        'ownerids' => 'user',
+        'userid' => 'user',
+        'userids' => 'user',
+        'resourcetemplateid' => 'resource-template',
+        'resourcetemplateids' => 'resource-template',
+        'templateid' => 'resource-template',
+        'templateids' => 'resource-template',
+        'annotationid' => 'annotation',
+        'annotationids' => 'annotation',
+        'tableid' => 'table',
+        'tableids' => 'table',
+        'tableslug' => 'table',
+        'tableslugs' => 'table',
+    ];
+
     /**
      * @var \Log\Entity\Log
      */
@@ -67,18 +127,8 @@ class LogRepresentation extends AbstractEntityRepresentation
 
     public function severityLabel(): string
     {
-        $severities = [
-            \Laminas\Log\Logger::EMERG => 'emergency', // @translate
-            \Laminas\Log\Logger::ALERT => 'alert', // @translate
-            \Laminas\Log\Logger::CRIT => 'critical', // @translate
-            \Laminas\Log\Logger::ERR => 'error', // @translate
-            \Laminas\Log\Logger::WARN => 'warning', // @translate
-            \Laminas\Log\Logger::NOTICE => 'notice', // @translate
-            \Laminas\Log\Logger::INFO => 'info', // @translate
-            \Laminas\Log\Logger::DEBUG => 'debug', // @translate
-        ];
         $severity = $this->severity();
-        return $severities[$severity] ?? $severity;
+        return self::SEVERITIES[$severity] ?? $severity;
     }
 
     public function message(): PsrMessage
@@ -112,51 +162,7 @@ class LogRepresentation extends AbstractEntityRepresentation
         // For speed, use a base url so just append the controller name and the
         // resource id without full url processing.
         // In logs, it is recommended to use the precise context when possible.
-        $resourcesToControllers = [
-            'asset' => 'asset',
-            'assets' => 'asset',
-            'item' => 'item',
-            'items' => 'item',
-            'item set' => 'item-set',
-            'itemset' => 'item-set',
-            'itemsets' => 'item-set',
-            'job' => 'job',
-            'jobs' => 'job',
-            'media' => 'media',
-            'resourcetemplate' => 'resource-template',
-            'template' => 'resource-template',
-            'user' => 'user',
-            'users' => 'user',
-            'annotation' => 'annotation',
-            'annotations' => 'annotation',
-            'table' => 'table',
-            'tables' => 'table',
-            // For context.
-            'itemid' => 'item',
-            'itemids' => 'item',
-            'itemsetid' => 'item-set',
-            'itemsetids' => 'item-set',
-            'jobid' => 'job',
-            'jobids' => 'job',
-            'mediaid' => 'media',
-            'mediaids' => 'media',
-            'oaiid' => 'oai-pmh',
-            'oaiids' => 'oai-pmh',
-            'ownerid' => 'user',
-            'ownerids' => 'user',
-            'userid' => 'user',
-            'userids' => 'user',
-            'resourcetemplateid' => 'resource-template',
-            'resourcetemplateids' => 'resource-template',
-            'templateid' => 'resource-template',
-            'templateids' => 'resource-template',
-            'annotationid' => 'annotation',
-            'annotationids' => 'annotation',
-            'tableid' => 'table',
-            'tableids' => 'table',
-            'tableslug' => 'table',
-            'tableslugs' => 'table',
-        ];
+        $resourcesToControllers = self::RESOURCES_TO_CONTROLLERS;
         $baseUrl = strtr($url('admin/default', ['controller' => 'replace']), ['/replace' => '']);
 
         $escapeHtml = true;

@@ -265,8 +265,8 @@ class ArchiveLogsJob extends AbstractJob
             $filename = pathinfo($filepath, PATHINFO_FILENAME);
             $extension = pathinfo($filepath, PATHINFO_EXTENSION);
             $storagePath = sprintf('%s/%s.%s', mb_substr($dir, mb_strlen($basePath) + 1), $filename, $extension);
-            $store = $services->get('Omeka\File\Store');
-            $fileUrl = $store->getUri($storagePath);
+            $fileStore = $services->get('Omeka\File\Store');
+            $fileUrl = $fileStore->getUri($storagePath);
             $this->logger->notice(
                 'The backup is available at {link} (size: {size} bytes).', // @translate
                 [
@@ -325,7 +325,7 @@ class ArchiveLogsJob extends AbstractJob
         if ($compress) {
             $filename .= '.gz';
             $filepath .= '.gz';
-            $fp = gzopen($filepath, 'wb9');
+            $fp = gzopen($filepath, 'wb6');
         } else {
             $fp = fopen($filepath, 'wb');
         }
@@ -426,8 +426,7 @@ class ArchiveLogsJob extends AbstractJob
                         } elseif (is_numeric($value)) {
                             $values[] = $value;
                         } else {
-                            $escaped = addslashes((string) $value);
-                            $values[] = "'$escaped'";
+                            $values[] = $this->connection->quote((string) $value);
                         }
                     }
                     $valueList = implode(', ', $values);
