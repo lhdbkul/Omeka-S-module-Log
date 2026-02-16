@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const requestCache = new Map();
 
     const updateJobStates = () => {
-        if (!jobStates) return;
+        if (!jobStates || document.hidden) return;
 
         jobStates.forEach(jobState => {
             const jobId = jobState.getAttribute('data-job-id');
