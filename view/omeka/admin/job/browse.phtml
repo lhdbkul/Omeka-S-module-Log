@@ -88,7 +88,7 @@ $jobStateUrlBase = strtr($url('admin/job-state', ['id' => '0000']), ['0000' => '
         $state = $jobState($job);
         ?>
         <tr>
-            <td class="job-state flex-between" data-job-id="<?= $jobId ?>" data-job-state="<?= $state ?>"<?php if ($state && $state !== 'Ended'): ?> data-job-state-url="<?= strtr($jobStateUrlBase, ['{id}' => $jobId]) ?>" <?php endif; ?>>
+            <td class="job-state flex-between" data-job-id="<?= $jobId ?>" data-job-state="<?= $state ?>"<?php if ($state && JobState::STATES[$state]['processing']): ?> data-job-state-url="<?= strtr($jobStateUrlBase, ['{id}' => $jobId]) ?>" <?php endif; ?>>
                 <span><?= $job->link($jobId) ?></span>
                 <?php if ($state): ?>
                 <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $escapeAttr($stateLabels[$state]) ?>" aria-label="<?= $escapeAttr($stateLabels[$state]) ?>"></span>

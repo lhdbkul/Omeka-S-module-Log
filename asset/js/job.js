@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const jobId = jobState.getAttribute('data-job-id');
             const jobDataState = jobState.getAttribute('data-job-state');
             const jobStateUrl = jobState.getAttribute('data-job-state-url');
-            if (!jobId || !jobStateUrl || !jobDataState || jobDataState === '' || jobDataState === 'Zombie') return;
+            if (!jobId || !jobStateUrl || !jobDataState || jobDataState === '' || jobDataState === 'Z') return;
 
             const labelElement = jobState.querySelector('.system-state-label');
             const iconElement = jobState.querySelector('.system-state-icon');

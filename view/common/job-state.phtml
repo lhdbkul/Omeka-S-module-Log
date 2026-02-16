@@ -30,8 +30,12 @@ if ($includeCssJs) {
 $jobId = method_exists($job, 'id') ? $job->id() : $job->getId();
 
 if ($state) {
-    $jobStateUrl = $url('admin/job-state', ['id' => $jobId]);
-    $jobStateUrlAttr = 'data-job-state-url="' . $jobStateUrl . '"';
+    if (JobState::STATES[$state]['processing']) {
+        $jobStateUrl = $url('admin/job-state', ['id' => $jobId]);
+        $jobStateUrlAttr = 'data-job-state-url="' . $jobStateUrl . '"';
+    } else {
+        $jobStateUrlAttr = '';
+    }
     $stateWarning = $escapeAttr($translate('Warning: The system state may not be reliable on some servers.'));
     $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
     $stateIcon = JobState::STATES[$state]['icon'];
