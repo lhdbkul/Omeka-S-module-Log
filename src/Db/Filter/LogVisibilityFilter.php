@@ -41,18 +41,17 @@ class LogVisibilityFilter extends SQLFilter
             return '';
         }
 
-        $constraint = '';
-
         // Users can view all logs they own.
         $identity = $this->acl->getAuthenticationService()->getIdentity();
         if ($identity) {
-            $constraint = sprintf(
+            return sprintf(
                 $alias . '.owner_id = %s',
                 $this->getConnection()->quote($identity->getId(), Types::INTEGER)
             );
         }
 
-        return $constraint;
+        // Anonymous users cannot view any logs.
+        return '1 = 0';
     }
 
     public function setAcl(Acl $acl): void
