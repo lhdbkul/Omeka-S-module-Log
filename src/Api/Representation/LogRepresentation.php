@@ -434,6 +434,11 @@ class LogRepresentation extends AbstractEntityRepresentation
             ->setEscapeHtml($escapeHtml);
     }
 
+    public function context(): array
+    {
+        return $this->resource->getContext();
+    }
+
     public function created(): DateTime
     {
         return $this->resource->getCreated();
