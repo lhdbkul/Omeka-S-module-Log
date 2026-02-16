@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-12 00:00+0000\n"
+"POT-Creation-Date: 2026-02-16 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,29 +42,29 @@ msgstr ""
 msgid "Parameters"
 msgstr ""
 
-#: src/ColumnType/Job.php:83 view/common/job-state.phtml:35
+#: src/ColumnType/Job.php:83 view/common/job-state.phtml:39
 #: view/log/admin/log/show-details.phtml:33
 #: view/omeka/admin/job/browse.phtml:31 view/omeka/admin/job/show.phtml:56
 msgid "Warning: The system state may not be reliable on some servers."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:345 src/Job/ArchiveLogsJob.php:362
+#: src/Job/ArchiveLogsJob.php:354 src/Job/ArchiveLogsJob.php:371
 msgid "Id"
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:348 src/Job/ArchiveLogsJob.php:365
+#: src/Job/ArchiveLogsJob.php:357 src/Job/ArchiveLogsJob.php:374
 #: src/View/Helper/LogSearchFilters.php:95
 #: view/log/admin/log/show-details.phtml:90
 msgid "Job"
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:349 src/Job/ArchiveLogsJob.php:366
+#: src/Job/ArchiveLogsJob.php:358 src/Job/ArchiveLogsJob.php:375
 #: src/View/Helper/LogSearchFilters.php:61
 #: view/log/admin/log/show-details.phtml:46
 msgid "Reference"
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:350 src/Job/ArchiveLogsJob.php:367
+#: src/Job/ArchiveLogsJob.php:359 src/Job/ArchiveLogsJob.php:376
 #: src/View/Helper/LogSearchFilters.php:67
 #: src/View/Helper/LogSearchFilters.php:72
 #: src/View/Helper/LogSearchFilters.php:78
@@ -72,12 +72,12 @@ msgstr ""
 msgid "Severity"
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:351 src/Job/ArchiveLogsJob.php:368
+#: src/Job/ArchiveLogsJob.php:360 src/Job/ArchiveLogsJob.php:377
 #: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:97
 msgid "Message"
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:369
+#: src/Job/ArchiveLogsJob.php:378
 msgid "Context"
 msgstr ""
 
@@ -89,7 +89,11 @@ msgstr ""
 msgid "Unknown job"
 msgstr ""
 
-#: view/common/job-state.phtml:43 view/common/job-state.phtml:44
+#: src/View/Helper/LogSearchFilters.php:105
+msgid "Job class"
+msgstr ""
+
+#: view/common/job-state.phtml:47 view/common/job-state.phtml:48
 msgid "No system state"
 msgstr ""
 
@@ -158,15 +162,15 @@ msgstr ""
 msgid "Ended at %s"
 msgstr ""
 
-#: view/omeka/admin/job/browse.phtml:66
+#: view/omeka/admin/job/browse.phtml:83
 msgid "Id (Params)"
 msgstr ""
 
-#: view/omeka/admin/job/browse.phtml:67 view/omeka/admin/job/show.phtml:81
+#: view/omeka/admin/job/browse.phtml:84 view/omeka/admin/job/show.phtml:81
 msgid "System state"
 msgstr ""
 
-#: view/omeka/admin/job/browse.phtml:71
+#: view/omeka/admin/job/browse.phtml:88
 msgid "Status (Log)"
 msgstr ""
 
@@ -193,23 +197,23 @@ msgid ""
 "{link}Log Sentry{link_end}."
 msgstr ""
 
-#: data/scripts/upgrade.php:95
+#: data/scripts/upgrade.php:96
 msgid ""
 "Logs can be archived and purged regularly. Go to {link}config form{link_end} "
 "for params."
 msgstr ""
 
-#: data/scripts/upgrade.php:102
+#: data/scripts/upgrade.php:103
 msgid "A regular deletion of old logs is recommended to keep omeka fluid."
 msgstr ""
 
-#: data/scripts/upgrade.php:116 Module.php:109
+#: data/scripts/upgrade.php:122 Module.php:109
 msgid ""
 "The directory \"{directory}\" is not writeable, so old logs cannot be "
 "archived."
 msgstr ""
 
-#: data/scripts/upgrade.php:170
+#: data/scripts/upgrade.php:176
 msgid ""
 "A background job has been started to add database indices. If it fails, you "
 "should create them manually. Missing indices: {list}."
@@ -221,37 +225,37 @@ msgid ""
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:33
-#: src/Api/Representation/LogRepresentation.php:71
+#: src/Api/Representation/LogRepresentation.php:15
 msgid "emergency"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:34
-#: src/Api/Representation/LogRepresentation.php:72
+#: src/Api/Representation/LogRepresentation.php:16
 msgid "alert"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:35
-#: src/Api/Representation/LogRepresentation.php:73
+#: src/Api/Representation/LogRepresentation.php:17
 msgid "critical"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:37
-#: src/Api/Representation/LogRepresentation.php:75
+#: src/Api/Representation/LogRepresentation.php:19
 msgid "warning"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:38
-#: src/Api/Representation/LogRepresentation.php:76
+#: src/Api/Representation/LogRepresentation.php:20
 msgid "notice"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:39
-#: src/Api/Representation/LogRepresentation.php:77
+#: src/Api/Representation/LogRepresentation.php:21
 msgid "info"
 msgstr ""
 
 #: src/View/Helper/LogSearchFilters.php:40
-#: src/Api/Representation/LogRepresentation.php:78
+#: src/Api/Representation/LogRepresentation.php:22
 msgid "debug"
 msgstr ""
 
@@ -267,67 +271,67 @@ msgid ""
 "in {file} on line {line}"
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:67
+#: src/Job/ArchiveLogsJob.php:69
 msgid "The argument \"seconds\" is not set."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:75
+#: src/Job/ArchiveLogsJob.php:77
 msgid "The argument \"reference\" should be an array."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:83
+#: src/Job/ArchiveLogsJob.php:85
 msgid "The argument \"format\" should be \"tsv\", \"tsv_context\" or \"sql\"."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:196
+#: src/Job/ArchiveLogsJob.php:205
 msgid ""
 "Archive then delete specified logs older than {date_time} with params: "
 "severity = {severity}; reference = {references}."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:201
+#: src/Job/ArchiveLogsJob.php:210
 msgid ""
 "Archive then delete specified logs for all dates with params: severity = "
 "{severity}; reference = {references}."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:208
+#: src/Job/ArchiveLogsJob.php:217
 msgid ""
 "Delete specified logs older than {date_time} with params: severity = "
 "{severity}; reference = {references}."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:213
+#: src/Job/ArchiveLogsJob.php:222
 msgid ""
 "Delete specified logs for all dates with params: severity = {severity}; "
 "reference = {references}."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:229
+#: src/Job/ArchiveLogsJob.php:238
 msgid "No logs found matching criteria."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:235
+#: src/Job/ArchiveLogsJob.php:244
 msgid "Found {count} logs to process."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:262
+#: src/Job/ArchiveLogsJob.php:271
 msgid "The backup is available at {link} (size: {size} bytes)."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:274
+#: src/Job/ArchiveLogsJob.php:283
 msgid "Deleted {count} logs from database."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:327
+#: src/Job/ArchiveLogsJob.php:336
 msgid "Cannot open file {file} for writing. Process is stopped."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:508
+#: src/Job/ArchiveLogsJob.php:516
 msgid "The directory \"{path}\" is not writeable."
 msgstr ""
 
-#: src/Job/ArchiveLogsJob.php:519
+#: src/Job/ArchiveLogsJob.php:527
 msgid "The directory \"{path}\" is not writeable: {error}."
 msgstr ""
 
@@ -368,49 +372,59 @@ msgid "Select minimum severity…"
 msgstr ""
 
 #: src/Form/ConfigForm.php:74
-msgid "References to keep"
+msgid "Delete logs with jobs (except errors)"
 msgstr ""
 
 #: src/Form/ConfigForm.php:75
+msgid ""
+"When unchecked, logs associated with a job are preserved during archiving "
+"and deletion, unless their severity is info or debug."
+msgstr ""
+
+#: src/Form/ConfigForm.php:85
+msgid "References to keep"
+msgstr ""
+
+#: src/Form/ConfigForm.php:86
 msgid ""
 "Filter by reference patterns, one per line. Supports wildcards: \"easy-admin/"
 "check/*\" (starts with), \"*/process\" (ends with), \"my/reference\" "
 "(exact). Leave empty for archive all references."
 msgstr ""
 
-#: src/Form/ConfigForm.php:89
+#: src/Form/ConfigForm.php:100
 msgid "Archive old logs"
 msgstr ""
 
-#: src/Form/ConfigForm.php:99
+#: src/Form/ConfigForm.php:110
 msgid "Archive format"
 msgstr ""
 
-#: src/Form/ConfigForm.php:101
+#: src/Form/ConfigForm.php:112
 msgid "tsv"
 msgstr ""
 
-#: src/Form/ConfigForm.php:102
+#: src/Form/ConfigForm.php:113
 msgid "Tsv with context"
 msgstr ""
 
-#: src/Form/ConfigForm.php:103
+#: src/Form/ConfigForm.php:114
 msgid "sql"
 msgstr ""
 
-#: src/Form/ConfigForm.php:115
+#: src/Form/ConfigForm.php:126
 msgid "Compress archives (gzip)"
 msgstr ""
 
-#: src/Form/ConfigForm.php:125
+#: src/Form/ConfigForm.php:136
 msgid "Include log id"
 msgstr ""
 
-#: src/Form/ConfigForm.php:135
+#: src/Form/ConfigForm.php:146
 msgid "Translate messages (tsv)"
 msgstr ""
 
-#: src/Form/ConfigForm.php:148
+#: src/Form/ConfigForm.php:159
 msgid "Delete old logs"
 msgstr ""
 
@@ -438,19 +452,23 @@ msgstr ""
 msgid "Set a job id…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:132
-msgid "User by id"
+#: src/Form/QuickSearchForm.php:112
+msgid "Set a job class…"
 msgstr ""
 
 #: src/Form/QuickSearchForm.php:144
-msgid "Untranslated message"
-msgstr ""
-
-#: src/Form/QuickSearchForm.php:148 src/Form/QuickSearchForm.php:160
-msgid "Set an untranslated string…"
+msgid "User by id"
 msgstr ""
 
 #: src/Form/QuickSearchForm.php:156
+msgid "Untranslated message"
+msgstr ""
+
+#: src/Form/QuickSearchForm.php:160 src/Form/QuickSearchForm.php:172
+msgid "Set an untranslated string…"
+msgstr ""
+
+#: src/Form/QuickSearchForm.php:168
 msgid "Not in untranslated message"
 msgstr ""
 

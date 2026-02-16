@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-12 00:00+0000\n"
-"PO-Revision-Date: 2026-01-12 00:00+0000\n"
+"POT-Creation-Date: 2026-02-16 00:00+0000\n"
+"PO-Revision-Date: 2026-02-16 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -44,29 +44,29 @@ msgstr "Cf. les exemples de configuration dans le {link}lisez-moi{link_end}."
 msgid "Parameters"
 msgstr "Paramètres"
 
-#: src/ColumnType/Job.php:83 view/common/job-state.phtml:35
+#: src/ColumnType/Job.php:83 view/common/job-state.phtml:39
 #: view/log/admin/log/show-details.phtml:33
 #: view/omeka/admin/job/browse.phtml:31 view/omeka/admin/job/show.phtml:56
 msgid "Warning: The system state may not be reliable on some servers."
 msgstr "Attention : l’état système peut être incorrect sur certains serveurs."
 
-#: src/Job/ArchiveLogsJob.php:345 src/Job/ArchiveLogsJob.php:362
+#: src/Job/ArchiveLogsJob.php:354 src/Job/ArchiveLogsJob.php:371
 msgid "Id"
 msgstr "Id"
 
-#: src/Job/ArchiveLogsJob.php:348 src/Job/ArchiveLogsJob.php:365
+#: src/Job/ArchiveLogsJob.php:357 src/Job/ArchiveLogsJob.php:374
 #: src/View/Helper/LogSearchFilters.php:95
 #: view/log/admin/log/show-details.phtml:90
 msgid "Job"
 msgstr "Tâche"
 
-#: src/Job/ArchiveLogsJob.php:349 src/Job/ArchiveLogsJob.php:366
+#: src/Job/ArchiveLogsJob.php:358 src/Job/ArchiveLogsJob.php:375
 #: src/View/Helper/LogSearchFilters.php:61
 #: view/log/admin/log/show-details.phtml:46
 msgid "Reference"
 msgstr "Référence"
 
-#: src/Job/ArchiveLogsJob.php:350 src/Job/ArchiveLogsJob.php:367
+#: src/Job/ArchiveLogsJob.php:359 src/Job/ArchiveLogsJob.php:376
 #: src/View/Helper/LogSearchFilters.php:67
 #: src/View/Helper/LogSearchFilters.php:72
 #: src/View/Helper/LogSearchFilters.php:78
@@ -74,12 +74,12 @@ msgstr "Référence"
 msgid "Severity"
 msgstr "Gravité"
 
-#: src/Job/ArchiveLogsJob.php:351 src/Job/ArchiveLogsJob.php:368
+#: src/Job/ArchiveLogsJob.php:360 src/Job/ArchiveLogsJob.php:377
 #: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:97
 msgid "Message"
 msgstr "Message"
 
-#: src/Job/ArchiveLogsJob.php:369
+#: src/Job/ArchiveLogsJob.php:378
 msgid "Context"
 msgstr "Contexte"
 
@@ -91,7 +91,11 @@ msgstr "Contenu du message"
 msgid "Unknown job"
 msgstr "Tâche inconnue"
 
-#: view/common/job-state.phtml:43 view/common/job-state.phtml:44
+#: src/View/Helper/LogSearchFilters.php:105
+msgid "Job class"
+msgstr "Classe de tâche"
+
+#: view/common/job-state.phtml:47 view/common/job-state.phtml:48
 msgid "No system state"
 msgstr "Pas d’état système"
 
@@ -162,15 +166,15 @@ msgstr "Commencé à %s"
 msgid "Ended at %s"
 msgstr "Terminé à %s"
 
-#: view/omeka/admin/job/browse.phtml:66
+#: view/omeka/admin/job/browse.phtml:83
 msgid "Id (Params)"
 msgstr "Id (Paramètres)"
 
-#: view/omeka/admin/job/browse.phtml:67 view/omeka/admin/job/show.phtml:81
+#: view/omeka/admin/job/browse.phtml:84 view/omeka/admin/job/show.phtml:81
 msgid "System state"
 msgstr "État système"
 
-#: view/omeka/admin/job/browse.phtml:71
+#: view/omeka/admin/job/browse.phtml:88
 msgid "Status (Log)"
 msgstr "Statut (Journal)"
 
@@ -199,7 +203,7 @@ msgstr ""
 "La prise en charge du service tiers Sentry a été déplacée dans un module "
 "séparé, {link}Log Sentry{link_end}."
 
-#: data/scripts/upgrade.php:95
+#: data/scripts/upgrade.php:96
 msgid ""
 "Logs can be archived and purged regularly. Go to {link}config form{link_end} "
 "for params."
@@ -207,13 +211,13 @@ msgstr ""
 "Les journaux peuvent être archivés et purgés régulièrement. Voir {link}"
 "config form{link_end} pour les paramètres."
 
-#: data/scripts/upgrade.php:102
+#: data/scripts/upgrade.php:103
 msgid "A regular deletion of old logs is recommended to keep omeka fluid."
 msgstr ""
 "Il est recommandé de supprimer régulièrement les anciens journaux afin de "
 "préserver la fluidité d'omeka."
 
-#: data/scripts/upgrade.php:116 Module.php:109
+#: data/scripts/upgrade.php:122 Module.php:109
 msgid ""
 "The directory \"{directory}\" is not writeable, so old logs cannot be "
 "archived."
@@ -221,7 +225,7 @@ msgstr ""
 "Le répertoire « {directory} » n’est pas accessible en écriture, les anciens "
 "journaux ne peuvent donc pas être archivés."
 
-#: data/scripts/upgrade.php:170
+#: data/scripts/upgrade.php:176
 msgid ""
 "A background job has been started to add database indices. If it fails, you "
 "should create them manually. Missing indices: {list}."
@@ -238,37 +242,37 @@ msgstr ""
 "{date_time_2}."
 
 #: src/View/Helper/LogSearchFilters.php:33
-#: src/Api/Representation/LogRepresentation.php:71
+#: src/Api/Representation/LogRepresentation.php:15
 msgid "emergency"
 msgstr "urgence"
 
 #: src/View/Helper/LogSearchFilters.php:34
-#: src/Api/Representation/LogRepresentation.php:72
+#: src/Api/Representation/LogRepresentation.php:16
 msgid "alert"
 msgstr "alerte"
 
 #: src/View/Helper/LogSearchFilters.php:35
-#: src/Api/Representation/LogRepresentation.php:73
+#: src/Api/Representation/LogRepresentation.php:17
 msgid "critical"
 msgstr "critique"
 
 #: src/View/Helper/LogSearchFilters.php:37
-#: src/Api/Representation/LogRepresentation.php:75
+#: src/Api/Representation/LogRepresentation.php:19
 msgid "warning"
 msgstr "attention"
 
 #: src/View/Helper/LogSearchFilters.php:38
-#: src/Api/Representation/LogRepresentation.php:76
+#: src/Api/Representation/LogRepresentation.php:20
 msgid "notice"
 msgstr "avis"
 
 #: src/View/Helper/LogSearchFilters.php:39
-#: src/Api/Representation/LogRepresentation.php:77
+#: src/Api/Representation/LogRepresentation.php:21
 msgid "info"
 msgstr "info"
 
 #: src/View/Helper/LogSearchFilters.php:40
-#: src/Api/Representation/LogRepresentation.php:78
+#: src/Api/Representation/LogRepresentation.php:22
 msgid "debug"
 msgstr "débogage"
 
@@ -288,19 +292,19 @@ msgstr ""
 "Attention : {message}\n"
 "dans {file} ligne {line}"
 
-#: src/Job/ArchiveLogsJob.php:67
+#: src/Job/ArchiveLogsJob.php:69
 msgid "The argument \"seconds\" is not set."
 msgstr "L'argument \"seconds\" n'est pas défini."
 
-#: src/Job/ArchiveLogsJob.php:75
+#: src/Job/ArchiveLogsJob.php:77
 msgid "The argument \"reference\" should be an array."
 msgstr "L'argument \"référence\" doit être un tableau."
 
-#: src/Job/ArchiveLogsJob.php:83
+#: src/Job/ArchiveLogsJob.php:85
 msgid "The argument \"format\" should be \"tsv\", \"tsv_context\" or \"sql\"."
 msgstr "L'argument \"format\" doit être \"tsv\", \"tsv_context\" ou \"sql\"."
 
-#: src/Job/ArchiveLogsJob.php:196
+#: src/Job/ArchiveLogsJob.php:205
 msgid ""
 "Archive then delete specified logs older than {date_time} with params: "
 "severity = {severity}; reference = {references}."
@@ -308,7 +312,7 @@ msgstr ""
 "Archiver puis supprimer les journaux spécifiés antérieurs à {date_time} avec "
 "les paramètres : severity = {severity} ; reference = {references}."
 
-#: src/Job/ArchiveLogsJob.php:201
+#: src/Job/ArchiveLogsJob.php:210
 msgid ""
 "Archive then delete specified logs for all dates with params: severity = "
 "{severity}; reference = {references}."
@@ -316,7 +320,7 @@ msgstr ""
 "Archiver puis supprimer les journaux spécifiés pour toutes les dates avec "
 "les paramètres : severity = {severity} ; reference = {references}."
 
-#: src/Job/ArchiveLogsJob.php:208
+#: src/Job/ArchiveLogsJob.php:217
 msgid ""
 "Delete specified logs older than {date_time} with params: severity = "
 "{severity}; reference = {references}."
@@ -324,7 +328,7 @@ msgstr ""
 "Supprime les journaux spécifiés datant de plus de {date_time} avec les "
 "paramètres suivants : severity = {severity} ; reference = {references}."
 
-#: src/Job/ArchiveLogsJob.php:213
+#: src/Job/ArchiveLogsJob.php:222
 msgid ""
 "Delete specified logs for all dates with params: severity = {severity}; "
 "reference = {references}."
@@ -332,32 +336,32 @@ msgstr ""
 "Supprimer les journaux spécifiés pour toutes les dates avec les paramètres : "
 "severity = {severity} ; reference = {references}."
 
-#: src/Job/ArchiveLogsJob.php:229
+#: src/Job/ArchiveLogsJob.php:238
 msgid "No logs found matching criteria."
 msgstr "Aucun journal n'a été trouvé correspondant aux critères."
 
-#: src/Job/ArchiveLogsJob.php:235
+#: src/Job/ArchiveLogsJob.php:244
 msgid "Found {count} logs to process."
 msgstr "Trouvé {count} journaux à traiter."
 
-#: src/Job/ArchiveLogsJob.php:262
+#: src/Job/ArchiveLogsJob.php:271
 msgid "The backup is available at {link} (size: {size} bytes)."
 msgstr "La sauvegarde est disponible à {link} (taille : {size} octets)."
 
-#: src/Job/ArchiveLogsJob.php:274
+#: src/Job/ArchiveLogsJob.php:283
 msgid "Deleted {count} logs from database."
 msgstr "Suppression de {count} journaux de la base de données."
 
-#: src/Job/ArchiveLogsJob.php:327
+#: src/Job/ArchiveLogsJob.php:336
 msgid "Cannot open file {file} for writing. Process is stopped."
 msgstr ""
 "Impossible d'ouvrir le fichier {file} en écriture. Le processus est arrêté."
 
-#: src/Job/ArchiveLogsJob.php:508
+#: src/Job/ArchiveLogsJob.php:516
 msgid "The directory \"{path}\" is not writeable."
 msgstr "Le dossier « {path} » n’est pas accessible en écriture."
 
-#: src/Job/ArchiveLogsJob.php:519
+#: src/Job/ArchiveLogsJob.php:527
 msgid "The directory \"{path}\" is not writeable: {error}."
 msgstr "Le dossier « {path} » n’est pas accessible en écriture : {error}."
 
@@ -400,10 +404,22 @@ msgid "Select minimum severity…"
 msgstr "Choisir la gravité minimale…"
 
 #: src/Form/ConfigForm.php:74
+msgid "Delete logs with jobs (except errors)"
+msgstr "Supprimer les journaux des tâches (sauf les erreurs)"
+
+#: src/Form/ConfigForm.php:75
+msgid ""
+"When unchecked, logs associated with a job are preserved during archiving "
+"and deletion, unless their severity is info or debug."
+msgstr ""
+"Si décoché, les journaux associés à une tâche sont conservés lors de "
+"l'archivage et de la suppression, sauf si leur gravité est info ou débogage."
+
+#: src/Form/ConfigForm.php:85
 msgid "References to keep"
 msgstr "Références à conserver"
 
-#: src/Form/ConfigForm.php:75
+#: src/Form/ConfigForm.php:86
 msgid ""
 "Filter by reference patterns, one per line. Supports wildcards: \"easy-admin/"
 "check/*\" (starts with), \"*/process\" (ends with), \"my/reference\" "
@@ -414,39 +430,39 @@ msgstr ""
 "(se termine par), \"my/reference\" (exact). Laisser vide pour archiver "
 "toutes les références."
 
-#: src/Form/ConfigForm.php:89
+#: src/Form/ConfigForm.php:100
 msgid "Archive old logs"
 msgstr "Archiver les anciens journaux"
 
-#: src/Form/ConfigForm.php:99
+#: src/Form/ConfigForm.php:110
 msgid "Archive format"
 msgstr "Format des archives"
 
-#: src/Form/ConfigForm.php:101
+#: src/Form/ConfigForm.php:112
 msgid "tsv"
 msgstr "tsv"
 
-#: src/Form/ConfigForm.php:102
+#: src/Form/ConfigForm.php:113
 msgid "Tsv with context"
 msgstr "Tsv avec contexte"
 
-#: src/Form/ConfigForm.php:103
+#: src/Form/ConfigForm.php:114
 msgid "sql"
 msgstr "sql"
 
-#: src/Form/ConfigForm.php:115
+#: src/Form/ConfigForm.php:126
 msgid "Compress archives (gzip)"
 msgstr "Compression des archives (gzip)"
 
-#: src/Form/ConfigForm.php:125
+#: src/Form/ConfigForm.php:136
 msgid "Include log id"
 msgstr "Inclure l'identifiant du journal"
 
-#: src/Form/ConfigForm.php:135
+#: src/Form/ConfigForm.php:146
 msgid "Translate messages (tsv)"
 msgstr "Traduire les messages (tsv)"
 
-#: src/Form/ConfigForm.php:148
+#: src/Form/ConfigForm.php:159
 msgid "Delete old logs"
 msgstr "Supprimer les anciens journaux"
 
@@ -474,19 +490,23 @@ msgstr "Indiquer une référence…"
 msgid "Set a job id…"
 msgstr "Indiquer un id de tâche…"
 
-#: src/Form/QuickSearchForm.php:132
+#: src/Form/QuickSearchForm.php:112
+msgid "Set a job class…"
+msgstr "Indiquer une classe de tâche…"
+
+#: src/Form/QuickSearchForm.php:144
 msgid "User by id"
 msgstr "Utilisateur par id"
 
-#: src/Form/QuickSearchForm.php:144
+#: src/Form/QuickSearchForm.php:156
 msgid "Untranslated message"
 msgstr "Message non traduit"
 
-#: src/Form/QuickSearchForm.php:148 src/Form/QuickSearchForm.php:160
+#: src/Form/QuickSearchForm.php:160 src/Form/QuickSearchForm.php:172
 msgid "Set an untranslated string…"
 msgstr "Indiquer une chaîne non traduite…"
 
-#: src/Form/QuickSearchForm.php:156
+#: src/Form/QuickSearchForm.php:168
 msgid "Not in untranslated message"
 msgstr "Absent du message non traduit"
 
