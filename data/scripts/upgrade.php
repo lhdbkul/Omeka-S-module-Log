@@ -82,6 +82,7 @@ if (version_compare($oldVersion, '3.4.33', '<')) {
     $settings->set('log_cron_days', 0);
     $settings->set('log_archive_days', 30);
     $settings->set('log_archive_severity_max', 0);
+    $settings->set('log_archive_delete_job_logs', false);
     $settings->set('log_archive_references', []);
     $settings->set('log_archive_store', false);
     $settings->set('log_archive_format', 'tsv');
@@ -102,6 +103,13 @@ if (version_compare($oldVersion, '3.4.33', '<')) {
         'A regular deletion of old logs is recommended to keep omeka fluid.' // @translate
     );
     $messenger->addWarning($message);
+}
+
+if (version_compare($oldVersion, '3.4.35', '<')) {
+    $settings->set(
+        'log_archive_delete_job_logs',
+        (bool) $settings->get('log_archive_delete_job_logs', false)
+    );
 }
 
 /**
