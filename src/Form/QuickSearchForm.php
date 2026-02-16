@@ -101,6 +101,18 @@ class QuickSearchForm extends Form
                 ],
             ])
 
+            ->add([
+                'name' => 'job_class',
+                'type' => Element\Text::class,
+                'options' => [
+                    'label' => 'Job class', // @translate
+                ],
+                'attributes' => [
+                    'id' => 'job_class',
+                    'placeholder' => 'Set a job class…', // @translate
+                ],
+            ])
+
             /*
             // TODO Fix issue when the number of users is too big to allow to keep the selector.
             ->add([

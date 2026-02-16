@@ -101,6 +101,12 @@ class LogSearchFilters extends AbstractHelper
                     $filters[$filterLabel][] = $filterValue;
                     break;
 
+                case 'job_class':
+                    $filterLabel = $translate('Job class'); // @translate
+                    $filterValue = $value;
+                    $filters[$filterLabel][] = $filterValue;
+                    break;
+
                 default:
                     break;
             }

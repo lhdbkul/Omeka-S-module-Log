@@ -81,6 +81,21 @@ class LogAdapter extends AbstractEntityAdapter
             }
         }
 
+        if (isset($query['job_class']) && $query['job_class'] !== '') {
+            $jobAlias = $this->createAlias();
+            $qb->innerJoin(
+                'omeka_root.job',
+                $jobAlias
+            );
+            // Escape backslashes for LIKE: the user can type
+            // "BulkImport\Job\Import" without doubling backslashes.
+            $jobClass = strtr($query['job_class'], ['\\' => '\\\\']);
+            $qb->andWhere($expr->like(
+                "$jobAlias.class",
+                $this->createNamedParameter($qb, '%' . $jobClass . '%')
+            ));
+        }
+
         if (isset($query['reference']) && $query['reference']) {
             $qb->andWhere($expr->eq(
                 'omeka_root.reference',
