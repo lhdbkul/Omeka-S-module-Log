@@ -32,8 +32,10 @@ class Dispatcher extends \Omeka\Job\Dispatcher
         }
 
         // Refresh owner and use reference only to avoid doctrine issue when a
-        // job dispatches another job. Use a new entity manager too.
-        $this->entityManager = $this->getNewEntityManager($this->entityManager);
+        // job dispatches another job. Use a new entity manager only if closed.
+        if (!$this->entityManager->isOpen()) {
+            $this->entityManager = $this->getNewEntityManager($this->entityManager);
+        }
 
         $owner = $this->auth->getIdentity();
         $owner = $owner
