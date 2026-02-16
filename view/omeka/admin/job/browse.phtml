@@ -10,7 +10,6 @@ use \Log\Stdlib\JobState;
 
 $plugins = $this->getHelperPluginManager();
 $url = $this->plugin('url');
-$api = $this->plugin('api');
 $i18n = $this->plugin('i18n');
 $escape = $plugins->get('escapeHtml');
 $assetUrl = $plugins->get('assetUrl');
@@ -32,6 +31,23 @@ $stateWarning = $escapeAttr($translate('Warning: The system state may not be rel
 $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
 
 $jobStateUrlBase = strtr($url('admin/job-state', ['id' => '0000']), ['0000' => '{id}']);
+
+// Fetch log counts for all displayed jobs in a single query early.
+$jobIds = array_map(fn ($job) => $job->id(), $jobs);
+$logCountsByJob = [];
+if ($jobIds) {
+    /** @var \Doctrine\DBAL\Connection $connection */
+    $connection = $plugins->get('api')->read('vocabularies', 1)->getContent()->getServiceLocator()->get('Omeka\Connection');
+    $qb = $connection->createQueryBuilder();
+    $qb->select('job_id', 'COUNT(id) AS total')
+        ->from('log')
+        ->where($qb->expr()->in('job_id', ':job_ids'))
+        ->setParameter('job_ids', $jobIds, \Doctrine\DBAL\Connection::PARAM_INT_ARRAY)
+        ->groupBy('job_id');
+    foreach ($qb->execute()->fetchAllAssociative() as $row) {
+        $logCountsByJob[(int) $row['job_id']] = (int) $row['total'];
+    }
+}
 ?>
 
 <?php // Display the state below the status. ?>
@@ -83,7 +99,7 @@ $jobStateUrlBase = strtr($url('admin/job-state', ['id' => '0000']), ['0000' => '
         } else {
             $ownerText = $escape($translate('[No owner]'));
         }
-        $totalLogs = $api->search('logs', ['job_id' => $jobId, 'limit' => 0])->getTotalResults();
+        $totalLogs = $logCountsByJob[$jobId] ?? 0;
         $step = method_exists($job, 'step') ? $job->step() : null;
         $state = $jobState($job);
         ?>
