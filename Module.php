@@ -292,6 +292,7 @@ class Module extends AbstractModule
         $dispatcher->dispatch(\Log\Job\ArchiveLogsJob::class, [
             'seconds' => $settings->get('log_archive_days', 0) * 86400,
             'severity' => $settings->get('log_archive_severity', 0) ?: 0,
+            'delete_job_logs' => (bool) $settings->get('log_archive_delete_job_logs', false),
             'references' => $settings->get('log_archive_references') ?: [],
 
             'store' => (bool) $settings->get('log_archive_store', true),

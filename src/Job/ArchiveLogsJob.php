@@ -59,6 +59,8 @@ class ArchiveLogsJob extends AbstractJob
         $includeId = (bool) $this->getArg('include_id');
         $translateMessage = (bool) $this->getArg('translate', true);
 
+        $deleteJobLogs = (bool) $this->getArg('delete_job_logs', false);
+
         $delete = (bool) $this->getArg('delete', true);
 
         if (!is_numeric($seconds)) {
@@ -183,6 +185,13 @@ class ArchiveLogsJob extends AbstractJob
             }
             $qb
                 ->andWhere($referencesExpr);
+        }
+
+        // Keep logs with jobs unless severity is low (info or debug).
+        if (!$deleteJobLogs) {
+            $qb
+                ->andWhere('(job_id IS NULL OR severity >= :keep_job_severity)')
+                ->setParameter('keep_job_severity', \Laminas\Log\Logger::INFO, Types::INTEGER);
         }
 
         $qb

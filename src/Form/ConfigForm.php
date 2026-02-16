@@ -68,6 +68,17 @@ class ConfigForm extends Form
                 ],
             ])
             ->add([
+                'name' => 'log_archive_delete_job_logs',
+                'type' => Element\Checkbox::class,
+                'options' => [
+                    'label' => 'Delete logs with jobs (except errors)', // @translate
+                    'info' => 'When unchecked, logs associated with a job are preserved during archiving and deletion, unless their severity is info or debug.', // @translate
+                ],
+                'attributes' => [
+                    'id' => 'log_archive_delete_job_logs',
+                ],
+            ])
+            ->add([
                 'name' => 'log_archive_reference',
                 'type' => OmekaElement\ArrayTextarea::class,
                 'options' => [

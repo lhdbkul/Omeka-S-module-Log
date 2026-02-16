@@ -332,6 +332,7 @@ return [
 
             'log_archive_days' => 180,
             'log_archive_severity_max' => 0,
+            'log_archive_delete_job_logs' => false,
             'log_archive_references' => [],
 
             'log_archive_store' => true,
