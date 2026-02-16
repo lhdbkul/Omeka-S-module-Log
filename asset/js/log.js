@@ -58,7 +58,8 @@
         /**
          * Better display of big logs.
          */
-        $('#content').on('click', 'a.popover', function() {
+        $('#content').on('click', 'a.popover', function(ev) {
+            ev.preventDefault();
             const message = $(this).closest('.log-popover-parent').find('.log-popover-current').text();
             dialogMessage(message, true);
         });
