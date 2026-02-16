@@ -262,7 +262,7 @@ class LogAdapter extends AbstractEntityAdapter
             'alert' => Logger::ALERT,
             'critical' => Logger::CRIT,
             'crit' => Logger::CRIT,
-            'errror' => Logger::ERR,
+            'error' => Logger::ERR,
             'err' => Logger::ERR,
             'warning' => Logger::WARN,
             'warn' => Logger::WARN,

@@ -79,7 +79,7 @@ class ConfigForm extends Form
                 ],
             ])
             ->add([
-                'name' => 'log_archive_reference',
+                'name' => 'log_archive_references',
                 'type' => OmekaElement\ArrayTextarea::class,
                 'options' => [
                     'label' => 'References to keep', // @translate
