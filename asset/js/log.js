@@ -76,6 +76,19 @@
             }
         });
 
+        /**
+         * Copy log message to clipboard.
+         */
+        $('#content').on('click', 'a.log-copy', function(ev) {
+            ev.preventDefault();
+            const row = $(this).closest('.log-popover-parent');
+            const full = row.find('.log-message-full');
+            const text = full.length ? full.text() : row.find('.log-message').text();
+            navigator.clipboard.writeText(text.trim());
+            $('.log-copy').removeClass('fa-check log-copied').addClass('fa-copy').attr('title', Omeka.jsTranslate('Copy'));
+            $(this).removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+        });
+
         // Complete the batch delete form after confirmation.
         // TODO Check if this is still needed.
         $('#confirm-delete-selected, #confirm-delete-all').on('submit', function() {

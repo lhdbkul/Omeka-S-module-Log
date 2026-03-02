@@ -329,6 +329,10 @@ return [
             ],
         ],
     ],
+    'js_translate_strings' => [
+        'Copy', // @translate
+        'Message copied', // @translate
+    ],
     'log' => [
         'config' => [
             'log_cron_days' => 180,
