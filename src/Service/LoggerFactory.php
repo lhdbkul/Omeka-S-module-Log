@@ -11,6 +11,8 @@ use Laminas\Log\Logger;
 use Laminas\Log\Writer\Noop;
 use Laminas\Log\Writer\Stream;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Laminas\Http\PhpEnvironment\Request as HttpRequest;
+use Log\Log\Processor\HttpRequest as HttpRequestProcessor;
 use Log\Log\Processor\UserId;
 use Log\Log\Writer\Doctrine as DoctrineWriter;
 use Log\Service\Log\Processor\UserIdFactory;
@@ -70,6 +72,13 @@ class LoggerFactory implements FactoryInterface
         if (!empty($config['logger']['options']['processors']['userid']['name'])) {
             $userIdProcessor = $this->addUserIdProcessor($services);
             $logger->addProcessor($userIdProcessor);
+        }
+
+        // Add HTTP request processor if configured.
+        // This adds url, ip, referer and user agent to the context
+        // for all HTTP log entries. Skipped in CLI (jobs).
+        if (!empty($config['logger']['options']['processors']['httprequest']['name'])) {
+            $logger->addProcessor($this->addHttpRequestProcessor($services));
         }
 
         // Handle any remaining writers from config.
@@ -276,5 +285,19 @@ class LoggerFactory implements FactoryInterface
     {
         $userIdFactory = new UserIdFactory();
         return $userIdFactory($services, '');
+    }
+
+    /**
+     * Add the log processor for HTTP request context.
+     *
+     * @param ContainerInterface $services
+     * @return HttpRequestProcessor
+     */
+    protected function addHttpRequestProcessor(ContainerInterface $services)
+    {
+        $request = $services->get('Request');
+        return new HttpRequestProcessor(
+            $request instanceof HttpRequest ? $request : null
+        );
     }
 }
