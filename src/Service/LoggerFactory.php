@@ -4,7 +4,7 @@ namespace Log\Service;
 
 use Common\Log\Formatter\PsrLogSimple;
 use Doctrine\DBAL\Connection;
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Log\Exception;
 use Laminas\Log\Filter\Priority;
 use Laminas\Log\Logger;

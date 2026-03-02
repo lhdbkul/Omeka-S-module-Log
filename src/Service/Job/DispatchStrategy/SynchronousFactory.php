@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace Log\Service\Job\DispatchStrategy;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Job\DispatchStrategy\Synchronous;
 
