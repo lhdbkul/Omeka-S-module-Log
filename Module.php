@@ -30,7 +30,9 @@
 namespace Log;
 
 if (!class_exists('Common\TraitModule', false)) {
-    require_once dirname(__DIR__) . '/Common/TraitModule.php';
+    require_once file_exists(dirname(__DIR__) . '/Common/src/TraitModule.php')
+        ? dirname(__DIR__) . '/Common/src/TraitModule.php'
+        : dirname(__DIR__) . '/Common/TraitModule.php';
 }
 
 // Required during migration from Generic to Common.
@@ -58,13 +60,12 @@ class Module extends AbstractModule
 
     public const NAMESPACE = __NAMESPACE__;
 
-    protected $dependencies = [
-        'Common',
-    ];
-
     public function init(ModuleManager $moduleManager): void
     {
-        $moduleManager->getEventManager()->attach(ModuleEvent::EVENT_MERGE_CONFIG, [$this, 'onEventMergeConfig']);
+        $moduleManager->getEventManager()->attach(
+            ModuleEvent::EVENT_MERGE_CONFIG,
+            [$this, 'onEventMergeConfig']
+        );
     }
 
     /**

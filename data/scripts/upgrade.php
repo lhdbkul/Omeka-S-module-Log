@@ -36,7 +36,8 @@ if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActi
         $translator->translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
         'Common', '3.4.80'
     );
-    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translator('Missing requirement. Unable to upgrade.')); // @translate
 }
 
 if (version_compare($oldVersion, '3.2.1', '<')) {
@@ -80,7 +81,7 @@ if (version_compare($oldVersion, '3.4.33', '<')) {
     // Cron, store and delete are disabled on upgrade to let the admin chooses.
     // Furthermore, the first process may be intensive.
     $settings->set('log_cron_days', 0);
-    $settings->set('log_archive_days', 30);
+    $settings->set('log_archive_days', 180);
     $settings->set('log_archive_severity_max', 0);
     $settings->set('log_archive_delete_job_logs', false);
     $settings->set('log_archive_references', []);
