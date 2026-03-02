@@ -67,9 +67,24 @@
 
         $(document).on('click', '.log-copy-dialog', function(ev) {
             ev.preventDefault();
-            const text = $(this).closest('.dialog-panel').find('.dialog-contents').text();
-            navigator.clipboard.writeText(text.trim());
-            $(this).removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+            var btn = $(this);
+            var text = btn.closest('.dialog-panel').find('.dialog-contents').text().trim();
+            var copied = function() {
+                btn.removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(copied);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                copied();
+            }
         });
 
         $(document).on('click', '.dialog-header-close-button', function() {
@@ -92,9 +107,24 @@
             const row = $(this).closest('.log-popover-parent');
             const full = row.find('.log-message-full');
             const text = full.length ? full.text() : row.find('.log-message').text();
-            navigator.clipboard.writeText(text.trim());
-            $('.log-copy').removeClass('fa-check log-copied').addClass('fa-copy').attr('title', Omeka.jsTranslate('Copy'));
-            $(this).removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+            var btn = $(this);
+            var copied = function() {
+                $('.log-copy').removeClass('fa-check log-copied').addClass('fa-copy').attr('title', Omeka.jsTranslate('Copy'));
+                btn.removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+            };
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text.trim()).then(copied);
+            } else {
+                var ta = document.createElement('textarea');
+                ta.value = text.trim();
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                copied();
+            }
         });
 
         // Complete the batch delete form after confirmation.
