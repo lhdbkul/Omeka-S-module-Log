@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-16 00:00+0000\n"
-"PO-Revision-Date: 2026-02-16 00:00+0000\n"
+"POT-Creation-Date: 2026-03-02 00:00+0000\n"
+"PO-Revision-Date: 2026-03-02 00:00+0000\n"
 "Last-Translator: Daniel Berthereau <Daniel.fr@Berthereau.net>\n"
 "Language-Team: French <kde-i18n-doc@kde.org>\n"
 "Language: fr\n"
@@ -15,12 +15,12 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 3.6\n"
 
-#: data/scripts/upgrade.php:36 Module.php:99
+#: data/scripts/upgrade.php:36 Module.php:100
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr "Le module %1$s doit être mis à niveau à la version %2$s ou supérieure."
 
-#: Module.php:122
+#: Module.php:123
 msgid ""
 "Logging is not active by default in Omeka. This module overrides option "
 "[logger][log]."
@@ -28,7 +28,7 @@ msgstr ""
 "La journalisation n’est pas active par défaut dans Omeka. Ce module la "
 "définit en outrepassant l’option [logger][log]."
 
-#: Module.php:123
+#: Module.php:124
 msgid ""
 "You may need to update the file config/local.config.php, in particular to "
 "set the default level of severity."
@@ -36,7 +36,7 @@ msgstr ""
 "Il peut être nécessaire de mettre à jour le fichier config/local.config.php, "
 "en particulier pour définir le niveau de gravité par défaut."
 
-#: Module.php:125
+#: Module.php:126
 msgid "See examples of config in the {link}readme{link_end}."
 msgstr "Cf. les exemples de configuration dans le {link}lisez-moi{link_end}."
 
@@ -46,7 +46,7 @@ msgstr "Paramètres"
 
 #: src/ColumnType/Job.php:83 view/common/job-state.phtml:39
 #: view/log/admin/log/show-details.phtml:33
-#: view/omeka/admin/job/browse.phtml:31 view/omeka/admin/job/show.phtml:56
+#: view/omeka/admin/job/browse.phtml:30 view/omeka/admin/job/show.phtml:56
 msgid "Warning: The system state may not be reliable on some servers."
 msgstr "Attention : l’état système peut être incorrect sur certains serveurs."
 
@@ -75,7 +75,7 @@ msgid "Severity"
 msgstr "Gravité"
 
 #: src/Job/ArchiveLogsJob.php:360 src/Job/ArchiveLogsJob.php:377
-#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:97
+#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:116
 msgid "Message"
 msgstr "Message"
 
@@ -111,30 +111,34 @@ msgstr "Filtre rapide"
 msgid "Full log"
 msgstr "Message complet"
 
-#: view/log/admin/log/browse.phtml:157 view/log/admin/log/browse.phtml:175
+#: view/log/admin/log/browse.phtml:114
+msgid "Copy"
+msgstr "Copier"
+
+#: view/log/admin/log/browse.phtml:161 view/log/admin/log/browse.phtml:179
 msgid "Delete logs"
 msgstr "Supprimer les journaux"
 
-#: view/log/admin/log/browse.phtml:158
+#: view/log/admin/log/browse.phtml:162
 msgid "Are you sure you would like to delete the selected logs?"
 msgstr "Êtes-vous sûr de vouloir supprimer les journaux sélectionnés ?"
 
-#: view/log/admin/log/browse.phtml:160 view/log/admin/log/browse.phtml:178
+#: view/log/admin/log/browse.phtml:164 view/log/admin/log/browse.phtml:182
 #, php-format
 msgid "%s: this action will permanently delete %s logs and cannot be undone."
 msgstr ""
 "%s : cette action supprimera les %s journaux de manière définitive et ne "
 "pourra pas être annulée."
 
-#: view/log/admin/log/browse.phtml:176
+#: view/log/admin/log/browse.phtml:180
 msgid "Are you sure you would like to delete all logs of this result?"
 msgstr "Êtes-vous sûr de vouloir supprimer tous les journaux du résultat ?"
 
-#: view/log/admin/log/browse.phtml:193
+#: view/log/admin/log/browse.phtml:197
 msgid "Omeka could not find any logs, or they are saved in another place."
 msgstr "Omeka ne trouve pas de journal, ou ils sont enregistrés ailleurs."
 
-#: view/log/admin/log/browse.phtml:205
+#: view/log/admin/log/browse.phtml:209
 msgid "Search logs"
 msgstr "Rechercher les journaux"
 
@@ -166,15 +170,19 @@ msgstr "Commencé à %s"
 msgid "Ended at %s"
 msgstr "Terminé à %s"
 
-#: view/omeka/admin/job/browse.phtml:83
+#: view/log/admin/log/show-details.phtml:106
+msgid "Extra data"
+msgstr "Autres données"
+
+#: view/omeka/admin/job/browse.phtml:82
 msgid "Id (Params)"
 msgstr "Id (Paramètres)"
 
-#: view/omeka/admin/job/browse.phtml:84 view/omeka/admin/job/show.phtml:81
+#: view/omeka/admin/job/browse.phtml:83 view/omeka/admin/job/show.phtml:81
 msgid "System state"
 msgstr "État système"
 
-#: view/omeka/admin/job/browse.phtml:88
+#: view/omeka/admin/job/browse.phtml:87
 msgid "Status (Log)"
 msgstr "Statut (Journal)"
 
@@ -195,7 +203,11 @@ msgstr "Journal (base de données)"
 msgid "View log (%d results)"
 msgstr "Voir les journaux (%d resultats)"
 
-#: data/scripts/upgrade.php:72
+#: data/scripts/upgrade.php:40
+msgid "Missing requirement. Unable to upgrade."
+msgstr "Pré-requis absent. Impossible de mettre à jour."
+
+#: data/scripts/upgrade.php:73
 msgid ""
 "Support of the third party service Sentry was moved to a separate module, "
 "{link}Log Sentry{link_end}."
@@ -203,7 +215,7 @@ msgstr ""
 "La prise en charge du service tiers Sentry a été déplacée dans un module "
 "séparé, {link}Log Sentry{link_end}."
 
-#: data/scripts/upgrade.php:96
+#: data/scripts/upgrade.php:97
 msgid ""
 "Logs can be archived and purged regularly. Go to {link}config form{link_end} "
 "for params."
@@ -211,13 +223,13 @@ msgstr ""
 "Les journaux peuvent être archivés et purgés régulièrement. Voir {link}"
 "config form{link_end} pour les paramètres."
 
-#: data/scripts/upgrade.php:103
+#: data/scripts/upgrade.php:104
 msgid "A regular deletion of old logs is recommended to keep omeka fluid."
 msgstr ""
 "Il est recommandé de supprimer régulièrement les anciens journaux afin de "
 "préserver la fluidité d'omeka."
 
-#: data/scripts/upgrade.php:122 Module.php:109
+#: data/scripts/upgrade.php:125 Module.php:110
 msgid ""
 "The directory \"{directory}\" is not writeable, so old logs cannot be "
 "archived."
@@ -225,7 +237,7 @@ msgstr ""
 "Le répertoire « {directory} » n’est pas accessible en écriture, les anciens "
 "journaux ne peuvent donc pas être archivés."
 
-#: data/scripts/upgrade.php:176
+#: data/scripts/upgrade.php:179
 msgid ""
 "A background job has been started to add database indices. If it fails, you "
 "should create them manually. Missing indices: {list}."
@@ -234,7 +246,7 @@ msgstr ""
 "données. En cas d’échec, vous devez les créer manuellement. Index "
 "manquants : {list}."
 
-#: Module.php:262
+#: Module.php:263
 msgid ""
 "Last cron occurred on {date_time}. Next cron will occur after {date_time_2}."
 msgstr ""
@@ -546,13 +558,13 @@ msgstr ""
 "Suppression des journaux en arrière-plan (<a href=\"{job_url}\">tâche "
 "#{job_id}</a>). Cela peut prendre un moment."
 
-#: src/Service/LoggerFactory.php:63 src/Service/LoggerDbFactory.php:31
+#: src/Service/LoggerFactory.php:65 src/Service/LoggerDbFactory.php:31
 msgid "[Omeka S] Database logging disabled: connection unavailable."
 msgstr ""
 "[Omeka S] Enregistrement des journaux en base de données désactivée : "
 "connexion indisponible."
 
-#: src/Service/LoggerFactory.php:113
+#: src/Service/LoggerFactory.php:122
 msgid "[Omeka S] File logging disabled: not writeable."
 msgstr ""
 "[Omeka S] Enregistrement des journaux dans le fichier désactivée : "
@@ -585,6 +597,10 @@ msgstr "En pause"
 #: src/Stdlib/JobState.php:47
 msgid "Zombie"
 msgstr "Zombie"
+
+#: config/module.config.php:334
+msgid "Message copied"
+msgstr "Message copié"
 
 #~ msgid ""
 #~ "The library is not compatible with the version of php on the server. Run "
