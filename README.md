@@ -59,6 +59,15 @@ To support php 8.2 or greater, run this command first:
 composer update
 ```
 
+* For test
+
+The module includes a comprehensive test suite with unit and functional tests.
+Run them from the root of Omeka:
+
+```sh
+vendor/bin/phpunit -c modules/Log/phpunit.xml --testdox
+```
+
 
 Config
 ------
