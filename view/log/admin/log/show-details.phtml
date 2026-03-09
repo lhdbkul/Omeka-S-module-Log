@@ -93,6 +93,25 @@ $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
         </div>
     <?php endif; ?>
     </div>
+    <?php
+    $rawMessage = $log->message();
+    $context = $rawMessage->getContext();
+    // Keys used as placeholders in the message.
+    preg_match_all('~\{([^}]+)\}~', $rawMessage->getMessage(), $matches);
+    $messageKeys = $matches[1] ?? [];
+    $extraContext = array_diff_key($context, array_flip($messageKeys));
+    ?>
+    <?php if ($extraContext): ?>
+    <div class="meta-group">
+        <h4><?= $escape($translate('Extra data')) ?></h4>
+        <?php foreach ($extraContext as $key => $value): ?>
+        <div class="value">
+            <strong><?= $escape($key) ?>:</strong>
+            <?= $escape(is_scalar($value) ? (string) $value : json_encode($value, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) ?>
+        </div>
+        <?php endforeach; ?>
+    </div>
+    <?php endif; ?>
     <div class="meta-group">
         <h4><?= $escape($translate('Message')) ?>
         <?php /*
