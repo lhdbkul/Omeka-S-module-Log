@@ -525,7 +525,7 @@ class ArchiveLogsJob extends AbstractJob
         if (!$result) {
             $this->logger->err(
                 'The directory "{path}" is not writeable: {error}.', // @translate
-                ['path' => $dirPath, 'error' => error_get_last()['message']]
+                ['path' => $dirPath, 'error' => error_get_last()['message'] ?? 'unknown error']
             );
             return null;
         }
