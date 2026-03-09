@@ -2,7 +2,7 @@
 
 namespace Log\Service;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Laminas\Log\Logger;
 use Laminas\Log\Writer\Noop;
 

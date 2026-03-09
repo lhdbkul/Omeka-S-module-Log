@@ -2,7 +2,7 @@
 
 namespace Log\Service\ViewHelper;
 
-use Interop\Container\ContainerInterface;
+use Psr\Container\ContainerInterface;
 use Log\View\Helper\JobState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 
