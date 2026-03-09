@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-16 00:00+0000\n"
+"POT-Creation-Date: 2026-03-02 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,24 +17,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/scripts/upgrade.php:36 Module.php:99
+#: data/scripts/upgrade.php:36 Module.php:100
 #, php-format
 msgid "The module %1$s should be upgraded to version %2$s or later."
 msgstr ""
 
-#: Module.php:122
+#: Module.php:123
 msgid ""
 "Logging is not active by default in Omeka. This module overrides option "
 "[logger][log]."
 msgstr ""
 
-#: Module.php:123
+#: Module.php:124
 msgid ""
 "You may need to update the file config/local.config.php, in particular to "
 "set the default level of severity."
 msgstr ""
 
-#: Module.php:125
+#: Module.php:126
 msgid "See examples of config in the {link}readme{link_end}."
 msgstr ""
 
@@ -44,7 +44,7 @@ msgstr ""
 
 #: src/ColumnType/Job.php:83 view/common/job-state.phtml:39
 #: view/log/admin/log/show-details.phtml:33
-#: view/omeka/admin/job/browse.phtml:31 view/omeka/admin/job/show.phtml:56
+#: view/omeka/admin/job/browse.phtml:30 view/omeka/admin/job/show.phtml:56
 msgid "Warning: The system state may not be reliable on some servers."
 msgstr ""
 
@@ -73,7 +73,7 @@ msgid "Severity"
 msgstr ""
 
 #: src/Job/ArchiveLogsJob.php:360 src/Job/ArchiveLogsJob.php:377
-#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:97
+#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:116
 msgid "Message"
 msgstr ""
 
@@ -109,28 +109,32 @@ msgstr ""
 msgid "Full log"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:157 view/log/admin/log/browse.phtml:175
+#: view/log/admin/log/browse.phtml:114
+msgid "Copy"
+msgstr ""
+
+#: view/log/admin/log/browse.phtml:161 view/log/admin/log/browse.phtml:179
 msgid "Delete logs"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:158
+#: view/log/admin/log/browse.phtml:162
 msgid "Are you sure you would like to delete the selected logs?"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:160 view/log/admin/log/browse.phtml:178
+#: view/log/admin/log/browse.phtml:164 view/log/admin/log/browse.phtml:182
 #, php-format
 msgid "%s: this action will permanently delete %s logs and cannot be undone."
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:176
+#: view/log/admin/log/browse.phtml:180
 msgid "Are you sure you would like to delete all logs of this result?"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:193
+#: view/log/admin/log/browse.phtml:197
 msgid "Omeka could not find any logs, or they are saved in another place."
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:205
+#: view/log/admin/log/browse.phtml:209
 msgid "Search logs"
 msgstr ""
 
@@ -162,15 +166,19 @@ msgstr ""
 msgid "Ended at %s"
 msgstr ""
 
-#: view/omeka/admin/job/browse.phtml:83
+#: view/log/admin/log/show-details.phtml:106
+msgid "Extra data"
+msgstr ""
+
+#: view/omeka/admin/job/browse.phtml:82
 msgid "Id (Params)"
 msgstr ""
 
-#: view/omeka/admin/job/browse.phtml:84 view/omeka/admin/job/show.phtml:81
+#: view/omeka/admin/job/browse.phtml:83 view/omeka/admin/job/show.phtml:81
 msgid "System state"
 msgstr ""
 
-#: view/omeka/admin/job/browse.phtml:88
+#: view/omeka/admin/job/browse.phtml:87
 msgid "Status (Log)"
 msgstr ""
 
@@ -191,35 +199,39 @@ msgstr ""
 msgid "View log (%d results)"
 msgstr ""
 
-#: data/scripts/upgrade.php:72
+#: data/scripts/upgrade.php:40
+msgid "Missing requirement. Unable to upgrade."
+msgstr ""
+
+#: data/scripts/upgrade.php:73
 msgid ""
 "Support of the third party service Sentry was moved to a separate module, "
 "{link}Log Sentry{link_end}."
 msgstr ""
 
-#: data/scripts/upgrade.php:96
+#: data/scripts/upgrade.php:97
 msgid ""
 "Logs can be archived and purged regularly. Go to {link}config form{link_end} "
 "for params."
 msgstr ""
 
-#: data/scripts/upgrade.php:103
+#: data/scripts/upgrade.php:104
 msgid "A regular deletion of old logs is recommended to keep omeka fluid."
 msgstr ""
 
-#: data/scripts/upgrade.php:122 Module.php:109
+#: data/scripts/upgrade.php:125 Module.php:110
 msgid ""
 "The directory \"{directory}\" is not writeable, so old logs cannot be "
 "archived."
 msgstr ""
 
-#: data/scripts/upgrade.php:176
+#: data/scripts/upgrade.php:179
 msgid ""
 "A background job has been started to add database indices. If it fails, you "
 "should create them manually. Missing indices: {list}."
 msgstr ""
 
-#: Module.php:262
+#: Module.php:263
 msgid ""
 "Last cron occurred on {date_time}. Next cron will occur after {date_time_2}."
 msgstr ""
@@ -504,11 +516,11 @@ msgid ""
 "may take a while."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:63 src/Service/LoggerDbFactory.php:31
+#: src/Service/LoggerFactory.php:65 src/Service/LoggerDbFactory.php:31
 msgid "[Omeka S] Database logging disabled: connection unavailable."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:113
+#: src/Service/LoggerFactory.php:122
 msgid "[Omeka S] File logging disabled: not writeable."
 msgstr ""
 
@@ -538,4 +550,8 @@ msgstr ""
 
 #: src/Stdlib/JobState.php:47
 msgid "Zombie"
+msgstr ""
+
+#: config/module.config.php:334
+msgid "Message copied"
 msgstr ""
