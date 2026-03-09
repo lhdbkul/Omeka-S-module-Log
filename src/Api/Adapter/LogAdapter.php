@@ -256,7 +256,10 @@ class LogAdapter extends AbstractEntityAdapter
      */
     protected function buildQuerySeverityComparison(QueryBuilder $qb, array $query, $value, $column): void
     {
-        $map = [
+        // The form sends numeric strings ('0'–'7'), but the api
+        // may receive severity names ('error', 'info', etc.) or
+        // int values. Normalize to numeric string before comparison.
+        static $map = [
             'emergency' => Logger::EMERG,
             'emerg' => Logger::EMERG,
             'alert' => Logger::ALERT,
@@ -272,8 +275,23 @@ class LogAdapter extends AbstractEntityAdapter
             'info' => Logger::INFO,
             'debug' => Logger::DEBUG,
         ];
-        $value = str_ireplace(array_keys($map), array_values($map), $value);
-        $this->buildQueryComparison($qb, $query, $value, $column);
+
+        $value = (string) $value;
+
+        // Extract optional comparison prefix (<=, >=, <>, <, >, =).
+        $prefix = '';
+        if (preg_match('/^([<>=!]{1,2})/', $value, $matches)) {
+            $prefix = $matches[1];
+            $value = substr($value, strlen($prefix));
+        }
+
+        // Convert severity name to numeric level when needed.
+        $lower = strtolower(trim($value));
+        if (isset($map[$lower])) {
+            $value = (string) $map[$lower];
+        }
+
+        $this->buildQueryComparison($qb, $query, $prefix . $value, $column);
     }
 
     /**
