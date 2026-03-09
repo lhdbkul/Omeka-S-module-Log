@@ -16,6 +16,7 @@
                     <button type="button" class="dialog-header-close-button" title="Close" autofocus="autofocus">
                         <span class="dialog-close">🗙</span>
                     </button>
+                    <a href="#" class="o-icon- fa fa-copy log-copy-dialog" title="Copy"></a>
                 </div>
                 <div class="dialog-contents">
                     {{ message }}
@@ -62,6 +63,13 @@
             ev.preventDefault();
             const message = $(this).closest('.log-popover-parent').find('.log-popover-current').text();
             dialogMessage(message, true);
+        });
+
+        $(document).on('click', '.log-copy-dialog', function(ev) {
+            ev.preventDefault();
+            const text = $(this).closest('.dialog-panel').find('.dialog-contents').text();
+            navigator.clipboard.writeText(text.trim());
+            $(this).removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
         });
 
         $(document).on('click', '.dialog-header-close-button', function() {

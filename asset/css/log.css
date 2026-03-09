@@ -82,8 +82,14 @@
     .logs .log-popover-current {
         display: none;
     }
-    .logs a.log-copied {
+    .logs a.log-copied,
+    a.log-copy-dialog.log-copied {
         color: green;
+    }
+    dialog .dialog-header .log-copy-dialog {
+        float: right;
+        margin-right: 8px;
+        cursor: pointer;
     }
     .logs .log-message {
         white-space: normal;
