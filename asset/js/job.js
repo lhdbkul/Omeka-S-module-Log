@@ -50,10 +50,12 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     };
 
+    const ucFirst = (s) => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+
     const updateDom = (jobId, data) => {
         if (data?.data?.['job']?.['o:system_state']) {
-            const state= data.data['job']['o:system_state'].state;
-            const label= data.data['job']['o:system_state'].label;
+            const state = data.data['job']['o:system_state'].state;
+            const label = ucFirst(data.data['job']['o:system_state'].label);
             const icon = data.data['job']['o:system_state'].icon;
 
             // Find all elements with the same job id.
@@ -76,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (data?.data?.['job']?.['o:status_label']) {
-            const statusLabel = data.data['job']['o:status_label'];
+            const statusLabel = ucFirst(data.data['job']['o:status_label']);
             document.querySelectorAll(`.job-status[data-job-id="${jobId}"]`).forEach(jobStatus => {
                 const labelEl = jobStatus.querySelector('.job-status-label');
                 if (labelEl) {
