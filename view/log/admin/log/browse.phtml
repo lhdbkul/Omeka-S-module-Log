@@ -102,17 +102,11 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
                 </span>
                 <ul class="actions">
                     <?php if ($isLong): ?>
-                    <li><?= $hyperlink('', '#', [
-                            'class' => 'o-icon- fa fa-expand popover',
-                            'title' => $translate('Full log'),
-                        ]) ?>
+                    <li><button type="button" class="o-icon- fa fa-expand popover" title="<?= $escapeAttr($translate('Full log')) ?>"></button>
                         <div class="log-message-full log-popover-content log-popover-current"><?= $shouldEscape ? $escape($text) : $text ?></div>
                     </li>
                     <?php endif; ?>
-                    <li><?= $hyperlink('', '#', [
-                        'class' => 'o-icon- fa fa-copy log-copy',
-                        'title' => $translate('Copy'),
-                    ]) ?></li>
+                    <li><button type="button" class="o-icon- far fa-copy log-copy" title="<?= $escapeAttr($translate('Copy')) ?>"></button></li>
                     <?php if ($userIsAllowedDelete): ?>
                     <li><?= $hyperlink('', '#', [
                         'data-sidebar-selector' => '#sidebar',

@@ -16,7 +16,7 @@
                     <button type="button" class="dialog-header-close-button" title="Close" autofocus="autofocus">
                         <span class="dialog-close">🗙</span>
                     </button>
-                    <a href="#" class="o-icon- fa fa-copy log-copy-dialog" title="Copy"></a>
+                    <button type="button" class="o-icon- far fa-copy log-copy-dialog" title="Copy"></button>
                 </div>
                 <div class="dialog-contents">
                     {{ message }}
@@ -59,18 +59,16 @@
         /**
          * Better display of big logs.
          */
-        $('#content').on('click', 'a.popover', function(ev) {
-            ev.preventDefault();
+        $('#content').on('click', 'button.popover', function(ev) {
             const message = $(this).closest('.log-popover-parent').find('.log-popover-current').text();
             dialogMessage(message, true);
         });
 
         $(document).on('click', '.log-copy-dialog', function(ev) {
-            ev.preventDefault();
             var btn = $(this);
             var text = btn.closest('.dialog-panel').find('.dialog-contents').text().trim();
             var copied = function() {
-                btn.removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+                btn.removeClass('far fa-copy').addClass('fa fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
             };
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text).then(copied);
@@ -102,15 +100,14 @@
         /**
          * Copy log message to clipboard.
          */
-        $('#content').on('click', 'a.log-copy', function(ev) {
-            ev.preventDefault();
+        $('#content').on('click', 'button.log-copy', function(ev) {
             const row = $(this).closest('.log-popover-parent');
             const full = row.find('.log-message-full');
             const text = full.length ? full.text() : row.find('.log-message').text();
             var btn = $(this);
             var copied = function() {
-                $('.log-copy').removeClass('fa-check log-copied').addClass('fa-copy').attr('title', Omeka.jsTranslate('Copy'));
-                btn.removeClass('fa-copy').addClass('fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
+                $('.log-copy').removeClass('fa fa-check log-copied').addClass('far fa-copy').attr('title', Omeka.jsTranslate('Copy'));
+                btn.removeClass('far fa-copy').addClass('fa fa-check log-copied').attr('title', Omeka.jsTranslate('Message copied'));
             };
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(text.trim()).then(copied);

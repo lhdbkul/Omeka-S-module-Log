@@ -5,6 +5,10 @@
         display: none;
     }
 
+    [class*="o-icon-"].far::before {
+        font-weight: 400;
+    }
+
     header nav .jobs::before,
     .jobs .subhead::before,
     .jobs .no-resources::before {
@@ -82,14 +86,26 @@
     .logs .log-popover-current {
         display: none;
     }
-    .logs a.log-copied,
-    a.log-copy-dialog.log-copied {
+    .logs .actions button,
+    dialog .dialog-header button.log-copy-dialog {
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        color: #a91919;
+    }
+    .logs .actions button:hover,
+    dialog .dialog-header button.log-copy-dialog:hover {
+        color: #e11717;
+    }
+    .logs .actions button.log-copied,
+    dialog .dialog-header button.log-copy-dialog.log-copied {
         color: green;
     }
-    dialog .dialog-header .log-copy-dialog {
+    dialog .dialog-header button.log-copy-dialog {
         float: right;
         margin-right: 8px;
-        cursor: pointer;
+        padding: 6px 10px;
     }
     .logs .log-message {
         white-space: normal;
