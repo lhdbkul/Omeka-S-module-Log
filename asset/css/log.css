@@ -82,6 +82,9 @@
     .logs .log-popover-current {
         display: none;
     }
+    .logs a.log-copied {
+        color: green;
+    }
     .logs .log-message {
         white-space: normal;
         word-wrap: break-word;

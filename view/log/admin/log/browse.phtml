@@ -109,6 +109,10 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
                         <div class="log-message-full log-popover-content log-popover-current"><?= $shouldEscape ? $escape($text) : $text ?></div>
                     </li>
                     <?php endif; ?>
+                    <li><?= $hyperlink('', '#', [
+                        'class' => 'o-icon- fa fa-copy log-copy',
+                        'title' => $translate('Copy'),
+                    ]) ?></li>
                     <?php if ($userIsAllowedDelete): ?>
                     <li><?= $hyperlink('', '#', [
                         'data-sidebar-selector' => '#sidebar',
