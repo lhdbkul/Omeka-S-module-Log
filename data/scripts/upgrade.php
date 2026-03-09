@@ -36,7 +36,8 @@ if (!method_exists($this, 'checkModuleActiveVersion') || !$this->checkModuleActi
         $translator->translate('The module %1$s should be upgraded to version %2$s or later.'), // @translate
         'Common', '3.4.81'
     );
-    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $message);
+    $messenger->addError($message);
+    throw new \Omeka\Module\Exception\ModuleCannotInstallException((string) $translator('Missing requirement. Unable to upgrade.')); // @translate
 }
 
 if (version_compare($oldVersion, '3.2.1', '<')) {
@@ -80,7 +81,7 @@ if (version_compare($oldVersion, '3.4.33', '<')) {
     // Cron, store and delete are disabled on upgrade to let the admin chooses.
     // Furthermore, the first process may be intensive.
     $settings->set('log_cron_days', 0);
-    $settings->set('log_archive_days', 30);
+    $settings->set('log_archive_days', 180);
     $settings->set('log_archive_severity_max', 0);
     $settings->set('log_archive_delete_job_logs', false);
     $settings->set('log_archive_references', []);
@@ -169,13 +170,49 @@ foreach ($indexOlds as $index => $column) {
 }
 
 if ($newIndices || $indexToRemove) {
-    // Dispatch background job to add indexes.
-    // The class is not available during upgrade or install.
+    // Dispatch background job: the log table can be very large. Temporarily
+    // mark the module as active so the PHP-CLI process can bootstrap it.
     require_once dirname(__DIR__, 2) . '/src/Job/LogIndexes.php';
+
+    $moduleId = 'Log';
+    $moduleRow = $connection->executeQuery(
+        'SELECT `is_active` FROM `module` WHERE `id` = ?',
+        [$moduleId]
+    )->fetchAssociative();
+    $wasActive = (bool) ($moduleRow['is_active'] ?? false);
+
+    $connection->executeStatement(
+        'UPDATE `module`'
+        . ' SET `version` = ?, `is_active` = 1'
+        . ' WHERE `id` = ?',
+        [$newVersion, $moduleId]
+    );
+
     $dispatcher = $services->get('Omeka\Job\Dispatcher');
-    $dispatcher->dispatch(\Log\Job\LogIndexes::class);
-    $message = new \Common\Stdlib\PsrMessage(
-        'A background job has been started to add database indices. If it fails, you should create them manually. Missing indices: {list}.', // @translate
+    $job = $dispatcher->dispatch(\Log\Job\LogIndexes::class);
+
+    sleep(5);
+
+    $status = $connection->executeQuery(
+        'SELECT `status` FROM `job` WHERE `id` = ?',
+        [$job->getId()]
+    )->fetchOne();
+    if ($status === \Omeka\Entity\Job::STATUS_STARTING) {
+        $messenger->addWarning(new PsrMessage(
+            'The job #{job_id} is still starting. It may need to be relaunched manually.', // @translate
+            ['job_id' => $job->getId()]
+        ));
+    }
+
+    if (!$wasActive) {
+        $connection->executeStatement(
+            'UPDATE `module` SET `is_active` = 0 WHERE `id` = ?',
+            [$moduleId]
+        );
+    }
+
+    $message = new PsrMessage(
+        'A background job has been started to fix database indexes. Missing indexes: {list}.', // @translate
         ['list' => json_encode(array_values($newIndices))]
     );
     $messenger->addWarning($message);
