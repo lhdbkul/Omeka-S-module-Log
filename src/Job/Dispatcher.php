@@ -22,7 +22,7 @@ class Dispatcher extends \Omeka\Job\Dispatcher
      * {@inheritDoc}
      * @see \Omeka\Job\Dispatcher::dispatch()
      */
-    public function dispatch($class, $args = null, StrategyInterface $strategy = null)
+    public function dispatch($class, $args = null, ?StrategyInterface $strategy = null)
     {
         if (!class_exists($class)) {
             throw new Exception\InvalidArgumentException(sprintf('The job class "%s" does not exist.', $class));

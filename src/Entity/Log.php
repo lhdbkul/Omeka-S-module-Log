@@ -120,7 +120,7 @@ class Log extends AbstractEntity
         return $this->id;
     }
 
-    public function setOwner(User $owner = null): self
+    public function setOwner(?User $owner = null): self
     {
         $this->owner = $owner;
         return $this;
@@ -131,7 +131,7 @@ class Log extends AbstractEntity
         return $this->owner;
     }
 
-    public function setJob(Job $job = null): self
+    public function setJob(?Job $job = null): self
     {
         $this->job = $job;
         return $this;

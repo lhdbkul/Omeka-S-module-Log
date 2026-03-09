@@ -15,7 +15,7 @@ class Synchronous extends \Omeka\Job\DispatchStrategy\Synchronous
      *
      * @inheritdoc
      */
-    public function handleFatalError(Job $job, EntityManager $entityManager, Logger $logger = null): void
+    public function handleFatalError(Job $job, EntityManager $entityManager, ?Logger $logger = null): void
     {
         $lastError = error_get_last();
         if ($lastError) {

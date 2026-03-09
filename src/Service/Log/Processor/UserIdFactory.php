@@ -8,7 +8,7 @@ use Log\Log\Processor\UserId;
 
 class UserIdFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         // When an external authentication is used, the user cannot be stored,
         // because an infinite loop is created between authentication that

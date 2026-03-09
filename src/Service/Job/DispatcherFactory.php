@@ -8,7 +8,7 @@ use Log\Job\Dispatcher;
 
 class DispatcherFactory implements FactoryInterface
 {
-    public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         $dispatcher = new Dispatcher(
             $services->get('Omeka\Job\DispatchStrategy'),

@@ -118,7 +118,7 @@ class ArchiveLogsJobTest extends AbstractHttpControllerTestCase
      *
      * @return int[] Selected log IDs.
      */
-    protected function getArchiveSelectedIds(bool $deleteJobLogs, string $olderThan = null): array
+    protected function getArchiveSelectedIds(bool $deleteJobLogs, ?string $olderThan = null): array
     {
         $qb = $this->connection->createQueryBuilder();
         $qb->select('id')

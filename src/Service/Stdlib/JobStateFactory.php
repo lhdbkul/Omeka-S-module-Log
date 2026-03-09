@@ -16,7 +16,7 @@ class JobStateFactory implements FactoryInterface
      *
      * @return JobState
      */
-    public function __invoke(ContainerInterface $services, $requestedName, array $options = null)
+    public function __invoke(ContainerInterface $services, $requestedName, ?array $options = null)
     {
         return new JobState(
             $services->get('Omeka\EntityManager')
