@@ -120,6 +120,9 @@ return [
                 'userid' => [
                     'name' => Log\Processor\UserId::class,
                 ],
+                'httprequest' => [
+                    'name' => Log\Processor\HttpRequest::class,
+                ],
             ],
             // Special options for exceptions, errors and fatal errors, disabled by Laminas by default.
             // Note that it may disable the default error logging of php and debug tools.

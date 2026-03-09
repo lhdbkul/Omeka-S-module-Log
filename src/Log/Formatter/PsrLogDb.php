@@ -27,19 +27,31 @@ class PsrLogDb extends Base
     /**
      * Formats data to be written by the writer.
      *
-     * To be used with the processors UserId and JobId.
+     * To be used with the processors UserId, JobId and HttpRequest.
      *
      * @param array $event event data
      * @return array
      */
     public function format($event)
     {
+        // Extract HTTP request context set by the HttpRequest
+        // processor before PSR-3 normalization, which would treat
+        // it as leftover extra data and double-encode it.
+        $httpContext = $event['extra']['httpRequest'] ?? [];
+        unset($event['extra']['httpRequest']);
+
         $event = parent::format($event);
         $event = $this->normalizeLogContext($event);
         $event = $this->normalizeLogDateTimeFormat($event);
 
         if (!empty($event['extra']['context']['extra'])) {
             $event['extra']['context']['extra'] = json_encode($event['extra']['context']['extra'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+        }
+
+        // Merge HTTP context as top-level keys in context.
+        if ($httpContext) {
+            $context = $event['extra']['context'] ?? [];
+            $event['extra']['context'] = $httpContext + $context;
         }
 
         if (empty($event['extra']['context'])) {
