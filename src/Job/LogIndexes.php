@@ -40,7 +40,7 @@ use Omeka\Job\AbstractJob;
         foreach (array_filter(explode(";\n", $sqls)) as $sql) {
             try {
                 $connection->executeStatement($sql);
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 // Already created or dropped.
             }
         }

@@ -50,7 +50,7 @@ if (version_compare($oldVersion, '3.2.1', '<')) {
     foreach (explode(";\n", $sqls) as $sql) {
         try {
             $connection->executeStatement($sql);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Already created.
         }
     }
@@ -63,7 +63,7 @@ if (version_compare($oldVersion, '3.3.12.6', '<')) {
         SQL;
     try {
         $connection->executeStatement($sql);
-    } catch (\Exception $e) {
+    } catch (\Throwable $e) {
         // Already created.
     }
 }

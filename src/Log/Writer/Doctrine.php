@@ -107,7 +107,7 @@ class Doctrine extends AbstractWriter
 
         try {
             $this->db->insert($this->tableName, $dataToInsert);
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             throw new Exception\RuntimeException(
                 'Unable to insert log entry into database: ' . $e->getMessage(),
                 0,

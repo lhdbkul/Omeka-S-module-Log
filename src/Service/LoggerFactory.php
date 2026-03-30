@@ -209,7 +209,7 @@ class LoggerFactory implements FactoryInterface
                 if (!empty($iniConfig)) {
                     return $this->createConnectionFromConfig($iniConfig);
                 }
-            } catch (\Exception $e) {
+            } catch (\Throwable $e) {
                 error_log('[Omeka S] Failed to read database-log.ini: ' . $e->getMessage());
             }
         }
@@ -217,7 +217,7 @@ class LoggerFactory implements FactoryInterface
         // Use Omeka's main database connection.
         try {
             return $services->get('Omeka\Connection');
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             error_log('[Omeka S] Failed to get Doctrine connection: ' . $e->getMessage());
             return null;
         }

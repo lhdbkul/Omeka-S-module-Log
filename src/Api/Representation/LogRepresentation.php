@@ -289,7 +289,7 @@ class LogRepresentation extends AbstractEntityRepresentation
                                 $controller = $api->read('resources', $value)->getContent()->getControllerName();
                                 $context[$key] = $hyperlink($value, "$baseUrl/$controller/$value");
                                 $shouldEscapes[$key] = false;
-                            } catch (\Exception $e) {
+                            } catch (\Throwable $e) {
                             }
                         }
                         // TODO Else link with "?id[]=xxx".

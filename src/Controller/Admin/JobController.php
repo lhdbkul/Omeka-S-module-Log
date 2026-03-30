@@ -19,7 +19,7 @@ class JobController extends AbstractActionController
         try {
             /** @var \Omeka\Entity\Job $job*/
             $job = $api->read('jobs', $this->params('id'), [], ['responseContent' => 'resource'])->getContent();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             return $this->jSend(JSend::FAIL, [
                 'job' => (new PsrMessage('Not found'))->setTranslator($this->translator), // @translate
             ]);
