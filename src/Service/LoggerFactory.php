@@ -70,16 +70,27 @@ class LoggerFactory implements FactoryInterface
         // Add user id processor if configured.
         // This adds userId to the extra array for all writers.
         if (!empty($config['logger']['options']['processors']['userid']['name'])) {
-            $userIdProcessor = $this->addUserIdProcessor($services);
-            $logger->addProcessor($userIdProcessor);
+            $logger->addProcessor($this->addUserIdProcessor($services));
         }
 
         // Add HTTP request processor if configured.
-        // This adds url, ip, referer and user agent to the context
-        // for all HTTP log entries. Skipped in CLI (jobs).
+        // This adds url, ip, referer and user agent to the context for all
+        // HTTP log entries. Skipped in cli jobs.
         if (!empty($config['logger']['options']['processors']['httprequest']['name'])) {
-            $logger->addProcessor($this->addHttpRequestProcessor($services));
+            try {
+                $logger->addProcessor($this->addHttpRequestProcessor($services));
+            } catch (\Throwable $e) {
+                error_log('[Omeka S] HTTP request processor unavailable: ' . $e->getMessage());
+            }
         }
+
+        // Processors are handled manually above, so remove
+        // them to avoid double-instantiation via
+        // InvokableFactory when preparing remaining writers.
+        unset(
+            $config['logger']['options']['processors']['userid'],
+            $config['logger']['options']['processors']['httprequest']
+        );
 
         // Handle any remaining writers from config.
         if (!empty($writers)) {
