@@ -237,7 +237,7 @@ class Module extends AbstractModule
         ;
     }
 
-    public function attachListeners(SharedEventManagerInterface $sharedEventManager)
+    public function attachListeners(SharedEventManagerInterface $sharedEventManager): void
     {
         // TODO What is the better event to handle a cron? None: use server cron or systemd timer or webcron.
         $sharedEventManager->attach(

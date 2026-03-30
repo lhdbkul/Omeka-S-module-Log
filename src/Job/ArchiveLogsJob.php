@@ -2,10 +2,10 @@
 
 namespace Log\Job;
 
-use Omeka\Job\AbstractJob;
 use Common\Stdlib\PsrMessage;
 use Doctrine\DBAL\Query\QueryBuilder;
 use Doctrine\DBAL\Types\Types;
+use Omeka\Job\AbstractJob;
 
 class ArchiveLogsJob extends AbstractJob
 {
@@ -31,7 +31,7 @@ class ArchiveLogsJob extends AbstractJob
      */
     protected $translator;
 
-    public function perform()
+    public function perform(): void
     {
         $services = $this->getServiceLocator();
 

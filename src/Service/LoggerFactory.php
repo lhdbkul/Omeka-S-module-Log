@@ -4,18 +4,18 @@ namespace Log\Service;
 
 use Common\Log\Formatter\PsrLogSimple;
 use Doctrine\DBAL\Connection;
-use Psr\Container\ContainerInterface;
+use Laminas\Http\PhpEnvironment\Request as HttpRequest;
 use Laminas\Log\Exception;
 use Laminas\Log\Filter\Priority;
 use Laminas\Log\Logger;
 use Laminas\Log\Writer\Noop;
 use Laminas\Log\Writer\Stream;
 use Laminas\ServiceManager\Factory\FactoryInterface;
-use Laminas\Http\PhpEnvironment\Request as HttpRequest;
 use Log\Log\Processor\HttpRequest as HttpRequestProcessor;
 use Log\Log\Processor\UserId;
 use Log\Log\Writer\Doctrine as DoctrineWriter;
 use Log\Service\Log\Processor\UserIdFactory;
+use Psr\Container\ContainerInterface;
 
 /**
  * Logger factory.

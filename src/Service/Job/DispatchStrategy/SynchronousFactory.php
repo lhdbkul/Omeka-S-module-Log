@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 namespace Log\Service\Job\DispatchStrategy;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Job\DispatchStrategy\Synchronous;
+use Psr\Container\ContainerInterface;
 
 class SynchronousFactory implements FactoryInterface
 {

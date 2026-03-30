@@ -3,9 +3,9 @@
 namespace Log\ColumnType;
 
 use Laminas\View\Renderer\PhpRenderer;
+use Log\Stdlib\JobState;
 use Omeka\Api\Representation\AbstractEntityRepresentation;
 use Omeka\ColumnType\ColumnTypeInterface;
-use Log\Stdlib\JobState;
 
 class Job implements ColumnTypeInterface
 {

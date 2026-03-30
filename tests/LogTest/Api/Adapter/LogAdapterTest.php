@@ -176,7 +176,7 @@ class LogAdapterTest extends AbstractHttpControllerTestCase
         // Remove from cleanup list since we delete it here.
         $this->createdLogs = array_filter(
             $this->createdLogs,
-            fn($id) => $id !== $logId
+            fn ($id) => $id !== $logId
         );
 
         $this->api()->delete('logs', $logId);
@@ -197,7 +197,7 @@ class LogAdapterTest extends AbstractHttpControllerTestCase
         $results = $response->getContent();
         $this->assertGreaterThanOrEqual(2, count($results));
 
-        $ids = array_map(fn($r) => $r->id(), $results);
+        $ids = array_map(fn ($r) => $r->id(), $results);
         $sorted = $ids;
         sort($sorted);
         $this->assertEquals($sorted, $ids);
@@ -216,7 +216,7 @@ class LogAdapterTest extends AbstractHttpControllerTestCase
         $results = $response->getContent();
         $this->assertGreaterThanOrEqual(3, count($results));
 
-        $severities = array_map(fn($r) => $r->severity(), $results);
+        $severities = array_map(fn ($r) => $r->severity(), $results);
         $sorted = $severities;
         sort($sorted);
         $this->assertEquals($sorted, $severities);

@@ -2,9 +2,9 @@
 
 namespace Log\Service\ControllerPlugin;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Mvc\Controller\Plugin\JobState;
+use Psr\Container\ContainerInterface;
 
 class JobStateFactory implements FactoryInterface
 {

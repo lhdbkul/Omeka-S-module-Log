@@ -2,9 +2,9 @@
 
 namespace Log\Service;
 
-use Psr\Container\ContainerInterface;
 use Laminas\Log\Logger;
 use Laminas\Log\Writer\Noop;
+use Psr\Container\ContainerInterface;
 
 /**
  * Logger Db factory.

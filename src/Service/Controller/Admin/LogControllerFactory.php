@@ -2,9 +2,9 @@
 
 namespace Log\Service\Controller\Admin;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Controller\Admin\LogController;
+use Psr\Container\ContainerInterface;
 
 class LogControllerFactory implements FactoryInterface
 {

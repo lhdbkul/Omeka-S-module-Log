@@ -7,7 +7,7 @@ use Omeka\Job\AbstractJob;
 /**
  * Add indices to speed up module log.
  */
- class LogIndexes extends AbstractJob
+class LogIndexes extends AbstractJob
 {
     public function perform(): void
     {

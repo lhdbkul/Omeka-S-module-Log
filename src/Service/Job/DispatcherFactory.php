@@ -2,9 +2,9 @@
 
 namespace Log\Service\Job;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Job\Dispatcher;
+use Psr\Container\ContainerInterface;
 
 class DispatcherFactory implements FactoryInterface
 {

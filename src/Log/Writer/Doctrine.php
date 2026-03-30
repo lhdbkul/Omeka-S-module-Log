@@ -85,12 +85,12 @@ class Doctrine extends AbstractWriter
         return $this;
     }
 
-    public function shutdown()
+    public function shutdown(): void
     {
         $this->db = null;
     }
 
-    protected function doWrite(array $event)
+    protected function doWrite(array $event): void
     {
         if (null === $this->db) {
             throw new Exception\RuntimeException('Database connection is null');

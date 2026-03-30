@@ -2,9 +2,9 @@
 
 namespace Log\Service\ViewHelper;
 
-use Psr\Container\ContainerInterface;
-use Log\View\Helper\JobState;
 use Laminas\ServiceManager\Factory\FactoryInterface;
+use Log\View\Helper\JobState;
+use Psr\Container\ContainerInterface;
 
 class JobStateFactory implements FactoryInterface
 {

@@ -422,10 +422,10 @@ class LogRepresentation extends AbstractEntityRepresentation
             if (mb_strpos($message, '#')) {
                 $count = 0;
                 $message = preg_replace_callback('~(?<resource>item set|item|job|media|owner|user|annotation) #(?<id>\d+)~i', function ($matches) use ($hyperlink, $baseUrl, $resourcesToControllers) {
-                $controller = $resourcesToControllers[strtolower($matches['resource'])];
-                return $matches['resource'] . ' #' . ($controller === 'asset'
-                    ? $hyperlink($matches['id'], "$baseUrl/asset?id={$matches['id']}")
-                    : $hyperlink($matches['id'], "$baseUrl/$controller/{$matches['id']}"));
+                    $controller = $resourcesToControllers[strtolower($matches['resource'])];
+                    return $matches['resource'] . ' #' . ($controller === 'asset'
+                        ? $hyperlink($matches['id'], "$baseUrl/asset?id={$matches['id']}")
+                        : $hyperlink($matches['id'], "$baseUrl/$controller/{$matches['id']}"));
                 }, $message, -1, $count);
                 if ($count) {
                     $escapeHtml = false;

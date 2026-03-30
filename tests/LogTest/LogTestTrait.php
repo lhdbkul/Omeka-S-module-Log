@@ -5,7 +5,6 @@ namespace LogTest;
 use Laminas\Log\Logger;
 use Laminas\ServiceManager\ServiceLocatorInterface;
 use Omeka\Api\Manager as ApiManager;
-use Omeka\Entity\Job;
 
 /**
  * Shared test helpers for Log module tests.

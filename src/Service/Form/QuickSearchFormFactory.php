@@ -2,9 +2,9 @@
 
 namespace Log\Service\Form;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Form\QuickSearchForm;
+use Psr\Container\ContainerInterface;
 
 class QuickSearchFormFactory implements FactoryInterface
 {

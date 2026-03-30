@@ -2,9 +2,9 @@
 
 namespace Log\Service\Stdlib;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Stdlib\JobState;
+use Psr\Container\ContainerInterface;
 
 /**
  * JobState factory.

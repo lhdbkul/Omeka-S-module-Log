@@ -2,9 +2,9 @@
 
 namespace Log\Service\ControllerPlugin;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Omeka\Mvc\Controller\Plugin\Logger;
+use Psr\Container\ContainerInterface;
 
 class LoggerDbFactory implements FactoryInterface
 {

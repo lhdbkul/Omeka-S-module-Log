@@ -9,7 +9,7 @@ use Omeka\Form\Element as OmekaElement;
 
 class ConfigForm extends Form
 {
-    public function init()
+    public function init(): void
     {
         $severityValueOptions = [
             '>0' => 'Emergency', // @translate
@@ -163,5 +163,5 @@ class ConfigForm extends Form
                 ],
             ])
         ;
-   }
+    }
 }

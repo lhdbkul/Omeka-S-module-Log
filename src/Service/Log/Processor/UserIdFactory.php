@@ -2,9 +2,9 @@
 
 namespace Log\Service\Log\Processor;
 
-use Psr\Container\ContainerInterface;
 use Laminas\ServiceManager\Factory\FactoryInterface;
 use Log\Log\Processor\UserId;
+use Psr\Container\ContainerInterface;
 
 class UserIdFactory implements FactoryInterface
 {
