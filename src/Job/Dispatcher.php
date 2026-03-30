@@ -42,13 +42,22 @@ class Dispatcher extends \Omeka\Job\Dispatcher
             ? $this->entityManager->getReference(\Omeka\Entity\User::class, $owner->getId())
             : null;
 
-        $job = new Job;
-        $job->setStatus(Job::STATUS_STARTING);
-        $job->setClass($class);
-        $job->setArgs($args);
-        $job->setOwner($owner);
-        $this->entityManager->persist($job);
-        $this->entityManager->flush();
+        // Use dbal updates to avoid a global flush that could conflict with
+        // pending entities in the UnitOfWork.
+        // This is the recommended way to avoid a flush, since to flush a single
+        // entity is deprecated and removed in doctrine 3.
+        $conn = $this->entityManager->getConnection();
+        $now = (new \DateTime('now'))->format('Y-m-d H:i:s');
+        $conn->insert('job', [
+            'status' => Job::STATUS_STARTING,
+            'class' => $class,
+            'args' => $args ? json_encode($args, 320) : null,
+            'owner_id' => $owner ? $owner->getId() : null,
+            'started' => $now,
+        ]);
+        $jobId = (int) $conn->lastInsertId();
+        // Load the entity for the strategy and return value.
+        $job = $this->entityManager->find(Job::class, $jobId);
 
         if (!$strategy) {
             $strategy = $this->getDispatchStrategy();
