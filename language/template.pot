@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 00:00+0000\n"
+"POT-Creation-Date: 2026-05-04 00:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -73,7 +73,7 @@ msgid "Severity"
 msgstr ""
 
 #: src/Job/ArchiveLogsJob.php:360 src/Job/ArchiveLogsJob.php:377
-#: view/log/admin/log/browse.phtml:76 view/log/admin/log/show-details.phtml:116
+#: view/log/admin/log/browse.phtml:78 view/log/admin/log/show-details.phtml:116
 msgid "Message"
 msgstr ""
 
@@ -93,15 +93,19 @@ msgstr ""
 msgid "Job class"
 msgstr ""
 
+#: view/common/dialog/log.phtml:12
+msgid "Log details"
+msgstr ""
+
 #: view/common/job-state.phtml:47 view/common/job-state.phtml:48
 msgid "No system state"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:35
+#: view/log/admin/log/browse.phtml:37
 msgid "Logs"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:41
+#: view/log/admin/log/browse.phtml:43
 msgid "Quick filter"
 msgstr ""
 
@@ -109,11 +113,11 @@ msgstr ""
 msgid "Full log"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:114
+#: view/log/admin/log/browse.phtml:111
 msgid "Copy"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:161 view/log/admin/log/browse.phtml:179
+#: view/log/admin/log/browse.phtml:161 view/log/admin/log/browse.phtml:180
 msgid "Delete logs"
 msgstr ""
 
@@ -121,21 +125,21 @@ msgstr ""
 msgid "Are you sure you would like to delete the selected logs?"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:164 view/log/admin/log/browse.phtml:182
+#: view/log/admin/log/browse.phtml:164 view/log/admin/log/browse.phtml:183
 #, php-format
 msgid "%s: this action will permanently delete %s logs and cannot be undone."
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:180
+#: view/log/admin/log/browse.phtml:181
 msgid "Are you sure you would like to delete all logs of this result?"
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:197
+#: view/log/admin/log/browse.phtml:198
 msgid "Omeka could not find any logs, or they are saved in another place."
 msgstr ""
 
-#: view/log/admin/log/browse.phtml:209
-msgid "Search logs"
+#: view/log/admin/log/browse.phtml:205
+msgid "Filter logs"
 msgstr ""
 
 #: view/log/admin/log/show-details.phtml:38
@@ -225,10 +229,15 @@ msgid ""
 "archived."
 msgstr ""
 
-#: data/scripts/upgrade.php:179
+#: data/scripts/upgrade.php:202
 msgid ""
-"A background job has been started to add database indices. If it fails, you "
-"should create them manually. Missing indices: {list}."
+"The job #{job_id} is still starting. It may need to be relaunched manually."
+msgstr ""
+
+#: data/scripts/upgrade.php:215
+msgid ""
+"A background job has been started to fix database indexes. Missing indexes: "
+"{list}."
 msgstr ""
 
 #: Module.php:263
@@ -347,23 +356,23 @@ msgstr ""
 msgid "The directory \"{path}\" is not writeable: {error}."
 msgstr ""
 
-#: src/Form/ConfigForm.php:15 src/Form/QuickSearchForm.php:28
+#: src/Form/ConfigForm.php:15 src/Form/QuickSearchForm.php:26
 msgid "Emergency"
 msgstr ""
 
-#: src/Form/ConfigForm.php:16 src/Form/QuickSearchForm.php:29
+#: src/Form/ConfigForm.php:16 src/Form/QuickSearchForm.php:27
 msgid "Alert"
 msgstr ""
 
-#: src/Form/ConfigForm.php:17 src/Form/QuickSearchForm.php:30
+#: src/Form/ConfigForm.php:17 src/Form/QuickSearchForm.php:28
 msgid "Critical"
 msgstr ""
 
-#: src/Form/ConfigForm.php:20 src/Form/QuickSearchForm.php:33
+#: src/Form/ConfigForm.php:20 src/Form/QuickSearchForm.php:31
 msgid "Notice"
 msgstr ""
 
-#: src/Form/ConfigForm.php:22 src/Form/QuickSearchForm.php:35
+#: src/Form/ConfigForm.php:22 src/Form/QuickSearchForm.php:33
 msgid "Debug"
 msgstr ""
 
@@ -379,7 +388,7 @@ msgstr ""
 msgid "Minimum severity to keep"
 msgstr ""
 
-#: src/Form/ConfigForm.php:67 src/Form/QuickSearchForm.php:50
+#: src/Form/ConfigForm.php:67 src/Form/QuickSearchForm.php:48
 msgid "Select minimum severity…"
 msgstr ""
 
@@ -440,77 +449,77 @@ msgstr ""
 msgid "Delete old logs"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:43
+#: src/Form/QuickSearchForm.php:41
 msgid "Minimum severity"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:57
+#: src/Form/QuickSearchForm.php:55
 msgid "Maximum severity"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:64
+#: src/Form/QuickSearchForm.php:62
 msgid "Select maximum severity…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:76
+#: src/Form/QuickSearchForm.php:74
 msgid "Set a date with optional comparator…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:88
+#: src/Form/QuickSearchForm.php:86
 msgid "Set a reference…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:100
+#: src/Form/QuickSearchForm.php:98
 msgid "Set a job id…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:112
+#: src/Form/QuickSearchForm.php:110
 msgid "Set a job class…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:144
+#: src/Form/QuickSearchForm.php:118
 msgid "User by id"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:156
+#: src/Form/QuickSearchForm.php:130
 msgid "Untranslated message"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:160 src/Form/QuickSearchForm.php:172
+#: src/Form/QuickSearchForm.php:134 src/Form/QuickSearchForm.php:146
 msgid "Set an untranslated string…"
 msgstr ""
 
-#: src/Form/QuickSearchForm.php:168
+#: src/Form/QuickSearchForm.php:142
 msgid "Not in untranslated message"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:67
+#: src/Controller/Admin/LogController.php:64
 msgid ""
 "The logger is currently disabled for database. Check config/local.config.php."
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:102
+#: src/Controller/Admin/LogController.php:99
 msgid "log"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:120
+#: src/Controller/Admin/LogController.php:117
 msgid "Log successfully deleted"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:122
-#: src/Controller/Admin/LogController.php:154
+#: src/Controller/Admin/LogController.php:119
+#: src/Controller/Admin/LogController.php:151
 msgid "An error occured during deletion of logs"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:143
+#: src/Controller/Admin/LogController.php:140
 msgid "You must select at least one log to batch delete."
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:152
+#: src/Controller/Admin/LogController.php:149
 msgid "Logs successfully deleted"
 msgstr ""
 
-#: src/Controller/Admin/LogController.php:191
+#: src/Controller/Admin/LogController.php:188
 msgid ""
 "Deleting logs in background (<a href=\"{job_url}\">job #{job_id}</a>). This "
 "may take a while."
@@ -520,7 +529,7 @@ msgstr ""
 msgid "[Omeka S] Database logging disabled: connection unavailable."
 msgstr ""
 
-#: src/Service/LoggerFactory.php:122
+#: src/Service/LoggerFactory.php:133
 msgid "[Omeka S] File logging disabled: not writeable."
 msgstr ""
 
