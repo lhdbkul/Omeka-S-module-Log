@@ -81,7 +81,7 @@ $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
         <dt><?= $escape($translate('System state')) ?></dt>
         <dd class="value job-state" data-job-id="<?= $job->id() ?>" data-job-state="<?= $state ?>"<?php if ($state && JobState::STATES[$state]['processing']): ?> data-job-state-url="<?= $escapeAttr($url('admin/job-state', ['id' => $job->id()])) ?>"<?php endif; ?><?= $stateWarning ?>>
             <span class="system-state-label"><?= $escape($translate(JobState::STATES[$state]['label'])) ?></span>
-            <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $v = $escapeAttr($translate(JobState::STATES[$state]['label'])) ?>" aria-label="<?= $v ?>"></span>
+            <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" role="img" title="<?= $v = $escapeAttr($translate(JobState::STATES[$state]['label'])) ?>" aria-label="<?= $v ?>"></span>
         </dd>
     </div>
     <?php endif; ?>
@@ -122,7 +122,7 @@ $stateWarning = sprintf(' title="%1$s" aria-label="%1$s"', $stateWarning);
             <?php if ($job->log()): ?>
             <?= $hyperlink($translate('view log'),
                 $url(null, ['action' => 'log'], true),
-                ['target' => '_blank']) ?>
+                ['target' => '_blank', 'rel' => 'noopener noreferrer']) ?>
             <?php else: ?>
             <?= $escape($translate('[No log]')) ?>
             <?php endif; ?>

@@ -13,8 +13,9 @@
         <div class="dialog-background">
             <div class="dialog-panel">
                 <div class="dialog-header">
-                    <button type="button" class="dialog-header-close-button" title="Close" autofocus="autofocus">
-                        <span class="dialog-close">🗙</span>
+                    <button type="button" class="dialog-header-close-button">
+                        <span class="dialog-close" aria-hidden="true">🗙</span>
+                        <span class="dialog-close-label">${Omeka.jsTranslate('Close')}</span>
                     </button>
                     <button type="button" class="o-icon- far fa-copy log-copy-dialog" title="Copy"></button>
                 </div>

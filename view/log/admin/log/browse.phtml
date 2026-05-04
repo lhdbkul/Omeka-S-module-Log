@@ -62,8 +62,8 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
             <button type="button" class="button default active" disabled="disabled"><?= $escape($translate('Go')) ?></button>
             <input type="hidden" name="query" class="batch-query" value="<?= $escapeAttr(json_encode($this->params()->fromQuery())) ?>">
             <?php if ($userIsAllowedBatchDelete): ?>
-            <a class="delete button sidebar-content delete-selected" data-sidebar-selector="#sidebar-delete-selected"><?= $escape($translate('Go')) ?></a>
-            <a class="delete button sidebar-content delete-all" data-sidebar-selector="#sidebar-delete-all"><?= $escape($translate('Go')) ?></a>
+            <button type="button" class="delete button sidebar-content delete-selected" data-sidebar-selector="#sidebar-delete-selected"><?= $escape($translate('Go')) ?></button>
+            <button type="button" class="delete button sidebar-content delete-all" data-sidebar-selector="#sidebar-delete-all"><?= $escape($translate('Go')) ?></button>
             <?php endif; ?>
         </div>
     </div>
@@ -73,7 +73,7 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
             <tr>
                 <th>
                     <?php if ($userIsAllowedBatchDelete): ?>
-                    <input type="checkbox" class="select-all">
+                    <input type="checkbox" class="select-all" aria-label="<?= $translate('Select all') ?>">
                     <?php endif; ?>
                     <?= $escape($translate('Message')) ?>
                 </th>
@@ -104,17 +104,18 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
                 </span>
                 <ul class="actions">
                     <?php if ($isLong): ?>
-                    <li><button type="button" class="o-icon- fa fa-expand popover" title="<?= $escapeAttr($translate('Full log')) ?>"></button>
+                    <li><button type="button" class="o-icon- fa fa-expand popover" title="<?= $escapeAttr($translate('Full log')) ?>" aria-label="<?= $escapeAttr($translate('Full log')) ?>"></button>
                         <div class="log-message-full log-popover-content log-popover-current"><?= $shouldEscape ? $escape($text) : $text ?></div>
                     </li>
                     <?php endif; ?>
-                    <li><button type="button" class="o-icon- far fa-copy log-copy" title="<?= $escapeAttr($translate('Copy')) ?>"></button></li>
+                    <li><button type="button" class="o-icon- far fa-copy log-copy" title="<?= $escapeAttr($translate('Copy')) ?>" aria-label="<?= $escapeAttr($translate('Copy')) ?>"></button></li>
                     <?php if ($userIsAllowedDelete): ?>
                     <li><?= $hyperlink('', '#', [
                         'data-sidebar-selector' => '#sidebar',
                         'data-sidebar-content-url' => $log->url('delete-confirm'),
                         'class' => 'o-icon-delete sidebar-content',
                         'title' => $translate('Delete'),
+                        'aria-label' => $translate('Delete'),
                     ]) ?></li>
                     <?php endif; ?>
                     <li><?= $hyperlink('', '#', [
@@ -122,6 +123,7 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
                         'data-sidebar-content-url' => $log->url('show-details'),
                         'class' => 'o-icon-more sidebar-content',
                         'title' => $translate('Details'),
+                        'aria-label' => $translate('Details'),
                     ]) ?></li>
                 </ul>
             </td>
@@ -141,6 +143,7 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
     <?= $hyperlink('', '#', [
         'class' => 'sidebar-close o-icon-close',
         'title' => $translate('Close'),
+        'aria-label' => $translate('Close'),
     ]) ?>
     <div class="sidebar-content"></div>
 </div>
@@ -151,6 +154,7 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
     <?= $hyperlink('', '#', [
         'class' => 'sidebar-close o-icon-close',
         'title' => $translate('Close'),
+        'aria-label' => $translate('Close'),
     ]) ?>
     <div class="sidebar-content">
         <div id="sidebar-confirm">
@@ -169,6 +173,7 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
     <?= $hyperlink('', '#', [
         'class' => 'sidebar-close o-icon-close',
         'title' => $translate('Close'),
+        'aria-label' => $translate('Close'),
     ]) ?>
     <div class="sidebar-content">
         <div id="sidebar-confirm">

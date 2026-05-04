@@ -58,7 +58,7 @@ if ($state) {
     <?php if ($includeStateLabel): ?>
     <span class="system-state-label"><?= $stateLabelEsc ?></span>
     <?php endif; ?>
-    <span class="system-state-icon <?= $stateIcon ?>" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
+    <span class="system-state-icon <?= $stateIcon ?>" role="img" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
 </span>
 
 <?php else: ?>
@@ -70,7 +70,7 @@ if ($state) {
     <?php if ($includeStateLabel): ?>
     <span class="system-state-label"><?= $stateLabelEsc ?></span>
     <?php endif; ?>
-    <span class="system-state-icon no-state" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
+    <span class="system-state-icon no-state" role="img" title="<?= $stateLabelEscAttr ?>" aria-label="<?= $stateLabelEscAttr ?>"></span>
 </span>
 
 <?php endif; ?>

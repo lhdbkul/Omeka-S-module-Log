@@ -107,7 +107,7 @@ if ($jobIds) {
             <td class="job-state flex-between" data-job-id="<?= $jobId ?>" data-job-state="<?= $state ?>"<?php if ($state && JobState::STATES[$state]['processing']): ?> data-job-state-url="<?= strtr($jobStateUrlBase, ['{id}' => $jobId]) ?>" <?php endif; ?>>
                 <span><?= $job->link($jobId) ?></span>
                 <?php if ($state): ?>
-                <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" title="<?= $escapeAttr($stateLabels[$state]) ?>" aria-label="<?= $escapeAttr($stateLabels[$state]) ?>"></span>
+                <span class="system-state-icon <?= JobState::STATES[$state]['icon'] ?>" role="img" title="<?= $escapeAttr($stateLabels[$state]) ?>" aria-label="<?= $escapeAttr($stateLabels[$state]) ?>"></span>
                 <?php endif; ?>
             </td>
             <td><?= $escape($i18n->dateFormat($job->started(), null, \Omeka\View\Helper\i18n::DATE_FORMAT_SHORT)) ?></td>
