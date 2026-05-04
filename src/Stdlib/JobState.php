@@ -52,6 +52,11 @@ class JobState
     ];
 
     /**
+     * Cached result of the open_basedir / /proc availability check.
+     */
+    private static ?bool $procReadable = null;
+
+    /**
      * @var \Doctrine\ORM\EntityManager
      */
     protected $entityManager;
@@ -83,6 +88,13 @@ class JobState
     public function __invoke($job): ?string
     {
         if (!extension_loaded('posix')) {
+            return null;
+        }
+
+        // /proc may be outside the open_basedir whitelist on hardened
+        // hosts. Disable the feature silently in that case to avoid
+        // file_exists() / file_get_contents() warnings.
+        if (!self::isProcReadable()) {
             return null;
         }
 
@@ -143,5 +155,29 @@ class JobState
 
         // Normally not possible. Maybe check windows.
         return null;
+    }
+
+    /**
+     * Check if /proc/<pid>/status can be read (no open_basedir restriction).
+     */
+    protected static function isProcReadable(): bool
+    {
+        if (self::$procReadable !== null) {
+            return self::$procReadable;
+        }
+
+        $openBasedir = (string) ini_get('open_basedir');
+        if ($openBasedir === '') {
+            return self::$procReadable = is_dir('/proc');
+        }
+
+        foreach (preg_split('~[:;]~', $openBasedir, -1, PREG_SPLIT_NO_EMPTY) as $path) {
+            $path = rtrim(trim($path), '/');
+            if ($path === '' || $path === '/proc') {
+                return self::$procReadable = is_dir('/proc');
+            }
+        }
+
+        return self::$procReadable = false;
     }
 }
