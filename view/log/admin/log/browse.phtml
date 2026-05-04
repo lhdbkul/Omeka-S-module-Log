@@ -23,9 +23,11 @@ $strLength = 240;
 $this->htmlElement('body')->appendAttribute('class', 'logs browse');
 
 $this->headLink()
+    ->appendStylesheet($assetUrl('css/common-quick-search.css', 'Common'))
     ->appendStylesheet($assetUrl('css/job.css', 'Log'))
     ->appendStylesheet($assetUrl('css/log.css', 'Log'));
 $this->headScript()
+    ->appendFile($assetUrl('js/common-quick-search.js', 'Common'), 'text/javascript', ['defer' => 'defer'])
     ->appendFile($assetUrl('js/job.js', 'Log'), 'text/javascript', ['defer' => 'defer'])
     ->appendFile($assetUrl('js/log.js', 'Log'), 'text/javascript', ['defer' => 'defer']);
 
@@ -38,7 +40,7 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
 
 <div class="browse-controls">
     <?= $this->pagination() ?>
-    <button type="button" class="button search advanced-search quick-search"><?= $escape($translate('Quick filter')) ?></button>
+    <button type="button" class="button search quick-search"><?= $escape($translate('Quick filter')) ?></button>
     <?= $this->browse()->renderSortSelector('logs') ?>
 </div>
 
@@ -193,19 +195,10 @@ $userIsAllowedBatchDelete = $this->userIsAllowed(\Log\Api\Adapter\LogAdapter::cl
 
 <?php endif; ?>
 
-<div id="sidebar-search" class="sidebar search">
-    <?= $hyperlink('', '#', [
-        'class' => 'sidebar-close o-icon-close',
-        'title' => $translate('Close'),
-    ]) ?>
-    <div class="sidebar-content">
-        <div id="sidebar-search-form" class="disable-unsaved-warning">
-            <h3><?= $escape($translate('Search logs')) ?></h3>
-            <?php // = $hyperlink($translate('Advanced search'), $url(null, ['action' => 'search'], ['query' => $this->params()->fromQuery()], true), ['class' => 'advanced-search']) ?>
-            <?= $this->form($formSearch) ?>
-        </div>
-    </div>
-</div>
+<?= $this->partial('common/quick-search-sidebar', [
+    'formSearch' => $formSearch,
+    'title' => $translate('Filter logs'),
+]) ?>
 
 
 <?php //= $this->partial('common/dialog/log') ?>

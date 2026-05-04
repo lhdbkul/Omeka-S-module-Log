@@ -27,8 +27,7 @@ class LogController extends AbstractActionController
 
         $formSearch = $this->getForm(QuickSearchForm::class);
         $formSearch
-            ->setAttribute('action', $this->url()->fromRoute(null, ['action' => 'browse'], true))
-            ->setAttribute('id', 'log-search');
+            ->setAttribute('action', $this->url()->fromRoute(null, ['action' => 'browse'], true));
         if ($query) {
             $formSearch->setData($query);
             // TODO Don't check validity?
@@ -50,13 +49,11 @@ class LogController extends AbstractActionController
         $formDeleteSelected = $this->getForm(ConfirmForm::class);
         $formDeleteSelected
             ->setAttribute('action', $this->url()->fromRoute('admin/log/default', ['action' => 'batch-delete'], true))
-            ->setAttribute('id', 'confirm-delete-selected')
             ->setButtonLabel('Confirm delete'); // @translate
 
         $formDeleteAll = $this->getForm(ConfirmForm::class);
         $formDeleteAll
             ->setAttribute('action', $this->url()->fromRoute('admin/log/default', ['action' => 'batch-delete-all'], true))
-            ->setAttribute('id', 'confirm-delete-all')
             ->setButtonLabel('Confirm delete'); // @translate
         $formDeleteAll
             ->get('submit')->setAttribute('disabled', true);

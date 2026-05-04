@@ -2,11 +2,10 @@
 
 namespace Log\Form;
 
+use Common\Form\Element as CommonElement;
 use Laminas\Form\Element;
 use Laminas\Form\Form;
 use Laminas\View\Helper\Url;
-
-// use Omeka\Form\Element as OmekaElement;
 
 class QuickSearchForm extends Form
 {
@@ -18,11 +17,10 @@ class QuickSearchForm extends Form
     public function init(): void
     {
         $this->setAttribute('method', 'get');
+        $this->setAttribute('id', 'quick-search-form');
 
         // No csrf: see main search form.
         $this->remove('csrf');
-
-        // $urlHelper = $this->getUrlHelper();
 
         $severityValueOptions = [
             '0' => 'Emergency', // @translate
@@ -38,7 +36,7 @@ class QuickSearchForm extends Form
         $this
             ->add([
                 'name' => 'severity_min',
-                'type' => Element\Select::class,
+                'type' => CommonElement\OptionalSelect::class,
                 'options' => [
                     'label' => 'Minimum severity', // @translate
                     'value_options' => $severityValueOptions,
@@ -52,7 +50,7 @@ class QuickSearchForm extends Form
             ])
             ->add([
                 'name' => 'severity_max',
-                'type' => Element\Select::class,
+                'type' => CommonElement\OptionalSelect::class,
                 'options' => [
                     'label' => 'Maximum severity', // @translate
                     'value_options' => $severityValueOptions,
@@ -91,7 +89,7 @@ class QuickSearchForm extends Form
 
             ->add([
                 'name' => 'job_id',
-                'type' => Element\Number::class,
+                'type' => CommonElement\OptionalNumber::class,
                 'options' => [
                     'label' => 'Job', // @translate
                 ],
@@ -113,33 +111,9 @@ class QuickSearchForm extends Form
                 ],
             ])
 
-            /*
-            // TODO Fix issue when the number of users is too big to allow to keep the selector.
             ->add([
                 'name' => 'owner_id',
-                'type' => OmekaElement\ResourceSelect::class,
-                'options' => [
-                    'label' => 'User', // @translate
-                    'resource_value_options' => [
-                        'resource' => 'users',
-                        'query' => [],
-                        'option_text_callback' => function ($user) {
-                            return $user->name();
-                        },
-                    ],
-                    'empty_option' => '',
-                ],
-                'attributes' => [
-                    'id' => 'owner_id',
-                    'class' => 'chosen-select',
-                    'data-placeholder' => 'Select a user…', // @translate
-                    'data-api-base-url' => $urlHelper('api/default', ['resource' => 'users']),
-                ],
-            ])
-            */
-            ->add([
-                'name' => 'owner_id',
-                'type' => Element\Number::class,
+                'type' => CommonElement\OptionalNumber::class,
                 'options' => [
                     'label' => 'User by id', // @translate
                 ],
@@ -175,11 +149,14 @@ class QuickSearchForm extends Form
 
             ->add([
                 'name' => 'submit',
-                'type' => Element\Submit::class,
+                'type' => Element\Button::class,
+                'options' => [
+                    'label' => 'Search', // @translate
+                ],
                 'attributes' => [
                     'id' => 'submit',
-                    'value' => 'Search', // @translate
                     'type' => 'submit',
+                    'class' => 'button',
                 ],
             ]);
 

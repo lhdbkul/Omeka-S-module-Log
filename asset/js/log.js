@@ -36,27 +36,6 @@
         };
 
         /**
-         * Search sidebar.
-         */
-        $('#content').on('click', '.quick-search', function(ev) {
-            ev.preventDefault();
-            const sidebar = $('#sidebar-search');
-            if (sidebar.hasClass('active')) {
-                Omeka.closeSidebar(sidebar);
-                return;
-            }
-
-            Omeka.openSidebar(sidebar);
-
-            // Auto-close if other sidebar opened
-            $('body').one('o:sidebar-opened', '.sidebar', function () {
-                if (!sidebar.is(this)) {
-                    Omeka.closeSidebar(sidebar);
-                }
-            });
-        });
-
-        /**
          * Better display of big logs.
          */
         $('#content').on('click', 'button.popover', function(ev) {
